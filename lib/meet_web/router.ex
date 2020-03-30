@@ -18,7 +18,14 @@ defmodule MeetWeb.Router do
 
     get "/", PageController, :index
 
-    resources "/user", Auth.UserController, except: [:index]
+    scope "/user" do
+      resources "/", Auth.UserController, except: [:index]
+      get "/confirm/:id", Auth.UserController, :confirm_email
+    end
+  end
+
+  if Mix.env == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
   end
 
   # Other scopes may use custom stacks.

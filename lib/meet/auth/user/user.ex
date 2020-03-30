@@ -1,7 +1,7 @@
 defmodule Meet.Auth.User do
   use Meet.Schema
 
-  @casted_fields ~w(nickname email password password_confirmation)a
+  @casted_fields ~w(nickname email password password_confirmation confirmed_at)a
   @required_fields ~w(nickname email password_hash)a
 
   schema "auth_users" do
@@ -10,6 +10,9 @@ defmodule Meet.Auth.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
     field :password_hash, :string, null: false
+    field :confirmed_at, :naive_datetime
+
+    timestamps()
   end
 
   def changeset(user, attrs \\ %{}) do
@@ -32,6 +35,10 @@ defmodule Meet.Auth.User do
   defp put_password_hash(changeset) do
     password = get_field(changeset, :password)
     
-    change(changeset, Bcrypt.add_hash(password))
+    if password do
+      change(changeset, Bcrypt.add_hash(password))
+    else
+      changeset
+    end
   end
 end

@@ -7,6 +7,12 @@ defmodule Meet.Repo.Migrations.CreateAuthUsers do
       add :nickname, :string, null: false
       add :email, :string, null: false
       add :password_hash, :string, null: false
+      add :confirmed_at, :naive_datetime
+
+      timestamps()
     end
+
+    create unique_index(:auth_users, :nickname)
+    create unique_index(:auth_users, :email)
   end
 end

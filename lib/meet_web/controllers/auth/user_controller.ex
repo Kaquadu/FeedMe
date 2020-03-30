@@ -11,20 +11,48 @@ defmodule MeetWeb.Auth.UserController do
 
   def create(conn, %{"user" => user_attrs}) do
     case Auth.create_user(user_attrs) do
-      {:ok, _user} -> succesful_create_redirect(conn)
-      {:error, changeset} -> unsuccesful_create_redirect(conn, changeset)
+      {:ok, _user} -> succesful_redirect(
+        conn,
+        "Created an user. Please confirm your email.",
+        Routes.page_path(conn, :index)
+      )
+      {:error, changeset} -> unsuccesful_redirect(
+          conn,
+          "Can't create user. Check errors below.",
+          Routes.user_path(conn, :new, changeset: changeset)
+        )
     end
   end
 
-  defp succesful_create_redirect(conn) do
-    conn
-    |> put_flash(:info, "Created an user. Please confirm your email.")
-    |> redirect(to: Routes.page_path(conn, :index))
+  def confirm_email(conn, %{"id" => user_id}) do
+    case Auth.confirm_email(user_id) do
+      {:ok, _user} -> succesful_redirect(
+        conn,
+        "Email confirmed. You can sign in now.",
+        Routes.page_path(conn, :index)
+      )
+      {:already_confirmed, _} ->  unsuccesful_redirect(
+        conn,
+        "This email has already been confirmed.",
+        Routes.page_path(conn, :index)
+      )
+      {:error, _changeset} -> unsuccesful_redirect(
+        conn,
+        "Can't confirm email. Please contact administrator.",
+        Routes.page_path(conn, :index)
+      )
+    end
   end
 
-  defp unsuccesful_create_redirect(conn, changeset) do
+  defp succesful_redirect(conn, message, path) do
     conn
-    |> put_flash(:error, "Can't create user. Check errors below.")
-    |> redirect(to: Routes.user_path(conn, :new, changeset: changeset))
+    |> put_flash(:info, message)
+    |> redirect(to: path)
+  end
+
+  defp unsuccesful_redirect(conn, message, path) do
+    conn
+    |> put_flash(:error, message)
+    |> redirect(to: path)
   end
 end
