@@ -17,6 +17,8 @@ defmodule MeetWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    resources "/user", Auth.UserController, except: [:index]
   end
 
   # Other scopes may use custom stacks.
