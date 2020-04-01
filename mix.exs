@@ -44,7 +44,8 @@ defmodule Meet.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:bcrypt_elixir, "~> 2.0"},
-      {:bamboo, "~> 1.4", override: true}
+      {:bamboo, "~> 1.4", override: true},
+      {:timex, "~> 3.5"}
     ]
   end
 

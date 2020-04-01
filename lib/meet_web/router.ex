@@ -18,6 +18,10 @@ defmodule MeetWeb.Router do
 
     get "/", PageController, :index
 
+    scope "/session" do
+      resources "/", SessionController, only: [:new, :create, :delete]
+    end
+
     scope "/user" do
       resources "/", Auth.UserController, except: [:index]
       get "/confirm/:id", Auth.UserController, :confirm_email

@@ -27,4 +27,17 @@ defmodule Meet.Auth do
   end
 
   defp maybe_confirm(user), do: {:already_confirmed, user}
+
+  def get_user_by(%{"email" => email}) do
+    @repo.get_by(User, email: email)
+  end
+
+  def verify_user(%{"email" => email, "password" => password}) do
+    user = get_user_by(%{"email" => email})
+
+    {
+      Bcrypt.verify_pass(password, user.password_hash),
+      user
+    }
+  end
 end
