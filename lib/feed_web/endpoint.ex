@@ -1,6 +1,12 @@
 defmodule FeedWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :feed
 
+  @session_options [
+    store: :cookie,
+    key: "_feed_key",
+    signing_salt: "K6uW2oe1"
+  ]
+
   socket "/socket", FeedWeb.UserSocket,
     websocket: true,
     longpoll: false
@@ -23,6 +29,9 @@ defmodule FeedWeb.Endpoint do
     plug Phoenix.CodeReloader
   end
 
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]]
+
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 
@@ -37,10 +46,7 @@ defmodule FeedWeb.Endpoint do
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
-  plug Plug.Session,
-    store: :cookie,
-    key: "_feed_key",
-    signing_salt: "K6uW2oe1"
+  plug Plug.Session, @session_options
 
   plug FeedWeb.Router
 end

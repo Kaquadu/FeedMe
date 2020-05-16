@@ -45,7 +45,9 @@ defmodule Feed.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:bcrypt_elixir, "~> 2.0"},
       {:bamboo, "~> 1.4", override: true},
-      {:timex, "~> 3.5"}
+      {:timex, "~> 3.5"},
+      {:phoenix_live_view, "~> 0.11.1"},
+      {:floki, ">= 0.0.0", only: :test}
     ]
   end
 

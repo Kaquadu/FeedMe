@@ -15,7 +15,10 @@ config :feed, FeedWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "47lj8I9o+2m41wovWzBVsy00nNnPS10c6PLjPii3tmsg6BuCWXTSru5qpXleGk4M",
   render_errors: [view: FeedWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Feed.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Feed.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "0niEB4t6vwv56eK2IzIZaU5vsfhjLsap"
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,

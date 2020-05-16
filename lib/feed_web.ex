@@ -23,6 +23,8 @@ defmodule FeedWeb do
 
       import Plug.Conn
       import FeedWeb.Gettext
+      import Phoenix.LiveView.Controller
+
       alias FeedWeb.Router.Helpers, as: Routes
     end
   end
@@ -41,6 +43,8 @@ defmodule FeedWeb do
 
       import FeedWeb.ErrorHelpers
       import FeedWeb.Gettext
+      import Phoenix.LiveView.Helpers
+
       alias FeedWeb.Router.Helpers, as: Routes
     end
   end
@@ -48,8 +52,10 @@ defmodule FeedWeb do
   def router do
     quote do
       use Phoenix.Router
+
       import Plug.Conn
       import Phoenix.Controller
+      import Phoenix.LiveView.Router
     end
   end
 
