@@ -1,19 +1,23 @@
-defmodule Feed.Nutritionix.Api do
-  use Tesla
-
-  plug Tesla.Middleware.BaseUrl, "https://trackapi.nutritionix.com/v2"
-  plug Tesla.Middleware.Headers, [
+defmodule Feed.NutritionixApi do
+  @base_url "https://trackapi.nutritionix.com/v2"
+  @headers [
     {"x-app-id", "3391cfa2"},
     {"x-app-key", "a1cd8df1c630bbae2fb41b2755e1d3cc"},
-    {"Content-Type", "application/json"}
+    {"Content-Type", "application/json"},
+    {"Accent", "application/json"}
   ]
-  plug Tesla.Middleware.JSON
-  plug Tesla.Middleware.MethodOverride, :post
+  @products_url "/natural/nutrients"
 
-  @nutrients_url "/natural/nutrients"
+  def get_products(query) do
+    url = @base_url <> @products_url
+    body = %{
+      "query" => query
+     } |> Jason.encode!()
 
-  def get_nutrients(query) do
-    post(@nutrients_url, query)
+    options = [ssl: [{:versions, [:'tlsv1.2']}], recv_timeout: 500]
+
+    {:ok, response} = HTTPoison.post(url, body, @headers, options)
+
+    response.body |> Jason.decode!()
   end
-
 end

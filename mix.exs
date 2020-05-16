@@ -48,8 +48,7 @@ defmodule Feed.MixProject do
       {:timex, "~> 3.5"},
       {:phoenix_live_view, "~> 0.11.1"},
       {:floki, ">= 0.0.0", only: :test},
-      {:tesla, "~> 1.3.0"},
-      {:hackney, "~> 1.15.2"}
+      {:httpoison, "~> 1.6"},
     ]
   end
 
