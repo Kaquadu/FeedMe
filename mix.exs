@@ -47,7 +47,9 @@ defmodule Feed.MixProject do
       {:bamboo, "~> 1.4", override: true},
       {:timex, "~> 3.5"},
       {:phoenix_live_view, "~> 0.11.1"},
-      {:floki, ">= 0.0.0", only: :test}
+      {:floki, ">= 0.0.0", only: :test},
+      {:tesla, "~> 1.3.0"},
+      {:hackney, "~> 1.15.2"}
     ]
   end
 
