@@ -1,6 +1,8 @@
 defmodule Feed.Auth.User do
   use Feed.Schema
 
+  alias Feed.Diets.Product
+
   @casted_fields ~w(nickname email password password_confirmation confirmed_at)a
   @required_fields ~w(nickname email password_hash)a
 
@@ -11,6 +13,10 @@ defmodule Feed.Auth.User do
     field :password_confirmation, :string, virtual: true
     field :password_hash, :string, null: false
     field :confirmed_at, :naive_datetime
+
+    has_many(:breakfast_products, {"breakfast_products", Product}, on_delete: :delete_all)
+    has_many(:dinner_products, {"dinner_products", Product}, on_delete: :delete_all)
+    has_many(:other_products, {"other_products", Product}, on_delete: :delete_all)
 
     timestamps()
   end
