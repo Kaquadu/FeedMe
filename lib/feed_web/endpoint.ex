@@ -7,6 +7,9 @@ defmodule FeedWeb.Endpoint do
     signing_salt: "K6uW2oe1"
   ]
 
+  socket "/live", Phoenix.LiveView.Socket,
+    websocket: [connect_info: [session: @session_options]]
+
   socket "/socket", FeedWeb.UserSocket,
     websocket: true,
     longpoll: false
@@ -28,9 +31,6 @@ defmodule FeedWeb.Endpoint do
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
   end
-
-  socket "/live", Phoenix.LiveView.Socket,
-    websocket: [connect_info: [session: @session_options]]
 
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]

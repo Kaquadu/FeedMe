@@ -1,0 +1,14 @@
+<%= form_for @changeset, "", [phx_submit: "search"], fn f -> %>
+  <%= text_input f, :query, placeholder: "Product name" %>
+  <%= submit "Submit" %>
+<% end %>
+<br>
+
+<%= for product<-@products do %>
+  Name: <%= product.name %> <br>
+  Calories: <%= product.calories %> <br>
+  Fats: <%= product.fat %> <br>
+  Carbos: <%= product.carbos %> <br>
+  Proteins: <%= product.protein %> <br>
+  Photo link: <%= product.photo %> <br> <br>
+<% end %>

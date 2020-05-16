@@ -9,6 +9,12 @@ defmodule Feed.NutritionixApi do
   @products_url "/natural/nutrients"
 
   def get_products(query) do
+    query
+    |> get_response()
+    |> prepare_data()
+  end
+
+  defp get_response(query) do
     url = @base_url <> @products_url
     body = %{
       "query" => query
@@ -18,6 +24,24 @@ defmodule Feed.NutritionixApi do
 
     {:ok, response} = HTTPoison.post(url, body, @headers, options)
 
-    response.body |> Jason.decode!()
+    response.body |> Jason.decode!() |> Map.get("foods")
+  end
+
+  defp prepare_data(products) do
+    Enum.map(products, fn product ->
+      %{
+        name: Map.get(product, "food_name"),
+        calories: calculate_attr(product, "nf_calories"),
+        fat: calculate_attr(product, "nf_total_fat"),
+        protein: calculate_attr(product, "nf_protein"),
+        carbos: calculate_attr(product, "nf_total_carbohydrate"),
+        photo: product |> Map.get("photo") |> Map.get("highres")
+      }
+    end)
+  end
+
+  defp calculate_attr(%{"serving_weight_grams" => weight} = product, attribute) do
+    attribute_quantity = Map.get(product, attribute)
+    (attribute_quantity / weight) * 100
   end
 end
