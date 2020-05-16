@@ -1,5 +1,4 @@
 defmodule Feed.Products do
-  import Ecto.Query
   alias Feed.Diets.Product
 
   @repo Feed.Repo
@@ -7,7 +6,7 @@ defmodule Feed.Products do
   @breakfast_products_table_name "breakfast_products"
   @other_products_table_name "other_products"
 
-  def create_product(%{"meal" => meal} = attrs) do
+  def upsert_product(%{"meal" => meal} = attrs) do
     table_name = choose_table_name(meal)
 
     attrs
@@ -18,12 +17,15 @@ defmodule Feed.Products do
   end
 
   defp get_product(%{"name" => name, "user_id" => user_id}, table_name) do
-    query =
-      from product in {table_name, Product},
-      where: product.user_id == ^user_id,
-      where: product.name == ^name
-
-    @repo.all(query) |> hd()
+    @repo.get_by(
+      {table_name, Product},
+      user_id: user_id,
+      name: name
+    )
+    |> case do
+      nil -> %Product{}
+      product -> product
+    end
   end
 
   defp choose_table_name(meal) do

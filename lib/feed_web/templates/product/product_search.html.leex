@@ -4,11 +4,22 @@
 <% end %>
 <br>
 
+<%= @timestamp %> <br> <br>
+
 <%= for product<-@products do %>
   Name: <%= product.name %> <br>
   Calories: <%= product.calories %> <br>
-  Fats: <%= product.fat %> <br>
+  Fats: <%= product.fats %> <br>
   Carbos: <%= product.carbos %> <br>
-  Proteins: <%= product.protein %> <br>
-  Photo link: <%= product.photo %> <br> <br>
+  Proteins: <%= product.proteins %> <br>
+  Photo link: <%= product.photo %> <br>
+  <%= form_for @changeset, "", [phx_submit: "add_dinner_product"], fn f -> %>
+    <%= hidden_input f, :name, value: product.name %>
+    <%= hidden_input f, :fats, value: product.fats %>
+    <%= hidden_input f, :carbos, value: product.carbos %>
+    <%= hidden_input f, :proteins, value: product.proteins %>
+    <%= hidden_input f, :photo_url, value: product.photo %>
+    <%= submit "Add dinner product" %>
+  <% end %>
+  <br><br>
 <% end %>
