@@ -7,15 +7,15 @@
 # General application configuration
 use Mix.Config
 
-config :meet,
-  ecto_repos: [Meet.Repo]
+config :feed,
+  ecto_repos: [Feed.Repo]
 
 # Configures the endpoint
-config :meet, MeetWeb.Endpoint,
+config :feed, FeedWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "47lj8I9o+2m41wovWzBVsy00nNnPS10c6PLjPii3tmsg6BuCWXTSru5qpXleGk4M",
-  render_errors: [view: MeetWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Meet.PubSub, adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: FeedWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Feed.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -25,7 +25,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :meet, Meet.Mailer,
+config :feed, Feed.Mailer,
   adapter: Bamboo.LocalAdapter
 
 # Import environment specific config. This must remain at the bottom

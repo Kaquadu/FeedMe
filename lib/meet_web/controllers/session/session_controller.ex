@@ -1,8 +1,8 @@
-defmodule MeetWeb.SessionController do
-  use MeetWeb, :controller
+defmodule FeedWeb.SessionController do
+  use FeedWeb, :controller
 
-  alias Meet.Sessions
-  alias Meet.Sessions.UserSession
+  alias Feed.Sessions
+  alias Feed.Sessions.UserSession
 
   def new(conn, _params) do
     render(conn, "new.html", changeset: UserSession.changeset(%UserSession{}))

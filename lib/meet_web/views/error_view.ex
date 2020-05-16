@@ -1,5 +1,5 @@
-defmodule MeetWeb.ErrorView do
-  use MeetWeb, :view
+defmodule FeedWeb.ErrorView do
+  use FeedWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

@@ -1,4 +1,4 @@
-defmodule MeetWeb.ConnCase do
+defmodule FeedWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -19,18 +19,18 @@ defmodule MeetWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      alias MeetWeb.Router.Helpers, as: Routes
+      alias FeedWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint MeetWeb.Endpoint
+      @endpoint FeedWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Meet.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Feed.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Meet.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Feed.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}

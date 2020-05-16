@@ -1,3 +1,3 @@
-defmodule MeetWeb.PageViewTest do
-  use MeetWeb.ConnCase, async: true
+defmodule FeedWeb.PageViewTest do
+  use FeedWeb.ConnCase, async: true
 end

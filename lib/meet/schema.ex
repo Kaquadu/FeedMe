@@ -1,4 +1,4 @@
-defmodule Meet.Schema do
+defmodule Feed.Schema do
   defmacro __using__(_opts) do
     quote do
       # uses

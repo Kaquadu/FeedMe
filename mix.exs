@@ -1,9 +1,9 @@
-defmodule Meet.MixProject do
+defmodule Feed.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :meet,
+      app: :feed,
       version: "0.1.0",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
@@ -19,7 +19,7 @@ defmodule Meet.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Meet.Application, []},
+      mod: {Feed.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

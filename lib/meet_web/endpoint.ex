@@ -1,7 +1,7 @@
-defmodule MeetWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :meet
+defmodule FeedWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :feed
 
-  socket "/socket", MeetWeb.UserSocket,
+  socket "/socket", FeedWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -11,7 +11,7 @@ defmodule MeetWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :meet,
+    from: :feed,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -39,8 +39,8 @@ defmodule MeetWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_meet_key",
+    key: "_feed_key",
     signing_salt: "K6uW2oe1"
 
-  plug MeetWeb.Router
+  plug FeedWeb.Router
 end

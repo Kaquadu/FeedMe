@@ -1,7 +1,7 @@
-defmodule Meet.Sessions.UserSession do
-  use Meet.Schema
+defmodule Feed.Sessions.UserSession do
+  use Feed.Schema
 
-  alias Meet.Auth.User
+  alias Feed.Auth.User
 
   @required_fields ~w(user_id session_key valid_until)a
 

@@ -1,3 +1,3 @@
-defmodule MeetWeb.SessionView do
-  use MeetWeb, :view
+defmodule FeedWeb.SessionView do
+  use FeedWeb, :view
 end

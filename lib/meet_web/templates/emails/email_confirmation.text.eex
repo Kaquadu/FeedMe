@@ -1,1 +1,1 @@
-<%= MeetWeb.Router.Helpers.user_path(MeetWeb.Endpoint, :confirm_email, @user) %>
+<%= FeedWeb.Router.Helpers.user_path(FeedWeb.Endpoint, :confirm_email, @user) %>

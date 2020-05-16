@@ -1,5 +1,5 @@
-defmodule MeetWeb.PageControllerTest do
-  use MeetWeb.ConnCase
+defmodule FeedWeb.PageControllerTest do
+  use FeedWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")

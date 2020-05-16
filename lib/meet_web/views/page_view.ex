@@ -1,3 +1,3 @@
-defmodule MeetWeb.PageView do
-  use MeetWeb, :view
+defmodule FeedWeb.PageView do
+  use FeedWeb, :view
 end

@@ -1,4 +1,4 @@
-defmodule MeetWeb.ChannelCase do
+defmodule FeedWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule MeetWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint MeetWeb.Endpoint
+      @endpoint FeedWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Meet.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Feed.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Meet.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Feed.Repo, {:shared, self()})
     end
 
     :ok

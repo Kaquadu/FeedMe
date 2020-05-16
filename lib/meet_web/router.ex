@@ -1,5 +1,5 @@
-defmodule MeetWeb.Router do
-  use MeetWeb, :router
+defmodule FeedWeb.Router do
+  use FeedWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,7 +13,7 @@ defmodule MeetWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", MeetWeb do
+  scope "/", FeedWeb do
     pipe_through :browser
 
     get "/", PageController, :index
@@ -33,7 +33,7 @@ defmodule MeetWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", MeetWeb do
+  # scope "/api", FeedWeb do
   #   pipe_through :api
   # end
 end

@@ -1,3 +1,3 @@
-defmodule MeetWeb.Auth.UserView do
-  use MeetWeb, :view
+defmodule FeedWeb.Auth.UserView do
+  use FeedWeb, :view
 end

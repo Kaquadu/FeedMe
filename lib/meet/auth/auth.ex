@@ -1,8 +1,8 @@
-defmodule Meet.Auth do
-  alias Meet.Auth.User
-  alias Meet.AuthEmails
+defmodule Feed.Auth do
+  alias Feed.Auth.User
+  alias Feed.AuthEmails
 
-  @repo Meet.Repo
+  @repo Feed.Repo
 
   def create_user(attrs) do
     %User{}

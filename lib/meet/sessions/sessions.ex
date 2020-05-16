@@ -1,8 +1,8 @@
-defmodule Meet.Sessions do
-  alias Meet.Auth
-  alias Meet.Sessions.UserSession
+defmodule Feed.Sessions do
+  alias Feed.Auth
+  alias Feed.Sessions.UserSession
 
-  @repo Meet.Repo
+  @repo Feed.Repo
 
   def sign_in_user(attrs) do
     attrs

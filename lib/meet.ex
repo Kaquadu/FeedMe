@@ -1,6 +1,6 @@
-defmodule Meet do
+defmodule Feed do
   @moduledoc """
-  Meet keeps the contexts that define your domain
+  Feed keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

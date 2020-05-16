@@ -1,5 +1,5 @@
-defmodule Meet.Repo do
+defmodule Feed.Repo do
   use Ecto.Repo,
-    otp_app: :meet,
+    otp_app: :feed,
     adapter: Ecto.Adapters.Postgres
 end

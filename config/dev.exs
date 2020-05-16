@@ -1,10 +1,10 @@
 use Mix.Config
 
 # Configure your database
-config :meet, Meet.Repo,
+config :feed, Feed.Repo,
   username: "postgres",
   password: "postgres",
-  database: "meet_dev",
+  database: "feed_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -15,7 +15,7 @@ config :meet, Meet.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :meet, MeetWeb.Endpoint,
+config :feed, FeedWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -55,13 +55,13 @@ config :meet, MeetWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :meet, MeetWeb.Endpoint,
+config :feed, FeedWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/meet_web/{live,views}/.*(ex)$",
-      ~r"lib/meet_web/templates/.*(eex)$"
+      ~r"lib/feed_web/{live,views}/.*(ex)$",
+      ~r"lib/feed_web/templates/.*(eex)$"
     ]
   ]
 

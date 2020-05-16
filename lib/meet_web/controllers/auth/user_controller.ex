@@ -1,8 +1,8 @@
-defmodule MeetWeb.Auth.UserController do
-  use MeetWeb, :controller
+defmodule FeedWeb.Auth.UserController do
+  use FeedWeb, :controller
 
-  alias Meet.Auth
-  alias Meet.Auth.User
+  alias Feed.Auth
+  alias Feed.Auth.User
 
   def new(conn, _) do
     cs = User.changeset(%User{})

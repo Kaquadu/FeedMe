@@ -1,4 +1,4 @@
-defmodule Meet.DataCase do
+defmodule Feed.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule Meet.DataCase do
 
   using do
     quote do
-      alias Meet.Repo
+      alias Feed.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Meet.DataCase
+      import Feed.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Meet.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Feed.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Meet.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Feed.Repo, {:shared, self()})
     end
 
     :ok

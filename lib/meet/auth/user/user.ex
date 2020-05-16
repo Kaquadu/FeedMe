@@ -1,5 +1,5 @@
-defmodule Meet.Auth.User do
-  use Meet.Schema
+defmodule Feed.Auth.User do
+  use Feed.Schema
 
   @casted_fields ~w(nickname email password password_confirmation confirmed_at)a
   @required_fields ~w(nickname email password_hash)a
@@ -34,7 +34,7 @@ defmodule Meet.Auth.User do
 
   defp put_password_hash(changeset) do
     password = get_field(changeset, :password)
-    
+
     if password do
       change(changeset, Bcrypt.add_hash(password))
     else
