@@ -12,7 +12,7 @@ defmodule FeedWeb.SessionController do
     case Sessions.sign_in_user(credentials) do
       {:ok, session} ->
         conn
-        |> put_session(:session, session)
+        |> put_session(:user_session, session)
         |> redirect(to: Routes.page_path(conn, :index))
       {:error, message} -> error_sign_in_redirect(conn, message)
       _ -> error_sign_in_redirect(conn, "Something went wrong.")
@@ -20,10 +20,10 @@ defmodule FeedWeb.SessionController do
   end
 
   def delete(conn, %{"id" => id}) do
-    Sessions.terminate_session(id)
+    Sessions.terminate_user_session(id)
 
     conn
-    |> put_session(:session, nil)
+    |> delete_session(:user_session)
     |> put_flash(:info, "Signed out.")
     |> redirect(to: Routes.page_path(conn, :index))
   end

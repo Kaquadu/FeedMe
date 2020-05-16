@@ -9,19 +9,19 @@ defmodule Feed.Sessions do
     |> Auth.verify_user()
     |> case do
       {true, user} ->
-        create_session(user)
+        create_user_session(user)
       {false, _} ->
         {:error, "Incorrect password email or password"}
       end
   end
 
-  def create_session(user) do
+  def create_user_session(user) do
     %UserSession{}
     |> UserSession.changeset(%{user_id: user.id})
     |> @repo.insert()
   end
 
-  def terminate_session(id) do
+  def terminate_user_session(id) do
     UserSession
     |> @repo.get(id)
     |> UserSession.changeset(%{valid_until: DateTime.utc_now()})

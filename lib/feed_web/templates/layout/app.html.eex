@@ -11,7 +11,12 @@
     <header>
       <section class="container">
         <nav role="navigation">
-            Navbar
+            <%= if has_session?(@conn) do %>
+              <%= link "Logout", to: Routes.session_path(@conn, :delete, extract_session(@conn)), method: :delete %>
+            <% else %>
+              <%= link "Register", to: Routes.user_path(@conn, :new) %>
+              <%= link "Login", to: Routes.session_path(@conn, :new) %>
+            <% end %>
         </nav>
       </section>
     </header>

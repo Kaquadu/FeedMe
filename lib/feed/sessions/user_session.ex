@@ -4,6 +4,7 @@ defmodule Feed.Sessions.UserSession do
   alias Feed.Auth.User
 
   @required_fields ~w(user_id session_key valid_until)a
+  @ttl_minutes 5
 
   schema "auth_users_sessions" do
     field :session_key, :binary_id
@@ -24,7 +25,7 @@ defmodule Feed.Sessions.UserSession do
 
   defp prepare_attrs(attrs) do
     session_key = Ecto.UUID.generate()
-    valid_until = DateTime.utc_now() |> DateTime.add(30 * 60, :second)
+    valid_until = DateTime.utc_now() |> DateTime.add(@ttl_minutes * 60, :second)
 
     attrs
     |> Map.put(:session_key, session_key)
