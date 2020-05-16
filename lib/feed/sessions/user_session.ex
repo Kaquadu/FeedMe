@@ -4,7 +4,7 @@ defmodule Feed.Sessions.UserSession do
   alias Feed.Auth.User
 
   @required_fields ~w(user_id session_key valid_until)a
-  @ttl_minutes 5
+  @ttl_minutes 30
 
   schema "auth_users_sessions" do
     field :session_key, :binary_id

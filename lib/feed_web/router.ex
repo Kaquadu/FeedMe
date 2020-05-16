@@ -15,6 +15,10 @@ defmodule FeedWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :protected do
+    plug FeedWeb.CheckSessionPlug
+  end
+
   scope "/", FeedWeb do
     pipe_through :browser
 
@@ -28,6 +32,10 @@ defmodule FeedWeb.Router do
       resources "/", Auth.UserController, except: [:index]
       get "/confirm/:id", Auth.UserController, :confirm_email
     end
+  end
+
+  scope "/", FeedWeb do
+    pipe_through [:browser, :protected]
 
     live "/product", ProductLive, layout: {FeedWeb.LayoutView, "live.html"}
   end

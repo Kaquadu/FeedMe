@@ -5,10 +5,9 @@ defmodule FeedWeb.ProductLive do
     FeedWeb.ProductView.render("product_search.html", assigns)
   end
 
-  def mount(params, attrs, socket) do
-    IO.inspect({attrs, params}, label: "mount")
+  def mount(_params, %{"user_session" => session}, socket) do
     changeset = Feed.ProductSearch.changeset(%Feed.ProductSearch{})
-    {:ok, assign(socket, changeset: changeset, products: [], timestamp: :os.system_time(:millisecond))}
+    {:ok, assign(socket, changeset: changeset, products: [], timestamp: :os.system_time(:millisecond), user_session: session)}
   end
 
   def handle_event("search", %{"product_search" => %{"query" => query}}, socket) do
@@ -16,8 +15,8 @@ defmodule FeedWeb.ProductLive do
     {:noreply, assign(socket, products: products, timestamp: :os.system_time(:millisecond))}
   end
 
-  def handle_event("add_dinner_product", params, socket) do
-    IO.inspect params
+  def handle_event("add_product", %{"product_search" => attrs}, socket) do
+    Feed.Products.upsert_product(attrs)
     {:noreply, assign(socket, timestamp: :os.system_time(:millisecond))}
   end
 

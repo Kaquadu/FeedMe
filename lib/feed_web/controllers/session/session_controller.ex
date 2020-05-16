@@ -20,12 +20,19 @@ defmodule FeedWeb.SessionController do
   end
 
   def delete(conn, %{"id" => id}) do
-    Sessions.terminate_user_session(id)
+    session = get_session(conn, :user_session)
+    if session do
+      conn = conn |> delete_session(:user_session)
+      Sessions.terminate_user_session(id)
 
-    conn
-    |> delete_session(:user_session)
-    |> put_flash(:info, "Signed out.")
-    |> redirect(to: Routes.page_path(conn, :index))
+      conn
+      |> put_flash(:info, "Signed out.")
+      |> redirect(to: Routes.page_path(conn, :index))
+    else
+      conn
+      |> put_flash(:info, "Signed out.")
+      |> redirect(to: Routes.page_path(conn, :index))
+    end
   end
 
   defp error_sign_in_redirect(conn, message) do

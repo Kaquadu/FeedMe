@@ -17,11 +17,12 @@ defmodule Feed.Products do
   end
 
   defp get_product(%{"name" => name, "user_id" => user_id}, table_name) do
+    IO.inspect table_name
     @repo.get_by(
       {table_name, Product},
       user_id: user_id,
       name: name
-    )
+    ) |> IO.inspect
     |> case do
       nil -> %Product{}
       product -> product
