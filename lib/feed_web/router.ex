@@ -27,6 +27,8 @@ defmodule FeedWeb.Router do
       resources "/", Auth.UserController, except: [:index]
       get "/confirm/:id", Auth.UserController, :confirm_email
     end
+
+    live "/product", ProductLive, layout: {FeedWeb.LayoutView, "live.html"}
   end
 
   if Mix.env == :dev do
