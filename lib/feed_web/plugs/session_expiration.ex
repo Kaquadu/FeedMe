@@ -17,6 +17,7 @@ defmodule FeedWeb.SessionExpirationPlug do
     conn
     |> check_if_exists()
     |> check_if_expired()
+    |> fetch_user()
   end
 
   defp check_if_exists(conn) do
@@ -41,6 +42,17 @@ defmodule FeedWeb.SessionExpirationPlug do
       else
         conn
       end
+    else
+      conn
+    end
+  end
+
+  def fetch_user(conn) do
+    session = get_session(conn, :user_session)
+
+    if session do
+      user = Feed.Auth.get_user_by(%{"id" => session.user_id})
+      assign(conn, :user, user)
     else
       conn
     end

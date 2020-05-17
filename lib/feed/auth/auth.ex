@@ -32,6 +32,10 @@ defmodule Feed.Auth do
     @repo.get_by(User, email: email)
   end
 
+  def get_user_by(%{"id" => id}) do
+    @repo.get_by(User, id: id)
+  end
+
   def verify_user(%{"email" => email, "password" => password}) do
     user = get_user_by(%{"email" => email})
 

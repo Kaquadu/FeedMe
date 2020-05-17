@@ -1,0 +1,16 @@
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
+  <%= text_input f, :name, placeholder: "Name", required: true %>
+  <%= error_tag f, :name %>
+  <%= number_input f, :calories, placeholder: "Calories", required: true %>
+  <%= error_tag f, :calories %>
+  <%= number_input f, :no_meals, placeholder: "Number of meals", required: true, min: 3 %>
+  <%= error_tag f, :no_meals %>
+  <%= number_input f, :fats, placeholder: "Fats", required: true %>
+  <%= error_tag f, :fats %>
+  <%= number_input f, :carbos, placeholder: "Carbs", required: true %>
+  <%= error_tag f, :carbos %>
+  <%= number_input f, :proteins, placeholder: "Proteins", required: true %>
+  <%= error_tag f, :proteins %>
+  <%= hidden_input f, :user_id, value: @user.id %>
+  <%= submit "Submit" %>
+<% end %>

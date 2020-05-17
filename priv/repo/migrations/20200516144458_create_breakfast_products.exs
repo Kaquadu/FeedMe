@@ -8,6 +8,7 @@ defmodule Feed.Repo.Migrations.CreateBreakfastProducts do
       add :carbos, :float
       add :fats, :float
       add :proteins, :float
+      add :calories, :float
       add :photo_url, :string
 
       add :user_id, references(:auth_users, type: :uuid, on_delete: :delete_all)

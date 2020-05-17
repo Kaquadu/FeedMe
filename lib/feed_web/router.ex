@@ -38,6 +38,8 @@ defmodule FeedWeb.Router do
     pipe_through [:browser, :protected]
 
     live "/product", ProductLive, layout: {FeedWeb.LayoutView, "live.html"}
+
+    resources "/diet", DietController
   end
 
   if Mix.env == :dev do

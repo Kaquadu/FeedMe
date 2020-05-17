@@ -1,0 +1,1 @@
+<%= render "form.html", Map.merge(@conn.assigns, %{action: Routes.diet_path(@conn, :create)}) %>
