@@ -9,7 +9,8 @@ defmodule Feed.Diets.Diet do
   schema "user_diets" do
     field :name, :string, null: false
     field :calories, :integer, null: false
-    field :no_meals, :integer, null: false
+    field :no_big_meals, :integer, null: false
+    field :no_small_meals, :integer, null: false
     field :carbos, :integer, null: false
     field :fats, :integer, null: false
     field :proteins, :integer, null: false

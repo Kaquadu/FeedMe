@@ -5,7 +5,8 @@ defmodule Feed.Repo.Migrations.CreateUserDiets do
     create table(:user_diets, primary_key: false) do
       add :id, :uuid, primary_key: true
       add :name, :string
-      add :no_meals, :integer
+      add :no_big_meals, :integer
+      add :no_small_meals, :integer
       add :calories, :integer
       add :carbos, :integer
       add :fats, :integer
