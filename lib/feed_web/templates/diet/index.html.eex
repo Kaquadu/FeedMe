@@ -1,0 +1,53 @@
+<table class="table table-responsive-xl table-striped">
+  <thead>
+    <tr>
+      <th>
+        <%= gettext("Diet name") %>
+      </th>
+      <th>
+        <%= gettext("Calories") %>
+      </th>
+      <th>
+        <%= gettext("No. meals") %>
+      </th>
+      <th>
+        <%= gettext("Fats") %>
+      </th>
+      <th>
+        <%= gettext("Carbs") %>
+      </th>
+      <th>
+        <%= gettext("Proteins") %>
+      </th>
+      <th>
+        <%= gettext("Options") %>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for diet <- @diets do %>
+      <tr>
+        <td>
+          <%= diet.name %>
+        </td>
+        <td>
+          <%= diet.calories %>
+        </td>
+        <td>
+          <%= diet.no_meals %>
+        </td>
+        <td>
+          <%= diet.fats %>
+        </td>
+        <td>
+          <%= diet.carbos %>
+        </td>
+        <td>
+          <%= diet.proteins %>
+        </td>
+        <td>
+          Options
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

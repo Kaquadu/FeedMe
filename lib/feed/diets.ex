@@ -7,4 +7,8 @@ defmodule Feed.Diets do
     |> Diet.changeset(attrs)
     |> @repo.insert()
   end
+
+  def get_user_diets(user_id) do
+    @repo.all(Diet, user_id: user_id)
+  end
 end

@@ -1,0 +1,20 @@
+defmodule Feed.Repo.Migrations.CreateMeals do
+  use Ecto.Migration
+
+  def change do
+    create table(:diet_meals, primary_key: false) do
+      add :id, :uuid, primary_key: true
+      add :diet_id, references(:user_diets, type: :uuid, on_delete: :delete_all)
+      add :desired_calories, :integer
+      add :desired_fats, :integer
+      add :desired_carbos, :integer
+      add :desired_proteins, :integer
+      add :calculated_calories, :float
+      add :calculated_fats, :float
+      add :calculated_carbos, :float
+      add :calculated_proteins, :float
+
+      timestamps()
+    end
+  end
+end

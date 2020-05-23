@@ -7,8 +7,9 @@ defmodule FeedWeb.DietController do
   plug :append_diet
   plug :authorize_user
 
-  def index(conn, _params) do
-    render(conn, "index.html")
+  def index(%{assigns: %{user: user}} = conn, _params) do
+    diets = Diets.get_user_diets(user.id)
+    render(conn, "index.html", diets: diets)
   end
 
   def new(conn, _params) do
