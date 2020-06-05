@@ -16,7 +16,7 @@ defmodule FeedWeb.ProductLive do
   end
 
   def handle_event("add_product", %{"product_search" => attrs}, socket) do
-    Feed.Products.upsert_product(attrs)
+    Feed.Meals.upsert_product(attrs)
     {:noreply, assign(socket, timestamp: :os.system_time(:millisecond))}
   end
 

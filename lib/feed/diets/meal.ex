@@ -1,7 +1,9 @@
 defmodule Feed.Diets.Meal do
   use Feed.Schema
 
+  alias Feed.Auth.User
   alias Feed.Diets.Diet
+  alias Feed.Statistics.MealStatistics
 
   @required_fields ~w(desired_calories desired_fats desired_carbos desired_proteins)a
   @optional_fields ~w(calculated_calories calculated_fats calculated_carbos calculated_proteins)a
@@ -17,8 +19,9 @@ defmodule Feed.Diets.Meal do
     field :calculated_proteins, :float
 
     belongs_to :diet, Diet
+    belongs_to :user, User
 
-    # has_one :meal_statistics, MealStatistics
+    has_one :meal_statistics, MealStatistics
 
     timestamps()
   end
@@ -27,6 +30,7 @@ defmodule Feed.Diets.Meal do
     meal
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> cast_assoc(:diet)
+    |> cast_assoc(:user)
     |> validate_required(@required_fields)
   end
 end
