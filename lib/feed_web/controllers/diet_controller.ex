@@ -43,7 +43,8 @@ defmodule FeedWeb.DietController do
   end
 
   def request_meal(conn, %{"id" => diet_id}) do
-    Diets.request_meal(diet_id)
+    diet_data = Diets.get_diet_data(diet_id)
+    render(conn, "request_meal.html.eex", diet_data)
   end
 
   defp append_diet(conn, _) do

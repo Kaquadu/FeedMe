@@ -24,6 +24,13 @@ defmodule Feed.Diets do
     @repo.all(Diet, user_id: user_id)
   end
 
+  def get_diet(diet_id), do: Repo.get_by(Diet, id: diet_id)
+
+  def get_diet_data(diet_id) do
+    diet = get_diet(diet_id)
+    todays_meals = get_todays_meals(diet_id)
+  end
+
   def create_meal(attrs) do
     %Meal{}
     |> Meal.changeset(attrs)
