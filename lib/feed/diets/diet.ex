@@ -4,7 +4,7 @@ defmodule Feed.Diets.Diet do
   alias Feed.Auth.User
   alias Feed.Diets.Meal
 
-  @required_fields ~w(name calories carbos fats proteins no_meals user_id)a
+  @required_fields ~w(name calories carbos fats proteins no_big_meals no_small_meals user_id)a
 
   schema "user_diets" do
     field :name, :string, null: false

@@ -16,6 +16,7 @@
   <%= for meal<-["dinner", "breakfast", "other"] do %>
     <%= form_for @changeset, "", [phx_submit: "add_product"], fn f -> %>
       <%= hidden_input f, :name, value: product.name %>
+      <%= hidden_input f, :calories, value: product.calories %>
       <%= hidden_input f, :fats, value: product.fats %>
       <%= hidden_input f, :carbos, value: product.carbos %>
       <%= hidden_input f, :proteins, value: product.proteins %>

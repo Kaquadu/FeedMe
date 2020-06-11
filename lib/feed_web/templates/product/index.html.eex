@@ -1,0 +1,107 @@
+<div class="container">
+<h1>Products</h1>
+
+<h2>Breakfast</h2>
+<%= for product<-@products.breakfast do %>
+  <div class="row">
+    <div class="col-md-4">
+      <%= product.name %>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          Calories: <%= product.calories %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          Fats: <%= product.fats %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          Carbs: <%= product.carbos %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          Proteins: <%= product.proteins %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      Options
+    </div>
+  </div>
+<% end %>
+
+
+<h2>Dinner</h2>
+<%= for product<-@products.dinner do %>
+  <div class="row">
+    <div class="col-md-4">
+      <%= product.name %>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          Calories: <%= product.calories %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          Fats: <%= product.fats %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          Carbs: <%= product.carbos %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          Proteins: <%= product.proteins %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      Options
+    </div>
+  </div>
+<% end %>
+
+
+<h2>Other</h2>
+<%= for product<-@products.other do %>
+  <div class="row">
+    <div class="col-md-4">
+      <%= product.name %>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          Calories: <%= product.calories %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          Fats: <%= product.fats %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          Carbs: <%= product.carbos %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          Proteins: <%= product.proteins %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      Options
+    </div>
+  </div>
+<% end %>
+</div>

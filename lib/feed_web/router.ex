@@ -37,7 +37,8 @@ defmodule FeedWeb.Router do
   scope "/", FeedWeb do
     pipe_through [:browser, :protected]
 
-    live "/product", ProductLive, layout: {FeedWeb.LayoutView, "live.html"}
+    live "/products-search", ProductLive, layout: {FeedWeb.LayoutView, "live.html"}
+    resources "/products", ProductController, only: [:index, :delete]
 
     resources "/diet", DietController
   end

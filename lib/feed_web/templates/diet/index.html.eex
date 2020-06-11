@@ -33,7 +33,10 @@
           <%= diet.calories %>
         </td>
         <td>
-          <%= diet.no_meals %>
+          <%= diet.no_big_meals %>
+        </td>
+        <td>
+          <%= diet.no_small_meals %>
         </td>
         <td>
           <%= diet.fats %>

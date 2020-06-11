@@ -1,4 +1,6 @@
 defmodule Feed.Products do
+  import Ecto.Query
+
   alias Feed.Diets.Product
 
   @repo Feed.Repo
@@ -38,5 +40,19 @@ defmodule Feed.Products do
 
   defp put_table(struct, table_name) do
     put_in(struct.__meta__.source, table_name)
+  end
+
+  def get_user_products(user_id) do
+    %{
+      breakfast: get_user_meal_products(user_id, @breakfast_products_table_name),
+      dinner: get_user_meal_products(user_id, @dinner_products_table_name),
+      other: get_user_meal_products(user_id, @other_products_table_name)
+    }
+  end
+
+  defp get_user_meal_products(user_id, table_name) do
+    (from p in {table_name, Product})
+    |> where([p], p.user_id == ^user_id)
+    |> @repo.all
   end
 end

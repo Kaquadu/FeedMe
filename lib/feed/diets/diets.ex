@@ -4,6 +4,7 @@ defmodule Feed.Diets do
   @repo Feed.Repo
 
   defdelegate upsert_product(attrs), to: Feed.Products, as: :upsert_product
+  defdelegate get_user_products(user_id), to: Feed.Products, as: :get_user_products
 
   def create_diet(attrs) do
     %Diet{}

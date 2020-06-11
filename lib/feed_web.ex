@@ -24,6 +24,7 @@ defmodule FeedWeb do
       import Plug.Conn
       import FeedWeb.Gettext
       import Phoenix.LiveView.Controller
+      import FeedWeb.UserHelper
 
       alias FeedWeb.Router.Helpers, as: Routes
     end

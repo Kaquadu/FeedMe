@@ -1,1 +1,18 @@
 <h1>Main section</h1>
+<div class="container">
+  <div class="row">
+    <%= link "Products", to: Routes.live_path(@conn, FeedWeb.ProductLive) %>
+  </div>
+  <div class="row">
+    <%= link "My Products", to: Routes.product_path(@conn, :index) %>
+  </div>
+  <div class="row">
+    <%= link "Create Diet", to: Routes.diet_path(@conn, :new) %>
+  </div>
+  <div class="row">
+    <%= link "My Diets", to: "#" %>
+  </div>
+  <div class="row">
+    <%= link "Request a meal", to: "#" %>
+  </div>
+</div>
