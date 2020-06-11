@@ -29,6 +29,19 @@ defmodule FeedWeb.DietController do
     end
   end
 
+  def delete(conn, %{"id" => diet}) do
+    case Diets.delete_diet(diet) do
+      {1, nil} ->
+        conn
+        |> put_flash(:info, "Diet deleted")
+        |> redirect(to: Routes.page_path(conn, :index))
+      _other ->
+        conn
+        |> put_flash(:error, "Something went wrong")
+        |> redirect(to: Routes.page_path(conn, :index))
+    end
+  end
+
   def request_meal(conn, %{"id" => diet_id}) do
     Diets.request_meal(diet_id)
   end

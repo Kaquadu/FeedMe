@@ -10,7 +10,7 @@
     <%= link "Create Diet", to: Routes.diet_path(@conn, :new) %>
   </div>
   <div class="row">
-    <%= link "My Diets", to: "#" %>
+    <%= link "My Diets", to: Routes.diet_path(@conn, :index) %>
   </div>
   <div class="row">
     <%= link "Request a meal", to: "#" %>

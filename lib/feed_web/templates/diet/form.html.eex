@@ -3,9 +3,9 @@
   <%= error_tag f, :name %>
   <%= number_input f, :calories, placeholder: gettext("Calories"), required: true %>
   <%= error_tag f, :calories %>
-  <%= number_input f, :no_big_meals, placeholder: gettext("Number of big meals"), required: true, min: 3 %>
+  <%= number_input f, :no_big_meals, placeholder: gettext("Number of big meals"), required: true, min: 1 %>
   <%= error_tag f, :no_big_meals %>
-  <%= number_input f, :no_small_meals, placeholder: gettext("Number of small meals"), required: true, min: 3 %>
+  <%= number_input f, :no_small_meals, placeholder: gettext("Number of small meals"), required: true, min: 2 %>
   <%= error_tag f, :no_small_meals %>
   <%= number_input f, :fats, placeholder: gettext("Fats"), required: true %>
   <%= error_tag f, :fats %>

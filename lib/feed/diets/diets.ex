@@ -1,4 +1,6 @@
 defmodule Feed.Diets do
+  import Ecto.Query
+
   alias Feed.Diets.Diet
   alias Feed.Diets.Meal
   @repo Feed.Repo
@@ -10,6 +12,12 @@ defmodule Feed.Diets do
     %Diet{}
     |> Diet.changeset(attrs)
     |> @repo.insert()
+  end
+
+  def delete_diet(id) do
+    Diet
+    |> where([d], d.id == ^id)
+    |> @repo.delete_all()
   end
 
   def get_user_diets(user_id) do

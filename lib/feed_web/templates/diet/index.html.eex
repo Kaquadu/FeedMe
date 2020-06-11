@@ -8,7 +8,10 @@
         <%= gettext("Calories") %>
       </th>
       <th>
-        <%= gettext("No. meals") %>
+        <%= gettext("No. big meals") %>
+      </th>
+      <th>
+        <%= gettext("No. small meals") %>
       </th>
       <th>
         <%= gettext("Fats") %>
@@ -48,7 +51,7 @@
           <%= diet.proteins %>
         </td>
         <td>
-          Options
+          <%= link "Delete", to: Routes.diet_path(@conn, :delete, diet), method: :delete %>
         </td>
       </tr>
     <% end %>
