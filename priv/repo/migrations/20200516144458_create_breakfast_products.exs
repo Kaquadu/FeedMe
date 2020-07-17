@@ -5,7 +5,7 @@ defmodule Feed.Repo.Migrations.CreateBreakfastProducts do
     create table(:breakfast_products, primary_key: false) do
       add :id, :uuid, primary_key: true
       add :name, :string
-      add :carbos, :float
+      add :carbs, :float
       add :fats, :float
       add :proteins, :float
       add :calories, :float

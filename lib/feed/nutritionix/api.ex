@@ -34,7 +34,7 @@ defmodule Feed.NutritionixApi do
         calories: calculate_attr(product, "nf_calories"),
         fats: calculate_attr(product, "nf_total_fat"),
         proteins: calculate_attr(product, "nf_protein"),
-        carbos: calculate_attr(product, "nf_total_carbohydrate"),
+        carbs: calculate_attr(product, "nf_total_carbohydrate"),
         photo: product |> Map.get("photo") |> Map.get("highres")
       }
     end)

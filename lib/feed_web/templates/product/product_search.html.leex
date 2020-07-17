@@ -10,7 +10,7 @@
   Name: <%= product.name %> <br>
   Calories: <%= product.calories %> <br>
   Fats: <%= product.fats %> <br>
-  Carbos: <%= product.carbos %> <br>
+  carbs: <%= product.carbs %> <br>
   Proteins: <%= product.proteins %> <br>
   Photo link: <%= product.photo %> <br>
   <%= for meal<-["dinner", "breakfast", "other"] do %>
@@ -18,7 +18,7 @@
       <%= hidden_input f, :name, value: product.name %>
       <%= hidden_input f, :calories, value: product.calories %>
       <%= hidden_input f, :fats, value: product.fats %>
-      <%= hidden_input f, :carbos, value: product.carbos %>
+      <%= hidden_input f, :carbs, value: product.carbs %>
       <%= hidden_input f, :proteins, value: product.proteins %>
       <%= hidden_input f, :photo_url, value: product.photo %>
       <%= hidden_input f, :user_id, value: @user_session.user_id %>

@@ -20,7 +20,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          Carbs: <%= product.carbos %>
+          Carbs: <%= product.carbs %>
         </div>
       </div>
       <div class="row">
@@ -55,7 +55,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          Carbs: <%= product.carbos %>
+          Carbs: <%= product.carbs %>
         </div>
       </div>
       <div class="row">
@@ -90,7 +90,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          Carbs: <%= product.carbos %>
+          Carbs: <%= product.carbs %>
         </div>
       </div>
       <div class="row">

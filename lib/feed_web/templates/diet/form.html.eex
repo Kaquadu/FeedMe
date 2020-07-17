@@ -9,8 +9,8 @@
   <%= error_tag f, :no_small_meals %>
   <%= number_input f, :fats, placeholder: gettext("Fats"), required: true %>
   <%= error_tag f, :fats %>
-  <%= number_input f, :carbos, placeholder: gettext("Carbs"), required: true %>
-  <%= error_tag f, :carbos %>
+  <%= number_input f, :carbs, placeholder: gettext("Carbs"), required: true %>
+  <%= error_tag f, :carbs %>
   <%= number_input f, :proteins, placeholder: gettext("Proteins"), required: true %>
   <%= error_tag f, :proteins %>
   <%= hidden_input f, :user_id, value: @user.id %>

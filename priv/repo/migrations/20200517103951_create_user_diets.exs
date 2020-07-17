@@ -8,7 +8,7 @@ defmodule Feed.Repo.Migrations.CreateUserDiets do
       add :no_big_meals, :integer
       add :no_small_meals, :integer
       add :calories, :integer
-      add :carbos, :integer
+      add :carbs, :integer
       add :fats, :integer
       add :proteins, :integer
 

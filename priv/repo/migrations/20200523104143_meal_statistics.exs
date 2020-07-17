@@ -7,7 +7,7 @@ defmodule Feed.Repo.Migrations.MealStatistics do
       add :fit_function_result, :float
       add :coeff_calories, :float
       add :coeff_fats, :float
-      add :coeff_carbos, :float
+      add :coeff_carbs, :float
       add :coeff_proteins, :float
 
       add :meal_id, references(:diet_meals, type: :uuid, on_delete: :delete_all)

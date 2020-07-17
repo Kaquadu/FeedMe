@@ -45,7 +45,7 @@
           <%= diet.fats %>
         </td>
         <td>
-          <%= diet.carbos %>
+          <%= diet.carbs %>
         </td>
         <td>
           <%= diet.proteins %>
