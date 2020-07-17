@@ -27,8 +27,9 @@ defmodule Feed.Diets do
   def get_diet(diet_id), do: Repo.get_by(Diet, id: diet_id)
 
   def get_diet_data(diet_id) do
-    diet = get_diet(diet_id)
-    todays_meals = get_todays_meals(diet_id)
+    # diet = get_diet(diet_id)
+    # todays_meals = get_todays_meals(diet_id)
+    :ok
   end
 
   def create_meal(attrs) do
