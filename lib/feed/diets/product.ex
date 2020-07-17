@@ -2,7 +2,6 @@ defmodule Feed.Diets.Product do
   use Feed.Schema
 
   alias Feed.Auth.User
-  alias Feed.Diets.Meal
 
   @required_fields ~w(name carbs fats proteins user_id calories)a
   @optional_fields ~w(photo_url)a
@@ -16,7 +15,6 @@ defmodule Feed.Diets.Product do
     field :photo_url, :string
 
     belongs_to :user, User
-    belongs_to :meal, Meal
 
     timestamps()
   end

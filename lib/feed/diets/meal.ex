@@ -3,7 +3,6 @@ defmodule Feed.Diets.Meal do
 
   alias Feed.Auth.User
   alias Feed.Diets.Diet
-  alias Feed.Diets.Product
   alias Feed.Statistics.MealStatistics
 
   @required_fields ~w(desired_calories desired_fats desired_carbs desired_proteins)a
@@ -23,10 +22,6 @@ defmodule Feed.Diets.Meal do
     belongs_to :user, User
 
     has_one :meal_statistics, MealStatistics
-
-    has_many :breakfast_products, {"breakfast_products", Product}
-    has_many :dinner_products, {"dinner_products", Product}
-    has_many :other_products, {"other_products", Product}
 
     timestamps()
   end

@@ -29,7 +29,7 @@ defmodule Feed.Diets do
 
   def get_diet_data(diet_id) do
     diet = get_diet(diet_id)
-    todays_meals = Feed.Diets.MealsServingService.get_meals_from_diet(diet)
+    todays_meals = MealsServingService.get_meals_from_diet(diet)
 
     %{
       diet: diet,
