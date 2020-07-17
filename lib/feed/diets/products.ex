@@ -53,6 +53,20 @@ defmodule Feed.Products do
   defp get_user_meal_products(user_id, table_name) do
     (from p in {table_name, Product})
     |> where([p], p.user_id == ^user_id)
-    |> @repo.all
+    |> @repo.all()
+  end
+
+  def get_random_products(number, meal_name) do
+    meal_name
+    |> choose_table_name()
+    |> get_random_products_query(number)
+  end
+
+  defp get_random_products_query(table_name, number) do
+    Ecto.Adapters.SQL.query(@repo,
+    """
+      SELECT * FROM $1 TABLESAMPLE SYSTEM_ROWS($2);
+    """,
+    [table_name, number])
   end
 end
