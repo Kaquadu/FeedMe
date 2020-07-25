@@ -1,5 +1,6 @@
 defmodule Feed.Diets.MealsServingService do
   alias Feed.Products
+  alias Feed.Diets.Calculator
 
   @big_meal_portions 7
   @small_meal_portions 4
@@ -49,22 +50,22 @@ defmodule Feed.Diets.MealsServingService do
 
   defp calculate_meals(meals_stats, diet) do
     %{
-      breakfast: get_breakfast(meals_stats.small_meal),
-      dinner: get_dinner(meals_stats.big_meal),
+      breakfast: get_breakfast(meals_stats.small_meal, diet.user_id),
+      dinner: get_dinner(meals_stats.big_meal, diet.user_id),
       big_meals: get_big_meals(meals_stats, diet),
       small_meals: get_small_meals(meals_stats, diet)
     }
   end
 
-  defp get_breakfast(breakfast_stats) do
+  defp get_breakfast(breakfast_stats, user_id) do
     @small_meal_no_products
-    |> Products.get_random_products("breakfast")
+    |> Products.get_user_random_products("breakfast", user_id)
     |> calculate_portion(breakfast_stats)
   end
 
-  defp get_dinner(dinner_stats) do
+  defp get_dinner(dinner_stats, user_id) do
     @big_meal_no_products
-    |> Products.get_random_products("dinner")
+    |> Products.get_user_random_products("dinner", user_id)
     |> calculate_portion(dinner_stats)
   end
 
@@ -80,7 +81,7 @@ defmodule Feed.Diets.MealsServingService do
     if (current_meals |> length()) >= (diet.no_big_meals - 1) do
       current_meals
     else
-      current_meals = [get_other_big_meal(meal_stats) | current_meals]
+      current_meals = [get_other_big_meal(meal_stats, diet.user_id) | current_meals]
       append_meal(meal_stats, diet, current_meals, :big)
     end
   end
@@ -89,24 +90,24 @@ defmodule Feed.Diets.MealsServingService do
     if (current_meals |> length()) >= (diet.no_small_meals - 1) do
       current_meals
     else
-      current_meals = [get_other_small_meal(meal_stats) | current_meals]
+      current_meals = [get_other_small_meal(meal_stats, diet.user_id) | current_meals]
       append_meal(meal_stats, diet, current_meals, :big)
     end
   end
 
-  defp get_other_big_meal(meal_stats) do
+  defp get_other_big_meal(meal_stats, user_id) do
     @big_meal_no_products
-    |> Products.get_random_products("other")
+    |> Products.get_user_random_products("other", user_id)
     |> calculate_portion(meal_stats)
   end
 
-  defp get_other_small_meal(meal_stats) do
+  defp get_other_small_meal(meal_stats, user_id) do
     @small_meal_no_products
-    |> Products.get_random_products("other")
+    |> Products.get_user_random_products("other", user_id)
     |> calculate_portion(meal_stats)
   end
 
   defp calculate_portion(products, meal_stats) do
-    :ok
+    Calculator.calculate_meal(products, meal_stats)
   end
 end

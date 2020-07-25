@@ -56,17 +56,17 @@ defmodule Feed.Products do
     |> @repo.all()
   end
 
-  def get_random_products(number, meal_name) do
+  def get_user_random_products(number, meal_name, user_id) do
     meal_name
     |> choose_table_name()
-    |> get_random_products_query(number)
+    |> get_user_random_products_query(number, user_id)
   end
 
-  defp get_random_products_query(table_name, number) do
+  defp get_user_random_products_query(table_name, number, user_id) do
     Ecto.Adapters.SQL.query(@repo,
     """
-      SELECT * FROM $1 TABLESAMPLE SYSTEM_ROWS($2);
+      SELECT * FROM $1 WHERE USER_ID=$3 TABLESAMPLE SYSTEM_ROWS($2);
     """,
-    [table_name, number])
+    [table_name, number, user_id])
   end
 end

@@ -4,18 +4,18 @@ defmodule Feed.Diets.Calculator do
 
   @fit_func_calories_coeff 10
   @fit_func_proteins_coeff 6
-  @fit_func_carbos_coeff 6
+  @fit_func_carbs_coeff 6
   @fit_func_fats_coeff 6
 
   @empty_meal %{
     calories: 0,
     fats: 0,
     proteins: 0,
-    carbos: 0
+    carbs: 0
   }
 
-  def calculate_meal(products, no_products, diet_stats) do
-    products = products |> Enum.take_random(no_products) |> Enum.sort(&(&1.calories > &2.calories))
+  def calculate_meal(products, diet_stats) do
+    products = products |> Enum.sort(&(&1.calories > &2.calories))
 
     calculate_best_combination(products, diet_stats)
   end
@@ -31,14 +31,22 @@ defmodule Feed.Diets.Calculator do
   end
 
   defp humanize_result({meal, fit_f_outome}) do
-    humanize_meal(meal) |> IO.inspect
-    sum_meal_stats(meal) |> IO.inspect
-    fit_f_outome |> IO.inspect
+    %{
+      ingridients: humanize_meal(meal),
+      statistics: sum_meal_stats(meal),
+      fit_function: %{
+        score: fit_f_outome,
+        fit_func_calories_coeff: @fit_func_calories_coeff,
+        fit_func_proteins_coeff: @fit_func_proteins_coeff,
+        fit_func_carbs_coeff: @fit_func_carbs_coeff,
+        fit_func_fats_coeff: @fit_func_fats_coeff
+      }
+    } |> IO.inspect
   end
 
   defp humanize_meal(meal) do
     Enum.map(meal, fn {product, portion} ->
-      {product.name, portion * 100}
+      {product, portion * 100}
     end)
   end
 
@@ -101,7 +109,7 @@ defmodule Feed.Diets.Calculator do
       meal_acc
       |> Map.update!(:calories, &(&1 = meal_acc.calories + product.calories * portion))
       |> Map.update!(:fats, &(&1 = meal_acc.fats + product.fat * portion))
-      |> Map.update!(:carbos, &(&1 = meal_acc.carbos + product.carbo * portion))
+      |> Map.update!(:carbs, &(&1 = meal_acc.carbs + product.carbs * portion))
       |> Map.update!(:proteins, &(&1 = meal_acc.proteins + product.protein * portion))
     end)
   end
@@ -109,7 +117,7 @@ defmodule Feed.Diets.Calculator do
   defp calculate_difference(current_meal, desired_meal) do
     %{
       calories_diff: abs(desired_meal.calories - current_meal.calories),
-      carbos_diff: abs(desired_meal.carbos - current_meal.carbos),
+      carbs_diff: abs(desired_meal.carbs - current_meal.carbs),
       fats_diff: abs(desired_meal.fats - current_meal.fats),
       proteins_diff: abs(desired_meal.proteins - current_meal.proteins)
     }
@@ -117,12 +125,12 @@ defmodule Feed.Diets.Calculator do
 
   defp calculate_diet_coeff(%{
     calories_diff: calories_diff,
-    carbos_diff: carbos_diff,
+    carbs_diff: carbs_diff,
     fats_diff: fats_diff,
     proteins_diff: proteins_diff
   }) do
     calories_diff * @fit_func_calories_coeff +
-    carbos_diff * @fit_func_carbos_coeff +
+    carbs_diff * @fit_func_carbs_coeff +
     fats_diff * @fit_func_fats_coeff +
     proteins_diff * @fit_func_proteins_coeff
   end
