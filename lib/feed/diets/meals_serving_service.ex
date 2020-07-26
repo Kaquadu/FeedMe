@@ -2,8 +2,8 @@ defmodule Feed.Diets.MealsServingService do
   alias Feed.Products
   alias Feed.Diets.Calculator
 
-  @big_meal_portions 7
-  @small_meal_portions 4
+  @big_meal_portions 9
+  @small_meal_portions 5
 
   @big_meal_no_products 6
   @small_meal_no_products 4

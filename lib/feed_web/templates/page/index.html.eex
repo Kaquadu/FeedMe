@@ -12,7 +12,4 @@
   <div class="row">
     <%= link "My Diets", to: Routes.diet_path(@conn, :index) %>
   </div>
-  <div class="row">
-    <%= link "Request a meal", to: "#" %>
-  </div>
 </div>

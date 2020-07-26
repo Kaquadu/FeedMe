@@ -1,6 +1,8 @@
 defmodule Feed.Diets.Calculator do
+  alias Feed.Combinations
+
   @max_portions 3
-  @portions_step 0.5
+  @portions_step 0.1
 
   @fit_func_calories_coeff 10
   @fit_func_proteins_coeff 6
@@ -21,11 +23,13 @@ defmodule Feed.Diets.Calculator do
   end
 
   defp calculate_best_combination(products, diet_stats) do
+    k = length(products)
+
     products
     |> prepare_products_portions()
     |> Enum.reject(fn {_product, portion} -> portion == 0 end)
-    |> get_all_products_combinations()
-    |> reduce_doubles()
+    |> get_all_products_combinations(k)
+    |> reduce_doubles(k)
     |> get_best_meal({@empty_meal, :infinity}, diet_stats)
     |> humanize_result()
   end
@@ -41,7 +45,7 @@ defmodule Feed.Diets.Calculator do
         fit_func_carbs_coeff: @fit_func_carbs_coeff,
         fit_func_fats_coeff: @fit_func_fats_coeff
       }
-    } |> IO.inspect
+    }
   end
 
   defp humanize_meal(meal) do
@@ -61,33 +65,30 @@ defmodule Feed.Diets.Calculator do
     end
   end
 
-  defp get_all_products_combinations(pw_list) do
-    for x <- pw_list, y <- pw_list, z <- pw_list, w <- pw_list, v <- pw_list,
-    x != y != z != w != v do
-      [x, y, z, w, v]
-    end
+  defp get_all_products_combinations(products_weights_list, k) do
+    Combinations.combinations(products_weights_list, k)
   end
 
-  defp reduce_doubles(meals_list) do
+  defp reduce_doubles(meals_list, k) do
     Enum.map(meals_list, fn meal ->
       Enum.reduce(meal, %{}, fn {product, portion}, acc ->
         Map.put(acc, product.name, {product, portion})
       end)
     end)
     |> Enum.reject(fn meal_map ->
-      Enum.count(meal_map) != 5
+      Enum.count(meal_map) != k
     end)
     |> Enum.map(fn meal -> Enum.map(meal, fn {_name, rest} -> rest end) end)
   end
 
   def prepare_products_portions(products) do
-    Enum.reduce(products, [], fn _product, acc ->
-       [get_single_product_portions([], 0) | acc]
+    Enum.reduce(products, [], fn product, acc ->
+       [get_single_product_portions(product, [], 0) | acc]
     end)
     |> List.flatten()
   end
 
-  def get_single_product_portions(portions, current_portion)
+  def get_single_product_portions(_product, portions, current_portion)
       when current_portion > @max_portions do
     portions
   end
@@ -108,9 +109,9 @@ defmodule Feed.Diets.Calculator do
     Enum.reduce(products_portions_table, @empty_meal, fn {product, portion}, meal_acc ->
       meal_acc
       |> Map.update!(:calories, &(&1 = meal_acc.calories + product.calories * portion))
-      |> Map.update!(:fats, &(&1 = meal_acc.fats + product.fat * portion))
+      |> Map.update!(:fats, &(&1 = meal_acc.fats + product.fats * portion))
       |> Map.update!(:carbs, &(&1 = meal_acc.carbs + product.carbs * portion))
-      |> Map.update!(:proteins, &(&1 = meal_acc.proteins + product.protein * portion))
+      |> Map.update!(:proteins, &(&1 = meal_acc.proteins + product.proteins * portion))
     end)
   end
 
@@ -133,5 +134,18 @@ defmodule Feed.Diets.Calculator do
     carbs_diff * @fit_func_carbs_coeff +
     fats_diff * @fit_func_fats_coeff +
     proteins_diff * @fit_func_proteins_coeff
+  end
+end
+
+defmodule Feed.Combinations do
+  @doc """
+  This function lists all combinations of `num` elements from the given `list`
+  """
+  def combinations(list, num)
+  def combinations(_list, 0), do: [[]]
+  def combinations(list = [], _num), do: list
+  def combinations([head | tail], num) do
+    Enum.map(combinations(tail, num - 1), &[head | &1]) ++
+      combinations(tail, num)
   end
 end
