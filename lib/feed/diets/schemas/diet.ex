@@ -2,7 +2,7 @@ defmodule Feed.Diets.Diet do
   use Feed.Schema
 
   alias Feed.Auth.User
-  alias Feed.Diets.Meal
+  alias Feed.Diets.Mealset
 
   @required_fields ~w(name calories carbs fats proteins no_big_meals no_small_meals user_id)a
 
@@ -16,7 +16,7 @@ defmodule Feed.Diets.Diet do
     field :proteins, :integer, null: false
 
     belongs_to :user, User
-    has_many :meals, Meal
+    has_many :mealsets, Mealset
 
     timestamps()
   end
@@ -24,7 +24,6 @@ defmodule Feed.Diets.Diet do
   def changeset(diet, attrs \\ %{}) do
     diet
     |> cast(attrs, @required_fields)
-    |> cast_assoc(:user)
     |> validate_required(@required_fields)
   end
 end

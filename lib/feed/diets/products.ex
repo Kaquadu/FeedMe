@@ -63,12 +63,6 @@ defmodule Feed.Products do
   end
 
   defp get_user_random_products_query(table_name, number, user_id) do
-    # query = "SELECT * FROM #{table_name} WHERE USER_ID=\"#{user_id}\" TABLESAMPLE SYSTEM_ROWS(#{number});"
-
-    # Ecto.Adapters.SQL.query(@repo,
-    #   query,
-    #   [table_name, number])
-
     (from product in {table_name, Product}, as: :product)
     |> where([product: product], product.user_id == ^user_id)
     |> @repo.all()

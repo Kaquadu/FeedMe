@@ -4,6 +4,7 @@ defmodule Feed.Diets do
   alias Feed.Diets.Diet
   alias Feed.Diets.Meal
   alias Feed.Diets.MealsServingService
+  alias Feed.Workers.DietsWorker
   @repo Feed.Repo
 
   defdelegate upsert_product(attrs), to: Feed.Products, as: :upsert_product
@@ -27,9 +28,15 @@ defmodule Feed.Diets do
 
   def get_diet(diet_id), do: @repo.get_by(Diet, id: diet_id)
 
-  def get_diet_data(diet_id) do
+  def request_daily_meals(diet_id) do
+    DietsWorker.insert_diet_request(diet_id)
+  end
+
+  def get_daily_meals(diet_id) do
     diet = get_diet(diet_id)
     todays_meals = MealsServingService.get_meals_from_diet(diet)
+
+    DietsWorker.complete_diet_request(diet_id)
 
     %{
       diet: diet,
