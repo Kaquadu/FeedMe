@@ -23,6 +23,27 @@ defmodule Feed.Diets.Meal do
 
     has_one :meal_statistics, MealStatistics
 
+    many_to_many(
+      :breakfast_products,
+      {"breakfast_products", Feed.Diets.Product},
+      join_through: "meals_breakfast_products",
+      on_replace: :delete
+    )
+
+    many_to_many(
+      :dinner_products,
+      {"dinner_products", Feed.Diets.Product},
+      join_through: "meals_dinner_products",
+      on_replace: :delete
+    )
+
+    many_to_many(
+      :other_products,
+      {"other_products", Feed.Diets.Product},
+      join_through: "meals_other_products",
+      on_replace: :delete
+    )
+
     timestamps()
   end
 

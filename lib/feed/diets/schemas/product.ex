@@ -16,6 +16,13 @@ defmodule Feed.Diets.Product do
 
     belongs_to :user, User
 
+    many_to_many(
+      :meals,
+      Feed.Diets.Meal,
+      join_through: "meals_breakfast_products",
+      on_replace: :delete
+    )
+
     timestamps()
   end
 

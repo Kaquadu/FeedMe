@@ -50,10 +50,10 @@ defmodule Feed.Diets.MealsServingService do
 
   defp calculate_meals(meals_stats, diet) do
     %{
-      breakfast: get_breakfast(meals_stats.small_meal, diet.user_id),
-      dinner: get_dinner(meals_stats.big_meal, diet.user_id),
-      big_meals: get_big_meals(meals_stats, diet),
-      small_meals: get_small_meals(meals_stats, diet)
+      breakfast: %{calculated: get_breakfast(meals_stats.small_meal, diet.user_id), desired: meals_stats.small_meal},
+      dinner: %{calculated: get_dinner(meals_stats.big_meal, diet.user_id), desired: meals_stats.big_meals},
+      big_meals: %{calculated: get_big_meals(meals_stats, diet), desired: meals_stats.big_meals},
+      small_meals: %{calculated: get_small_meals(meals_stats, diet), desired: meals_stats.small_meal},
     }
   end
 

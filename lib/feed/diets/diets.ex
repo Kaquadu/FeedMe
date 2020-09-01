@@ -1,8 +1,10 @@
 defmodule Feed.Diets do
   import Ecto.Query
 
+  alias Ecto.Multi
   alias Feed.Diets.Diet
   alias Feed.Diets.Meal
+  alias Feed.Diets.Mealset
   alias Feed.Diets.MealsServingService
   alias Feed.Workers.DietsWorker
   @repo Feed.Repo
@@ -39,16 +41,43 @@ defmodule Feed.Diets do
 
       DietsWorker.complete_diet_request(diet_id)
 
-      %{
-        diet: diet,
-        todays_meals: todays_meals
-      }
+      Multi.new()
+      |> Multi.run(:create_mealset, create_mealset_step(diet))
+      |> Multi.run(:add_meals, add_meals_step(todays_meals))
+      |> @repo.transaction()
     rescue
       e ->
         IO.inspect e
         DietsWorker.complete_diet_request(diet_id)
         raise RuntimeError, message: "Something went wrong while calculating the meals"
     end
+  end
+
+  defp create_mealset_step(diet) do
+    fn repo, _ ->
+      %Mealset{}
+      |> Mealset.changeset(%{diet_id: diet.id, user_id: diet.user_id, day: Timex.shift(Date.utc_today(), days: 1)})
+      |> repo.insert()
+    end
+  end
+
+  defp add_meals_step(%{breakfast: breakfast, dinner: dinner, small_meals: small_meals, big_meals: big_meals}) do
+    fn repo, %{create_mealset: mealset} = _previous ->
+      all_meals = [breakfast] ++ [dinner] ++ small_meals ++ big_meals
+      Enum.each(all_meals, fn meal ->
+        meal
+        |> prepare_meal_changeset(mealset)
+        |> repo.insert()
+      end)
+      |> case do
+        :ok -> {:ok, mealset}
+        :error -> {:error, mealset}
+      end
+    end
+  end
+
+  defp prepare_meal_changeset(%{calculated: calculated_meal, desired: desired_meal}, %{id: mealset_id} = _mealset) do
+
   end
 
   def create_meal(attrs) do

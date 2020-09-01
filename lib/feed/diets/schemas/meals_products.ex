@@ -17,8 +17,6 @@ defmodule Feed.Diets.MealsProducts do
   def changeset(meal_product, attrs \\ %{}) do
     meal_product
     |> cast(attrs, @required_fields ++ @optional_fields)
-    |> cast_assoc(:product)
-    |> cast_assoc(:meal)
     |> validate_required(@required_fields)
   end
 end

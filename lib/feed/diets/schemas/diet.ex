@@ -24,6 +24,7 @@ defmodule Feed.Diets.Diet do
   def changeset(diet, attrs \\ %{}) do
     diet
     |> cast(attrs, @required_fields)
+    |> cast_assoc(:mealsets)
     |> validate_required(@required_fields)
   end
 end
