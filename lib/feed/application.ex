@@ -11,9 +11,10 @@ defmodule Feed.Application do
       # Start the Ecto repository
       Feed.Repo,
       # Start the endpoint when the application starts
-      FeedWeb.Endpoint
+      FeedWeb.Endpoint,
       # Starts a worker by calling: Feed.Worker.start_link(arg)
       # {Feed.Worker, arg},
+      Feed.Workers.DietsWorker
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

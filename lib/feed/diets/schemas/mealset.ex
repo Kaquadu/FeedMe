@@ -7,7 +7,7 @@ defmodule Feed.Diets.Mealset do
 
   @required_fields ~w(diet_id user_id date)a
 
-  schema "diet_mealset" do
+  schema "diet_mealsets" do
     field :day, :date, null: false
 
     has_many :meals, Meal

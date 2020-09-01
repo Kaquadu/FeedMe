@@ -19,9 +19,8 @@ defmodule Feed.Workers.DietsWorker do
 
   def handle_cast({:insert_diet_request, diet_id}, %{diets_table: table_pid} = table_pids) do
     tomorrows_date = Date.utc_today() |> Timex.shift(days: 1)
-    diet = Feed.Diets.get_diet(diet_id)
     :ets.insert(table_pid, {diet_id, tomorrows_date})
-    Task.start(Feed.Diets.MealsServingService, :get_meals_from_diet, [diet])
+    Task.start(Feed.Diets, :get_daily_meals, [diet_id])
 
     {:noreply, table_pids}
   end

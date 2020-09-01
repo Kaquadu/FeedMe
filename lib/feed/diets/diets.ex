@@ -33,15 +33,22 @@ defmodule Feed.Diets do
   end
 
   def get_daily_meals(diet_id) do
-    diet = get_diet(diet_id)
-    todays_meals = MealsServingService.get_meals_from_diet(diet)
+    try do
+      diet = get_diet(diet_id)
+      todays_meals = MealsServingService.get_meals_from_diet(diet)
 
-    DietsWorker.complete_diet_request(diet_id)
+      DietsWorker.complete_diet_request(diet_id)
 
-    %{
-      diet: diet,
-      todays_meals: todays_meals
-    }
+      %{
+        diet: diet,
+        todays_meals: todays_meals
+      }
+    rescue
+      e ->
+        IO.inspect e
+        DietsWorker.complete_diet_request(diet_id)
+        raise RuntimeError, message: "Something went wrong while calculating the meals"
+    end
   end
 
   def create_meal(attrs) do
