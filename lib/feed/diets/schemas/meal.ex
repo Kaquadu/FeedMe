@@ -51,6 +51,9 @@ defmodule Feed.Diets.Meal do
     meal
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> cast_assoc(:meal_statistics, with: &MealStatistics.changeset()/2)
+    |> cast_assoc(:breakfast_products)
+    |> cast_assoc(:dinner_products)
+    |> cast_assoc(:other_products)
     |> validate_required(@required_fields)
   end
 end
