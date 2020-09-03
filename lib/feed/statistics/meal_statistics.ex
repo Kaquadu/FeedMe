@@ -1,7 +1,7 @@
 defmodule Feed.Statistics.MealStatistics do
   use Feed.Schema
 
-  alias Feed.Diets.Diet
+  alias Feed.Diets.Meal
 
   @required_fields ~w(fit_function_result coeff_calories coeff_fats coeff_carbs coeff_proteins)a
 
@@ -12,7 +12,7 @@ defmodule Feed.Statistics.MealStatistics do
     field :coeff_carbs, :float, null: false
     field :coeff_proteins, :float, null: false
 
-    belongs_to :meal, Diet
+    belongs_to :meal, Meal
 
     timestamps()
   end
@@ -20,7 +20,7 @@ defmodule Feed.Statistics.MealStatistics do
   def changeset(meal_stats, attrs \\ %{}) do
     meal_stats
     |> cast(attrs, @required_fields)
-    |> cast_assoc(:diet)
+    |> cast_assoc(:meal)
     |> validate_required(@required_fields)
   end
 end

@@ -30,7 +30,7 @@ defmodule Feed.Workers.DietsWorker do
     {:reply, result, table_ids}
   end
 
-  def handle_call({:complete_diet_request, diet_id}, %{diets_table: table_pid} = table_pids) do
+  def handle_call({:complete_diet_request, diet_id}, _from, %{diets_table: table_pid} = table_pids) do
     result = :ets.delete(table_pid, diet_id)
     {:reply, result, table_pids}
   end

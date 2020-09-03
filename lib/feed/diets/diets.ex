@@ -61,23 +61,81 @@ defmodule Feed.Diets do
     end
   end
 
-  defp add_meals_step(%{breakfast: breakfast, dinner: dinner, small_meals: small_meals, big_meals: big_meals}) do
+  defp add_meals_step(%{breakfast: breakfast, dinner: dinner, small_meals: small_meals, big_meals: big_meals} = _meals) do
     fn repo, %{create_mealset: mealset} = _previous ->
       all_meals = [breakfast] ++ [dinner] ++ small_meals ++ big_meals
-      Enum.each(all_meals, fn meal ->
+      Enum.map(all_meals, fn meal ->
         meal
         |> prepare_meal_changeset(mealset)
         |> repo.insert()
       end)
-      |> case do
-        :ok -> {:ok, mealset}
-        :error -> {:error, mealset}
+      |> Enum.any?(fn {status, _} -> status == :error end)
+      |> if do
+        {:error, mealset}
+      else
+        {:ok, mealset}
       end
     end
   end
 
-  defp prepare_meal_changeset(%{calculated: calculated_meal, desired: desired_meal}, %{id: mealset_id} = _mealset) do
+  defp prepare_meal_changeset(
+    %{
+      calculated: %{
+        ingridients: ingridients,
+        statistics: %{
+          calories: calculated_calories,
+          fats: calculated_fats,
+          carbs: calculated_carbs,
+          proteins: calculated_proteins
+        },
+        fit_function: %{
+          score: fit_function_result,
+          fit_func_calories_coeff: coeff_calories,
+          fit_func_proteins_coeff: coeff_proteins,
+          fit_func_carbs_coeff: coeff_carbs,
+          fit_func_fats_coeff: coeff_fats
+        }
+      },
+      desired: %{
+        calories: desired_calories,
+        fats: desired_fats,
+        carbs: desired_carbs,
+        proteins: desired_proteins
+      }},
+    %{id: mealset_id, user_id: user_id} = _mealset) do
 
+      {product, _portion} = List.first(ingridients)
+      products =
+        case product.__meta__.source do
+          "breakfast_products" ->
+            %{breakfast_products_ids: Enum.map(ingridients, fn {p, _portions} -> p.id end)}
+          "dinner_products" ->
+            %{dinner_products_ids: Enum.map(ingridients, fn {p, _portions} -> p.id end)}
+          "other_products" ->
+            %{other_products_ids: Enum.map(ingridients, fn {p, _portions} -> p.id end)}
+        end
+
+      params = %{
+        desired_calories: desired_calories,
+        desired_fats: desired_fats,
+        desired_carbs: desired_carbs,
+        desired_proteins: desired_proteins,
+        calculated_calories: calculated_calories,
+        calculated_fats: calculated_fats,
+        calculated_carbs: calculated_carbs,
+        calculated_proteins: calculated_proteins,
+        mealset_id: mealset_id,
+        user_id: user_id,
+        meal_statistics: %{
+          fit_function_result: fit_function_result,
+          coeff_calories: coeff_calories,
+          coeff_proteins: coeff_proteins,
+          coeff_carbs: coeff_carbs,
+          coeff_fats: coeff_fats
+        } |> Map.merge(products)
+      }
+
+      Feed.Diets.Meal.changeset(%Meal{}, params) |> IO.inspect
   end
 
   def create_meal(attrs) do

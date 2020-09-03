@@ -2,7 +2,7 @@ defmodule Feed.Diets.Calculator do
   alias Feed.Combinations
 
   @max_portions 3
-  @portions_step 0.25
+  @portions_step 0.5
 
   @fit_func_calories_coeff 10
   @fit_func_proteins_coeff 6

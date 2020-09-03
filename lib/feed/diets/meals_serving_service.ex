@@ -48,12 +48,12 @@ defmodule Feed.Diets.MealsServingService do
     }
   end
 
-  defp calculate_meals(meals_stats, diet) do
+  defp calculate_meals(%{big_meal: big_meal_stats, small_meal: small_meal_stats} = meals_stats, diet) do
     %{
-      breakfast: %{calculated: get_breakfast(meals_stats.small_meal, diet.user_id), desired: meals_stats.small_meal},
-      dinner: %{calculated: get_dinner(meals_stats.big_meal, diet.user_id), desired: meals_stats.big_meals},
-      big_meals: %{calculated: get_big_meals(meals_stats, diet), desired: meals_stats.big_meals},
-      small_meals: %{calculated: get_small_meals(meals_stats, diet), desired: meals_stats.small_meal},
+      breakfast: %{calculated: get_breakfast(small_meal_stats, diet.user_id), desired: small_meal_stats},
+      dinner: %{calculated: get_dinner(big_meal_stats, diet.user_id), desired: big_meal_stats},
+      big_meals: get_big_meals(meals_stats, diet),
+      small_meals: get_small_meals(meals_stats, diet)
     }
   end
 
@@ -81,7 +81,7 @@ defmodule Feed.Diets.MealsServingService do
     if (current_meals |> length()) >= (diet.no_big_meals - 1) do
       current_meals
     else
-      current_meals = [get_other_big_meal(meal_stats, diet.user_id) | current_meals]
+      current_meals = [%{calculated: get_other_big_meal(meal_stats, diet.user_id), desired: meal_stats} | current_meals]
       append_meal(meal_stats, diet, current_meals, :big)
     end
   end
@@ -90,7 +90,7 @@ defmodule Feed.Diets.MealsServingService do
     if (current_meals |> length()) >= (diet.no_small_meals - 1) do
       current_meals
     else
-      current_meals = [get_other_small_meal(meal_stats, diet.user_id) | current_meals]
+      current_meals = [%{calculated: get_other_small_meal(meal_stats, diet.user_id), desired: meal_stats} | current_meals]
       append_meal(meal_stats, diet, current_meals, :big)
     end
   end
