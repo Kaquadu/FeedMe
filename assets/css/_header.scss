@@ -7,7 +7,7 @@
 }
 
 .sticky-header a {
-  color: $grey;
+  color: $dark-grey;
   padding: 18px;
   transition: 0.3s;
 }
@@ -24,7 +24,7 @@
 
 .header-top {
   background-color: $white;
-  padding-top: 30px;
+  padding-top: 50px;
 }
 
 .header-top h1 {
@@ -52,8 +52,6 @@
   top: 0;
   width: 100%;
 }
-
-.general-content{}
 
 .sticky + .general-content {
   padding-top: 102px;
