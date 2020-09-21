@@ -21,17 +21,42 @@ defmodule Feed.Diets do
   def delete_diet(id) do
     Diet
     |> where([d], d.id == ^id)
+    |> preload([:mealsets])
     |> @repo.delete_all()
   end
 
   def get_user_diets(user_id) do
-    @repo.all(Diet, user_id: user_id)
+    (from d in Diet, as: :diet)
+    |> where([diet: d], d.user_id == ^user_id)
+    |> preload([:mealsets])
+    |> @repo.all()
   end
 
   def get_diet(diet_id), do: @repo.get_by(Diet, id: diet_id)
 
   def request_daily_meals(diet_id) do
-    DietsWorker.insert_diet_request(diet_id)
+    if is_diet_already_in_queue?(diet_id) || mealset_for_tomorrow_exists?(diet_id) do
+      {:error, "Already exists"}
+    else
+      DietsWorker.insert_diet_request(diet_id)
+    end
+  end
+
+  defp is_diet_already_in_queue?(diet_id) do
+    if DietsWorker.check_diet(diet_id) do
+      true
+    else
+      false
+    end
+  end
+
+  defp mealset_for_tomorrow_exists?(diet_id) do
+    tomorrow = Date.utc_today() |> Timex.shift(days: 1)
+
+    (from m in Mealset, as: :mealset)
+    |> where([mealset: m], m.diet_id == ^diet_id)
+    |> where([mealset: m], m.day == ^tomorrow)
+    |> @repo.exists?()
   end
 
   def get_daily_meals(diet_id) do

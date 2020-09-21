@@ -1,0 +1,92 @@
+.sticky-header {
+  padding: 16px 16px;
+  background: $white;
+  display: flex;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.sticky-header a {
+  color: $grey;
+  padding: 18px;
+  transition: 0.3s;
+}
+
+.sticky-header a:hover {
+  text-decoration: none;
+  color: $medium-grey;
+}
+
+.sticky-header .icon {
+  display: none;
+  font-size: x-large;
+}
+
+.header-top {
+  background-color: $white;
+  padding-top: 30px;
+}
+
+.header-top h1 {
+  max-width: 250px;
+  border-bottom: 2px $dark-grey solid;
+  text-align: center;
+}
+
+.header-top img {
+  height: 98px;
+}
+
+.heading-right {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.heading-left {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.general-content{}
+
+.sticky + .general-content {
+  padding-top: 102px;
+}
+
+@media screen and (max-width: 600px) {
+  .sticky-header { padding: 0px; display: inline-block;}
+  .sticky-header a {display: none;}
+  .sticky-header a.icon {
+    float: right;
+    display: inline;
+  }
+  .sticky-header.responsive {position: relative;}
+  .sticky-header.responsive a.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .sticky-header.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .heading-left {
+    display: none;
+  }
+
+  .heading-right {
+    justify-content: center;
+  }
+
+  .header-top {
+    justify-content: center;
+  }
+}

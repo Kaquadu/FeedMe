@@ -1,0 +1,36 @@
+<header class="header">
+  <div class="header-top row">
+      <div class="heading-left col-sm-5">
+        <%= img_tag(Routes.static_path(@conn, "/images/apple.png"), class: "apple") %>
+      </div>
+      <div class="col-sm-7">
+        <div class="heading-right row">
+          <div>
+            <h1 class="col-md-12">FeedMe</h1>
+            <p class="col-md-12">Make your dream diet come true</p>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="container-fluid sticky-header" id="sticky-navbar">
+    <nav role="navigation">
+        <%= if has_session?(@conn) do %>
+          <%= link "Home", to: Routes.page_path(@conn, :index) %>
+          <%= link "About", to: "#" %>
+          <%= link "FAQ", to: "#" %>
+          <%= link "Products selection", to: Routes.live_path(@conn, FeedWeb.ProductLive) %>
+          <%= link "Products", to: Routes.product_path(@conn, :index) %>
+          <%= link "Create diet", to: Routes.diet_path(@conn, :new) %>
+          <%= link "Diets", to: Routes.diet_path(@conn, :index) %>
+          <%= link "Logout", to: Routes.session_path(@conn, :delete, extract_session(@conn)), method: :delete %>
+        <% else %>
+          <%= link "Home", to: Routes.page_path(@conn, :index) %>
+          <%= link "About", to: "#" %>
+          <%= link "FAQ", to: "#" %>
+          <%= link "Register", to: Routes.user_path(@conn, :new) %>
+          <%= link "Login", to: Routes.session_path(@conn, :new) %>
+        <% end %>
+        <a class="icon" id="header-icon">+</a>
+    </nav>
+  </div>
+</header>

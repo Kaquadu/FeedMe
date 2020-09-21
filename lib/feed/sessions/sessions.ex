@@ -23,7 +23,7 @@ defmodule Feed.Sessions do
 
   def terminate_user_session(id) do
     UserSession
-    |> @repo.get_by(UserSession, id: id)
+    |> @repo.get_by(id: id)
     |> UserSession.changeset(%{valid_until: DateTime.utc_now()})
     |> @repo.update()
   end

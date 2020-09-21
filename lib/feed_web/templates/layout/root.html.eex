@@ -9,19 +9,8 @@
     <%= csrf_meta_tag() %>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-            <%= if has_session?(@conn) do %>
-              <%= link "Logout", to: Routes.session_path(@conn, :delete, extract_session(@conn)), method: :delete %>
-            <% else %>
-              <%= link "Register", to: Routes.user_path(@conn, :new) %>
-              <%= link "Login", to: Routes.session_path(@conn, :new) %>
-            <% end %>
-        </nav>
-      </section>
-    </header>
-    <main role="main" class="container">
+    <%= render "header.html", assigns %>
+    <main role="main" class="container general-content">
       <%= @inner_content %>
     </main>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>

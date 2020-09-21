@@ -2,7 +2,8 @@
 // The MiniCssExtractPlugin is used to separate it out into
 // its own CSS file.
 import 'bootstrap';
-import css from "../css/app.scss"
+import css from "../css/app.scss";
+import Header from './header';
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -21,6 +22,13 @@ import "phoenix_html"
 import {Socket} from "phoenix"
 import LiveSocket from "phoenix_live_view"
 
-let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+var token_content = null;
+
+let csrfToken = document.querySelector("meta[name='csrf-token']");
+if (csrfToken != null) {
+  token_content = csrfToken.getAttribute("content");
+} else { }
+let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: token_content}})
 liveSocket.connect()
+
+Header.run();
