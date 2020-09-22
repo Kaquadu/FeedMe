@@ -4,6 +4,8 @@
 import 'bootstrap';
 import css from "../css/app.scss";
 import Header from './header';
+import Slider from './slider';
+import GoogleMap from './map';
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -32,3 +34,5 @@ let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: token_co
 liveSocket.connect()
 
 Header.run();
+Slider.run();
+GoogleMap.run();

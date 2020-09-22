@@ -16,7 +16,7 @@
     <nav role="navigation">
         <%= if has_session?(@conn) do %>
           <%= link "Home", to: Routes.page_path(@conn, :index) %>
-          <%= link "About", to: "#" %>
+          <%= link "Newsletter", to: "#" %>
           <%= link "FAQ", to: "#" %>
           <%= link "Products selection", to: Routes.live_path(@conn, FeedWeb.ProductLive) %>
           <%= link "Products", to: Routes.product_path(@conn, :index) %>
@@ -25,7 +25,7 @@
           <%= link "Logout", to: Routes.session_path(@conn, :delete, extract_session(@conn)), method: :delete %>
         <% else %>
           <%= link "Home", to: Routes.page_path(@conn, :index) %>
-          <%= link "About", to: "#" %>
+          <%= link "Newsletter", to: "#" %>
           <%= link "FAQ", to: "#" %>
           <%= link "Register", to: Routes.user_path(@conn, :new) %>
           <%= link "Login", to: Routes.session_path(@conn, :new) %>

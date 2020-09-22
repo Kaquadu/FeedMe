@@ -1,3 +1,266 @@
 .border-right {
   border-right: 2px $dark-grey;
 }
+.holder {
+  background-color: $white;
+}
+
+.first-section {
+  margin-top: 4vw;
+  width: 100%;
+  height: 80vh;
+  background-image: url("/images/fruits_hd.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-content: center;
+  justify-content: flex-end;
+  flex-direction: row;
+  background-color: white;
+  clip-path: polygon(
+    0 5vw,
+    100% 0,
+    100% calc(100% - 5vw),
+    0 100%
+  );
+}
+
+.first-section h1 {
+  color: white;
+  font-size: 78px;
+  margin-right: 10vw;
+  font-weight: 700;
+  width: 100%;
+  text-align: right;
+}
+
+.first-section p {
+  color: white;
+  font-weight: 700;
+  margin-right: 10vw;
+  font-size: large;
+  width: 100%;
+  text-align: right;
+}
+
+.floatbox {
+  position: absolute;
+  margin-top: -3vw;
+  background: rgb(17,0,124);
+  background: linear-gradient(0deg, rgba(17,0,124,1) 0%, rgba(9,102,121,1) 61%, rgba(0,212,255,1) 100%);
+  width: 300px;
+  height: 210px;
+  z-index: 1;
+  clip-path: polygon(
+    0 0,
+    100% 15%,
+    100% 100%,
+    0 100%
+  );
+}
+
+.floatbox h2 {
+  color: white;
+  font-size: large;
+  margin-left: 10px;
+  margin-top: 15%;
+}
+
+.floatbox p {
+  color: white;
+  margin-left: 10px;
+  margin-top: 15%;
+}
+
+.newsletter {
+  margin-top: 2vw;
+  display: flex;
+  width: 100%;
+  margin-bottom: 6vw;
+}
+
+.newsletter h1 {
+  font-size: 48px;
+  margin-bottom: 2vw;
+}
+
+.newsletter-title {
+  color: $dark-grey;
+}
+
+.newsletter-title h3 {
+  margin-left: 25px;
+  font-size: 22px;
+}
+
+.newsletter-title p {
+  text-align: right;
+  margin-right: 25px;
+}
+
+.newsletter-block {
+  border-bottom: 2px $dark-grey solid;
+  margin-bottom: 1vw;
+}
+
+.newsletter-text {
+  text-align: justify;
+}
+
+.newsletter-image {
+  height: 100%;
+  width: 100%;
+  max-width: 200px;
+  padding: 10px;
+  object-fit: cover;
+}
+
+.newsletter-link-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+}
+
+.newsletter-link-row a:hover {
+  text-decoration: none;
+}
+
+.slide {
+  margin-top: 200px;
+  margin-right: 20px;
+}
+
+.custom-slider {
+  position: relative;
+}
+
+.slider-image {
+  height: 200px;
+  width: 100%;
+  padding: 10px;
+  object-fit: cover;
+}
+
+.slider-dots-row {
+  display: flex;
+  justify-content: center;
+}
+
+.slider-dot {
+  height: 15px;
+  width: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.slider-dot:hover {
+  cursor: pointer;
+}
+
+.slider-dot-active {
+  height: 15px;
+  width: 15px;
+  background-color: $grey;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.slider-dot-active:hover {
+  cursor: pointer;
+}
+
+.google-map {
+  height: 150px;
+}
+
+.google-map-row {
+ margin-right: 25px; 
+}
+
+.features {
+  position: relative;
+  // height: 85vh;
+  padding-top: 10vh;
+  padding-bottom: 8vh;
+  display: flex;
+  align-content: flex-start;
+  justify-content: flex-start;
+  z-index: 1;
+  margin-bottom: 5vh;
+}
+
+.features-image-bg {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 70vh;
+  background-image: url("/images/slider2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  clip-path: polygon(
+    0 5vw,
+    100% 0,
+    100% calc(100% - 5vw),
+    0 100%
+  );
+}
+
+.features h1 {
+  color: white;
+  font-size: 48px;
+  margin-bottom: 2vw;
+  z-index: 1;
+}
+
+.features h2 {
+  color: white;
+  font-size: 23px;
+  margin-bottom: 1vw;
+  z-index: 1;
+}
+
+.features p {
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 1vw;
+  z-index: 1;
+  text-align: justify;
+}
+
+@media screen and (max-width: 770px) {
+  .first-section {
+    justify-content: center;
+  }
+  .first-section h1 {
+    font-size: 48px;
+    margin-right: 0px;
+  }
+
+  .first-section p {
+    margin-right: 0px;
+  }
+
+  .newsletter-image {
+    display: none;
+  }
+
+  .features {
+    background-color: $dark-grey;
+    clip-path: polygon(
+    0 5vw,
+    100% 0,
+    100% calc(100% - 5vw),
+    0 100%
+  );
+  }
+
+  .features-image-bg{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .floatbox {display: none;}
+}

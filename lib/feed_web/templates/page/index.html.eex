@@ -1,8 +1,107 @@
-<h1>Feed me</h1>
-<div class="row">
-  <div class="col-md-6 border-right">
+<div class="floatbox">
+  <h2>Our applications is growing!</h2>
+  <span class="hand-holding-seedling"/>
+  <p>We've got over 2000 registered users. Register right now and get your new diet for free!</p>
+</div>
+
+<div class="first-section row">
+  <h1>Healthy meals</h1>
+  <p>Get your new healthy diet fast and easy, register right now!</p>
+</div>
+
+<div class="newsletter row">
+  <h1>Newsletter</h1>
+  <%= for _n <- 0..2 do %>
+    <div class="newsletter-block col-md-12">
+      <div class="newsletter-title row">
+        <div class="col-md-6">
+          <h3>News title</h3>
+        </div>
+        <div class="col-md-6">
+          <p>20.09.2020</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <%= img_tag(Routes.static_path(@conn, "/images/fruits_basket.png"), class: "newsletter-image") %>
+        </div>
+        <div class="col-md-9">
+          <p class="newsletter-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a ipsum nec est condimentum placerat tincidunt non orci. Fusce vitae scelerisque nunc. Ut vel iaculis quam. Aliquam erat volutpat. Vestibulum consectetur velit vel augue efficitur, non fermentum ex dignissim. Suspendisse justo elit, blandit vel sapien non, gravida sodales elit.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In a ipsum nec est condimentum placerat tincidunt non orci. Fusce vitae scelerisque nunc. Ut vel iaculis quam. Aliquam erat volutpat.
+          </p>
+        </div>
+      </div>
+      <div class="newsletter-link-row row">
+        <%= link "Read more", to: "#" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="features row">
+  <h1 class="col-md-12">Features</h1>
+  <div class="features-image-bg">
   </div>
   <div class="col-md-6">
-    asdf
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Connection between science and lifestyle</h2>
+        <p>Set up your diet parameters and let us do the math. We are working daily to find the best solutions in diets calculations.
+        Our algorithms are made with passion and knowledge.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Easy solution</h2>
+        <p>Make new diets, play with them and share with friends. Our solution is easy, scalable and just FUN.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Connection between science and lifestyle</h2>
+        <p>Set up your diet parameters and let us do the math. We are working daily to find the best solutions in diets calculations.
+        Our algorithms are made with passion and knowledge.</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Easy solution</h2>
+        <p>Make new diets, play with them and share with friends. Our solution is easy, scalable and just FUN.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="custom-slider">
+  <%= for n <- 0..2 do %>
+    <div class="slide row">
+      <div class="col-sm-12">
+        <%= img_tag(Routes.static_path(@conn, "/images/slider#{n}.jpg"), class: "slider-image") %>
+      </div>
+    </div>
+  <% end %>
+  <div class="slider-dots-row row">
+    <%= for n <- 0..2 do %>
+      <span class="slider-dot" data-trigger="<%= n %>"></span>&nbsp;
+    <% end %>
+  </div>
+</div>
+
+
+<%# <script defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9P3JwgOiGxIez3lICvKQtYZmMJlvdTqg&callback=initMap">
+</script> %>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyD9P3JwgOiGxIez3lICvKQtYZmMJlvdTqg"></script>
+<div class="google-map-row row">
+  <div class="col-md-12">
+    <div id="map" class="google-map"></div>
   </div>
 </div>

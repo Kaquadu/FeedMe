@@ -10,9 +10,10 @@
   </head>
   <body>
     <%= render "header.html", assigns %>
-    <main role="main" class="container general-content">
+    <main role="main" class="conatiner">
       <%= @inner_content %>
     </main>
+    <%= render "footer.html", assigns %>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>
