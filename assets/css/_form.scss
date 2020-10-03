@@ -7,6 +7,10 @@
   min-height: 70vh;
 }
 
+.no-height {
+  min-height: 0;
+}
+
 .main-form label {
   display: inline-block;
   color: black;
@@ -40,4 +44,8 @@
   background-color: $grey;
   border: none;
   border-radius: 20px;
+}
+
+.submit-button:focus {
+  outline: none;
 }

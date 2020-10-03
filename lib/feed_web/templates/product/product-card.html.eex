@@ -1,0 +1,21 @@
+<div class="product-card">
+    <img src="<%= @product.photo %>"></img>
+    <h2> <%= String.capitalize(@product.name) %> </h2>
+    Calories / 100g: <%= Float.round(@product.calories, 2) %> <br>
+    Fats / 100g: <%= Float.round(@product.fats, 2) %> <br>
+    Carbs / 100g: <%= Float.round(@product.carbs, 2) %> <br>
+    Proteins / 100g: <%= Float.round(@product.proteins, 2) %> <br>
+    <%= for meal<-["dinner", "breakfast", "other"] do %>
+      <%= form_for @changeset, "", [phx_submit: "add_product"], fn f -> %>
+        <%= hidden_input f, :name, value: @product.name %>
+        <%= hidden_input f, :calories, value: @product.calories %>
+        <%= hidden_input f, :fats, value: @product.fats %>
+        <%= hidden_input f, :carbs, value: @product.carbs %>
+        <%= hidden_input f, :proteins, value: @product.proteins %>
+        <%= hidden_input f, :photo_url, value: @product.photo %>
+        <%= hidden_input f, :user_id, value: @user_session.user_id %>
+        <%= hidden_input f, :meal, value: meal %>
+        <%= submit "Add #{meal} product", class: "submit-button" %>
+      <% end %>
+    <% end %>
+</div>

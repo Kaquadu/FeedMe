@@ -1,30 +1,12 @@
-<%= form_for @changeset, "", [phx_submit: "search"], fn f -> %>
-  <%= text_input f, :query, placeholder: "Product name" %>
-  <%= submit "Submit" %>
-<% end %>
-<br>
-
-<%= @timestamp %> <br> <br>
-
-<%= for product<-@products do %>
-  Name: <%= product.name %> <br>
-  Calories: <%= product.calories %> <br>
-  Fats: <%= product.fats %> <br>
-  carbs: <%= product.carbs %> <br>
-  Proteins: <%= product.proteins %> <br>
-  Photo link: <%= product.photo %> <br>
-  <%= for meal<-["dinner", "breakfast", "other"] do %>
-    <%= form_for @changeset, "", [phx_submit: "add_product"], fn f -> %>
-      <%= hidden_input f, :name, value: product.name %>
-      <%= hidden_input f, :calories, value: product.calories %>
-      <%= hidden_input f, :fats, value: product.fats %>
-      <%= hidden_input f, :carbs, value: product.carbs %>
-      <%= hidden_input f, :proteins, value: product.proteins %>
-      <%= hidden_input f, :photo_url, value: product.photo %>
-      <%= hidden_input f, :user_id, value: @user_session.user_id %>
-      <%= hidden_input f, :meal, value: meal %>
-      <%= submit "Add #{meal} product" %>
-    <% end %>
+<div class="products-search">
+  <%= form_for @changeset, "", [phx_submit: "search", class: "main-form no-height"], fn f -> %>
+    <%= text_input f, :query, placeholder: "Product name" %>
+    <%= submit "Submit", class: "submit-button" %>
   <% end %>
-  <br><br>
-<% end %>
+
+  <div class="results">
+    <%= for product<-@products do %>
+        <%= render "product-card.html", product: product, changeset: @changeset, user_session: @user_session %>
+    <% end %>
+  </div>
+</div>
