@@ -126,7 +126,7 @@
 }
 
 .slide {
-  margin-top: 200px;
+  // margin-top: 200px;
   margin-right: 20px;
 }
 
@@ -168,14 +168,6 @@
 
 .slider-dot-active:hover {
   cursor: pointer;
-}
-
-.google-map {
-  height: 150px;
-}
-
-.google-map-row {
- margin-right: 25px; 
 }
 
 .features {
@@ -227,6 +219,12 @@
   margin-bottom: 1vw;
   z-index: 1;
   text-align: justify;
+}
+
+.grey {
+  margin-bottom: 50px;
+  margin-top: calc(100px + 5vh);
+  color: $dark-grey;
 }
 
 @media screen and (max-width: 770px) {

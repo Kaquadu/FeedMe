@@ -1,18 +1,32 @@
-<%= form_for @changeset, @action, [multipart: true], fn f -> %>
-  <%= text_input f, :name, placeholder: gettext("Name"), required: true %>
-  <%= error_tag f, :name %>
-  <%= number_input f, :calories, placeholder: gettext("Calories"), required: true %>
-  <%= error_tag f, :calories %>
-  <%= number_input f, :no_big_meals, placeholder: gettext("Number of big meals"), required: true, min: 1 %>
-  <%= error_tag f, :no_big_meals %>
-  <%= number_input f, :no_small_meals, placeholder: gettext("Number of small meals"), required: true, min: 2 %>
-  <%= error_tag f, :no_small_meals %>
-  <%= number_input f, :fats, placeholder: gettext("Fats"), required: true %>
-  <%= error_tag f, :fats %>
-  <%= number_input f, :carbs, placeholder: gettext("Carbs"), required: true %>
-  <%= error_tag f, :carbs %>
-  <%= number_input f, :proteins, placeholder: gettext("Proteins"), required: true %>
-  <%= error_tag f, :proteins %>
-  <%= hidden_input f, :user_id, value: @user.id %>
-  <%= submit gettext("Submit") %>
+<%= form_for @changeset, @action, [multipart: true, class: "main-form"], fn f -> %>
+  <div class="form-row">
+    <%= text_input f, :name, placeholder: gettext("Name"), required: true %>
+    <%= error_tag f, :name %>
+  </div>
+  <div class="form-row">
+    <%= number_input f, :calories, placeholder: gettext("Calories"), required: true %>
+    <%= error_tag f, :calories %>
+  </div>
+  <div class="form-row">
+    <%= number_input f, :no_big_meals, placeholder: gettext("Number of big meals"), required: true, min: 1 %>
+    <%= error_tag f, :no_big_meals %>
+  </div>
+  <div class="form-row">
+    <%= number_input f, :no_small_meals, placeholder: gettext("Number of small meals"), required: true, min: 2 %>
+    <%= error_tag f, :no_small_meals %>
+  </div>
+  <div class="form-row">
+    <%= number_input f, :fats, placeholder: gettext("Fats"), required: true %>
+    <%= error_tag f, :fats %>
+  </div>
+  <div class="form-row">
+    <%= number_input f, :carbs, placeholder: gettext("Carbs"), required: true %>
+    <%= error_tag f, :carbs %>
+  </div>
+  <div class="form-row">
+    <%= number_input f, :proteins, placeholder: gettext("Proteins"), required: true %>
+    <%= error_tag f, :proteins %>
+  </div>
+    <%= hidden_input f, :user_id, value: @user.id %>
+  <%= submit gettext("Submit"), class: "submit-button" %>
 <% end %>

@@ -1,19 +1,27 @@
-<%= form_for @changeset, @action, @opts, fn f -> %>
-  <%= label f, :nickname %>
-  <%= text_input f, :nickname %>
-  <%= error_tag f, :nickname %>
+  <%= form_for @changeset, @action, @opts ++ [class: "main-form"], fn f -> %>
+    <div class="form-row">
+      <%= label f, :nickname %>
+      <%= text_input f, :nickname %>
+      <%= error_tag f, :nickname %>
+    </div>
 
-  <%= label f, :email %>
-  <%= text_input f, :email %>
-  <%= error_tag f, :email %>
+    <div class="form-row">
+      <%= label f, :email %>
+      <%= text_input f, :email %>
+      <%= error_tag f, :email %>
+    </div>
 
-  <%= label f, :password %>
-  <%= password_input f, :password %>
-  <%= error_tag f, :password %>
+    <div class="form-row">
+      <%= label f, :password %>
+      <%= password_input f, :password %>
+      <%= error_tag f, :password %>
+    </div>
 
-  <%= label f, :password_confirmation %>
-  <%= password_input f, :password_confirmation %>
-  <%= error_tag f, :password_confirmation %>
-  
-  <%= submit "Register" %>
-<% end %>
+    <div class="form-row">
+      <%= label f, :password_confirmation %>
+      <%= password_input f, :password_confirmation %>
+      <%= error_tag f, :password_confirmation %>
+    </div>
+
+    <%= submit "Register", class: "submit-button" %>
+  <% end %>

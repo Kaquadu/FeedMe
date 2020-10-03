@@ -78,30 +78,45 @@
     </div>
   </div>
 </div>
-
-
-<div class="custom-slider">
-  <%= for n <- 0..2 do %>
-    <div class="slide row">
-      <div class="col-sm-12">
-        <%= img_tag(Routes.static_path(@conn, "/images/slider#{n}.jpg"), class: "slider-image") %>
+<div class="grey">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>How it works?</h1>
+    </div>
+    <div class="col-md-12">
+      <div class="custom-slider">
+        <%= for n <- 0..2 do %>
+          <div class="slide row">
+            <div class="col-sm-12">
+              <%= img_tag(Routes.static_path(@conn, "/images/slider#{n}.jpg"), class: "slider-image") %>
+            </div>
+          </div>
+        <% end %>
+        <div class="slider-dots-row row">
+          <%= for n <- 0..2 do %>
+            <span class="slider-dot" data-trigger="<%= n %>"></span>&nbsp;
+          <% end %>
+        </div>
       </div>
     </div>
-  <% end %>
-  <div class="slider-dots-row row">
-    <%= for n <- 0..2 do %>
-      <span class="slider-dot" data-trigger="<%= n %>"></span>&nbsp;
-    <% end %>
-  </div>
-</div>
-
-
-<%# <script defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9P3JwgOiGxIez3lICvKQtYZmMJlvdTqg&callback=initMap">
-</script> %>
-<script src="http://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyD9P3JwgOiGxIez3lICvKQtYZmMJlvdTqg"></script>
-<div class="google-map-row row">
-  <div class="col-md-12">
-    <div id="map" class="google-map"></div>
+    <div class="col-md-6">
+      <h2>1. Register</h2>
+      <p>First of all you need to register. By setting up your account you are enabling us to work on your dream diet.</p>
+    </div>
+    <div class="col-md-6">
+      <h2>2. Specify your diet</h2>
+      <p>After registration you will need to specify your diet parameters such as: calories, carbs, fats and proteins. You can also choose one of our basic plans.</p>
+    </div>
+    <div class="col-md-6">
+      <h2>3. Choose products</h2>
+      <p>Now it is time to choose products. We are using the big database of products, where you will find all the ingridients.</p>
+    </div>
+    <div class="col-md-6">
+      <h2>4. Request daily meals</h2>
+      <p>After specifying your diet you will obtain an option to request your daily meals. It is as simple as that - just press a single button and let us create the diet for you.</p>
+    </div>
+    <div class="col-md-6">
+      <h2>5. Eat your food :)</h2>
+    </div>
   </div>
 </div>

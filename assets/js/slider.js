@@ -34,7 +34,7 @@ const Slider = {
       self.show_slide(self, 0, slides, dots);
     }
 
-    setTimeout(self.slideshow, 8000, self, slides, dots)
+    setTimeout(self.slideshow, 4000, self, slides, dots)
   },
 
   hide_slides(slides, dots) {

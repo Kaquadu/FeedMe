@@ -1,0 +1,43 @@
+.main-form {
+  color: $dark-grey;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.main-form label {
+  display: inline-block;
+  color: black;
+}
+
+.main-form input {
+  display: inline-block;
+  height: 40px;
+  width: 280px;
+  border-radius: 20px;
+  border: 1px solid $dark-grey;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.main-form input:focus {
+  outline: none;
+}
+
+.form-row {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submit-button {
+  margin-top: 30px;
+  height: 40px;
+  width: 240px;
+  background-color: $grey;
+  border: none;
+  border-radius: 20px;
+}

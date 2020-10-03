@@ -6,6 +6,7 @@ import css from "../css/app.scss";
 import Header from './header';
 import Slider from './slider';
 import GoogleMap from './map';
+import Footer from './footer';
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -36,3 +37,4 @@ liveSocket.connect()
 Header.run();
 Slider.run();
 GoogleMap.run();
+Footer.run();

@@ -1,11 +1,15 @@
-<%= form_for @changeset, Routes.session_path(@conn, :create), [multiplart: true], fn f -> %>
-  <%= label f, :email %>
-  <%= text_input f, :email %>
-  <%= error_tag f, :email %>
+<%= form_for @changeset, Routes.session_path(@conn, :create), [multiplart: true, class: "main-form"], fn f -> %>
+  <div class="form-row">
+    <%= label f, :email %>
+    <%= text_input f, :email %>
+    <%= error_tag f, :email %>
+  </div>
 
-  <%= label f, :password %>
-  <%= password_input f, :password %>
-  <%= error_tag f, :password %>
+  <div class="form-row">
+    <%= label f, :password %>
+    <%= password_input f, :password %>
+    <%= error_tag f, :password %>
+  </div>
 
-  <%= submit "Submit" %>
+  <%= submit "Submit", class: "submit-button" %>
 <% end %>

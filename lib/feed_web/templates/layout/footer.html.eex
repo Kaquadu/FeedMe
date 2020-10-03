@@ -1,4 +1,35 @@
 <div class="footer">
-
-
+  <div class="container">
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyD9P3JwgOiGxIez3lICvKQtYZmMJlvdTqg"></script>
+    <div class="row">
+      <div class="col-md-4">
+        <div id="map" class="google-map"></div>
+      </div>
+      <div class="col-md-2">
+        <h1 id="toggle-address-button"> Address +</h1>
+        <div id="toggle-address" style="display:none;">
+          <p> Hulkowa st. 21/37 </p>
+          <p> 11-123 Hulktopia </p>
+          <p> Poland </p>
+          <p> hulkownia@hulk.hk </p>
+          <p> +48 500 500 500 </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h1 id="toggle-invoice-button"> Invoice data +</h1>
+        <div id="toggle-invoice" style="display:none;">
+          <p> Hulkownia Sp. Z.o.o. </p>
+          <p> Hulkowa st. 21/37 </p>
+          <p> 11-123 Hulktopia </p>
+          <p> NIP: 7771118811 <p>
+          <p> REGON: 0123456789 </p>
+          <p> KRS: 0000999999 </p>
+          <p> PL 99 1999 2222 0001 0001 1000 1000</p>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <%= link "Page Top", to: "#", class: "top-back" %>
+      </div>
+    </div>
+  </div>
 </div>
