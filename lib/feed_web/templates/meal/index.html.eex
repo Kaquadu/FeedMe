@@ -1,0 +1,28 @@
+<% IO.inspect @mealsets %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Diet name</th>
+      <th>Mealset date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for mealset<-@mealsets do %>
+      <tr>
+        <td><%= mealset.diet.name %></td>
+        <td><%= mealset.day %></td>
+      </tr>
+      <tr>
+        <th>Meals</th>
+      </tr>
+      <tr>
+        <div class="">
+          <%= for meal<-mealset.meals do %>
+
+          <% end %>
+        </div>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

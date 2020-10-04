@@ -52,7 +52,8 @@
         </td>
         <td>
           <%= link "Delete", to: Routes.diet_path(@conn, :delete, diet), method: :delete %>
-          <%= link "Request meals", to: Routes.diet_path(@conn, :request_daily_diet, diet) %>
+          <%= link "Diet meals", to: Routes.meal_path(@conn, :index, diet.id), method: :get %>
+          <%= link "Request meal", to: Routes.diet_path(@conn, :request_daily_diet, diet) %>
         </td>
       </tr>
     <% end %>

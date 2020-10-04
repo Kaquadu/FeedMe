@@ -43,8 +43,18 @@ defmodule FeedWeb.DietController do
   end
 
   def request_daily_diet(conn, %{"id" => diet_id}) do
-    diet_data = Diets.request_daily_meals(diet_id)
-    render(conn, "request_daily_diet.html", diet_data: diet_data)
+    diet_id
+    |> Diets.request_daily_meals()
+    |> case do
+      {:error, reason} ->
+        conn
+        |> put_flash(:info, reason)
+        |> redirect(to: Routes.diet_path(conn, :index))
+      _ ->
+        conn
+        |> put_flash(:info, "Diet added to calculation queue")
+        |> redirect(to: Routes.diet_path(conn, :index))
+    end
   end
 
   defp append_diet(conn, _) do

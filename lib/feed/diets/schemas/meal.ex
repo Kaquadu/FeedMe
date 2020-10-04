@@ -3,6 +3,9 @@ defmodule Feed.Diets.Meal do
 
   alias Feed.Auth.User
   alias Feed.Diets.Mealset
+  alias Feed.Diets.BreakfastIngridient
+  alias Feed.Diets.DinnerIngridient
+  alias Feed.Diets.OtherIngridient
   alias Feed.Statistics.MealStatistics
 
   @required_fields ~w(desired_calories desired_fats desired_carbs desired_proteins mealset_id user_id)a
@@ -23,26 +26,9 @@ defmodule Feed.Diets.Meal do
 
     has_one :meal_statistics, MealStatistics
 
-    many_to_many(
-      :breakfast_products,
-      {"breakfast_products", Feed.Diets.Product},
-      join_through: "meals_breakfast_products",
-      on_replace: :delete
-    )
-
-    many_to_many(
-      :dinner_products,
-      {"dinner_products", Feed.Diets.Product},
-      join_through: "meals_dinner_products",
-      on_replace: :delete
-    )
-
-    many_to_many(
-      :other_products,
-      {"other_products", Feed.Diets.Product},
-      join_through: "meals_other_products",
-      on_replace: :delete
-    )
+    has_many :breakfast_ingridients, BreakfastIngridient
+    has_many :dinner_ingridients, DinnerIngridient
+    has_many :other_ingridients, OtherIngridient
 
     timestamps()
   end
@@ -51,9 +37,9 @@ defmodule Feed.Diets.Meal do
     meal
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> cast_assoc(:meal_statistics, with: &MealStatistics.changeset()/2)
-    |> cast_assoc(:breakfast_products)
-    |> cast_assoc(:dinner_products)
-    |> cast_assoc(:other_products)
+    |> cast_assoc(:breakfast_ingridients, with: &BreakfastIngridient.changeset()/2)
+    |> cast_assoc(:dinner_ingridients, with: &DinnerIngridient.changeset()/2)
+    |> cast_assoc(:other_ingridients, with: &OtherIngridient.changeset()/2)
     |> validate_required(@required_fields)
   end
 end

@@ -16,26 +16,12 @@ defmodule Feed.Diets.Product do
 
     belongs_to :user, User
 
-    many_to_many(
-      :meals,
-      Feed.Diets.Meal,
-      join_through: "meals_breakfast_products",
-      on_replace: :delete
-    )
-
     timestamps()
   end
 
   def changeset(product, attrs \\ %{}) do
     product
     |> cast(attrs, @required_fields ++ @optional_fields)
-    |> cast_assoc(:meals)
     |> validate_required(@required_fields)
-  end
-
-  def changeset_update_product_meals(product, meals) do
-    product
-    |> cast(%{}, @required_fields ++ @optional_fields)
-    |> put_assoc(:meals, meals)
   end
 end

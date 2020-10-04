@@ -35,28 +35,35 @@ defmodule Feed.Diets do
   def get_diet(diet_id), do: @repo.get_by(Diet, id: diet_id)
 
   def request_daily_meals(diet_id) do
-    if is_diet_already_in_queue?(diet_id) || mealset_for_tomorrow_exists?(diet_id) do
-      {:error, "Already exists"}
-    else
-      DietsWorker.insert_diet_request(diet_id)
+    diet_id
+    |> check_diet_queue()
+    |> check_mealsets()
+    |> case do
+      {:error, reason} -> {:error, reason}
+      diet_id -> DietsWorker.insert_diet_request(diet_id)
     end
   end
 
-  defp is_diet_already_in_queue?(diet_id) do
-    if DietsWorker.check_diet(diet_id) do
-      true
+  defp check_diet_queue(diet_id) do
+    if DietsWorker.check_diet(diet_id) != [] do
+      {:error, "Already enqueued"}
     else
-      false
+      diet_id
     end
   end
 
-  defp mealset_for_tomorrow_exists?(diet_id) do
+  defp check_mealsets(diet_id) do
     tomorrow = Date.utc_today() |> Timex.shift(days: 1)
 
     (from m in Mealset, as: :mealset)
     |> where([mealset: m], m.diet_id == ^diet_id)
     |> where([mealset: m], m.day == ^tomorrow)
     |> @repo.exists?()
+    |> if do
+      {:error, "Already calculated"}
+    else
+      diet_id
+    end
   end
 
   def get_daily_meals(diet_id) do
@@ -92,9 +99,9 @@ defmodule Feed.Diets do
       Enum.map(all_meals, fn meal ->
         meal
         |> prepare_meal_changeset(mealset)
-        |> repo.insert()
+        |> repo.insert!()
       end)
-      |> Enum.any?(fn {status, _} -> status == :error end)
+      |> Enum.any?(fn status -> status == :error end)
       |> if do
         {:error, mealset}
       else
@@ -129,16 +136,17 @@ defmodule Feed.Diets do
       }},
     %{id: mealset_id, user_id: user_id} = _mealset) do
 
-      {product, _portion} = List.first(ingridients)
-      products =
+      {product, _} = List.first(ingridients)
+
+      ingridients = Enum.map(ingridients, fn {product, weight} -> %{product_id: product.id, weight: weight} end)
+
+      ingridients_data =
         case product.__meta__.source do
-          "breakfast_products" ->
-            %{breakfast_products_ids: Enum.map(ingridients, fn {p, _portions} -> p.id end)}
-          "dinner_products" ->
-            %{dinner_products_ids: Enum.map(ingridients, fn {p, _portions} -> p.id end)}
-          "other_products" ->
-            %{other_products_ids: Enum.map(ingridients, fn {p, _portions} -> p.id end)}
+          "breakfast_products" -> %{breakfast_ingridients: ingridients}
+          "dinner_products" -> %{dinner_ingridients: ingridients}
+          "other_products" -> %{other_ingridients: ingridients}
         end
+
 
       params = %{
         desired_calories: desired_calories,
@@ -157,10 +165,10 @@ defmodule Feed.Diets do
           coeff_proteins: coeff_proteins,
           coeff_carbs: coeff_carbs,
           coeff_fats: coeff_fats
-        } |> Map.merge(products)
-      }
+        }
+      } |> Map.merge(ingridients_data)
 
-      Feed.Diets.Meal.changeset(%Meal{}, params) |> IO.inspect
+      Feed.Diets.Meal.changeset(%Meal{}, params)
   end
 
   def create_meal(attrs) do
@@ -171,5 +179,12 @@ defmodule Feed.Diets do
 
   def get_user_meals(user_id) do
     @repo.all(Meal, user_id: user_id)
+  end
+
+  def get_diet_mealsets(diet_id) do
+    Mealset
+    |> where([m], m.diet_id == ^diet_id)
+    |> preload([:diet, {:meals, [{:breakfast_ingridients, :product}, {:dinner_ingridients, :product}, {:other_ingridients, :product}]}])
+    |> @repo.all()
   end
 end
