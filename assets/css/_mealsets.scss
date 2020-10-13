@@ -1,0 +1,49 @@
+.mealsets {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-height: 70vh;
+}
+
+
+.mealset-card {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 15px;
+  // width: 100%;
+  border: 1px solid $grey;
+  border-radius: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.mealset-card h2 {
+  margin-top: 15px;
+  color: $dark-grey;
+  text-align: center;
+}
+
+.mealset-card h3 {
+  margin-top: 10px;
+  color: $dark-grey;
+  text-align: center;
+  font-size: medium;
+  font-weight: 600;
+}
+
+.meal-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.meal-card {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid $grey;
+  border-radius: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

@@ -11,7 +11,6 @@ defmodule FeedWeb.ProductLive do
   end
 
   def handle_event("search", %{"product_search" => %{"query" => query}}, socket) do
-    IO.inspect "search #{query}"
     products = Feed.NutritionixApi.get_products(query)
     {:noreply, assign(socket, products: products, timestamp: :os.system_time(:millisecond))}
   end

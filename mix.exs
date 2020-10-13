@@ -5,7 +5,7 @@ defmodule Feed.MixProject do
     [
       app: :feed,
       version: "0.1.0",
-      elixir: "~> 1.5",
+      elixir: ">= 1.10.0",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -41,14 +41,15 @@ defmodule Feed.MixProject do
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
-      {:jason, "~> 1.0", override: true},
+      {:jason, "~> 1.2", override: true},
       {:plug_cowboy, "~> 2.0"},
       {:bcrypt_elixir, "~> 2.0"},
       {:bamboo, "~> 1.4", override: true},
       {:timex, "~> 3.5"},
       {:phoenix_live_view, "~> 0.13.3"},
       {:floki, ">= 0.0.0", only: :test},
-      {:httpoison, "~> 1.6"}
+      {:httpoison, "~> 1.6"},
+      {:erlport, "~> 0.10.1"}
     ]
   end
 

@@ -18,6 +18,14 @@ defmodule Feed.Products do
     |> @repo.insert_or_update()
   end
 
+  def get_product_by_id(id) do
+    @repo.get_by({@breakfast_products_table_name, Product}, id: id)
+    ||
+    @repo.get_by({@dinner_products_table_name, Product}, id: id)
+    ||
+    @repo.get_by({@other_products_table_name, Product}, id: id)
+  end
+
   defp get_product(%{"name" => name, "user_id" => user_id}, table_name) do
     @repo.get_by(
       {table_name, Product},

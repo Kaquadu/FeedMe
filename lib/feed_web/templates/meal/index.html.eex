@@ -1,28 +1,42 @@
 <% IO.inspect @mealsets %>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Diet name</th>
-      <th>Mealset date</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for mealset<-@mealsets do %>
-      <tr>
-        <td><%= mealset.diet.name %></td>
-        <td><%= mealset.day %></td>
-      </tr>
-      <tr>
-        <th>Meals</th>
-      </tr>
-      <tr>
-        <div class="">
-          <%= for meal<-mealset.meals do %>
+<div class="mealsets">
+  <%= for mealset<-@mealsets do %>
 
-          <% end %>
-        </div>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="mealset-card">
+      <h2>Diet for <%= mealset.day %></h2>
+      <hr>
+
+      <div class="meal-cards">
+        <%= for meal<-mealset.meals do %>
+          <div class="meal-card">
+
+            <%= if meal.breakfast_ingridients != [] do %>
+              <h3>Breakfast</h3>
+              <%= for ingridient<-meal.breakfast_ingridients do %>
+                <%= ingridient.product.name %>: <%= ingridient.weight %> g. <br>
+              <% end %>
+            <% end %>
+
+            <%= if meal.dinner_ingridients != [] do %>
+              <h3>Dinner</h3>
+              <%= for ingridient<-meal.dinner_ingridients do %>
+                <%= ingridient.product.name %>: <%= ingridient.weight %> g. <br>
+              <% end %>
+            <% end %>
+
+            <%= if meal.other_ingridients != [] do %>
+              <h3>Other meal</h3>
+              <%= for ingridient<-meal.other_ingridients do %>
+                <%= ingridient.product.name %>: <%= ingridient.weight %> g. <br>
+              <% end %>
+            <% end %>
+
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+
+  <% end %>
+</div>

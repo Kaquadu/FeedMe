@@ -2,7 +2,7 @@ defmodule Feed.Diets.Calculator do
   alias Feed.Combinations
 
   @max_portions 3
-  @portions_step 0.5
+  @portions_step 0.4
 
   @fit_func_calories_coeff 10
   @fit_func_proteins_coeff 6
@@ -25,18 +25,17 @@ defmodule Feed.Diets.Calculator do
   defp calculate_best_combination(products, diet_stats) do
     k = length(products)
 
+    IO.inspect "Portions"
     portions = products |> prepare_products_portions()
 
-    IO.inspect("Portions step")
     # |> Enum.reject(fn {_product, portion} -> portion == 0 end)
 
+    IO.inspect "Combinations"
     combinations = portions |> get_all_products_combinations(k)
 
-    IO.inspect("Combinations step")
-
+    IO.inspect "Reduce doubles"
     combinations = combinations |> reduce_doubles(k)
 
-    IO.inspect("Remove doubles step")
 
     combinations
     |> get_best_meal({@empty_meal, :infinity}, diet_stats)
@@ -156,6 +155,7 @@ defmodule Feed.Combinations do
   def combinations(_list, 0), do: [[]]
   def combinations(list = [], _num), do: list
   def combinations([head | tail], num) do
+    IO.inspect "."
     Enum.map(combinations(tail, num - 1), &[head | &1]) ++ combinations(tail, num)
   end
 end

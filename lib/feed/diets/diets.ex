@@ -52,6 +52,8 @@ defmodule Feed.Diets do
     end
   end
 
+  defp check_mealsets({:error, _} = error), do: error
+
   defp check_mealsets(diet_id) do
     tomorrow = Date.utc_today() |> Timex.shift(days: 1)
 

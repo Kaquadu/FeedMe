@@ -78,7 +78,7 @@ defmodule Feed.Diets.MealsServingService do
   end
 
   defp append_meal(meal_stats, diet, current_meals, :big) do
-    if (current_meals |> length()) >= (diet.no_big_meals - 1) do
+    if (current_meals |> length()) >= (diet.no_big_meals) do
       current_meals
     else
       current_meals = [%{calculated: get_other_big_meal(meal_stats, diet.user_id), desired: meal_stats} | current_meals]
@@ -87,7 +87,7 @@ defmodule Feed.Diets.MealsServingService do
   end
 
   defp append_meal(meal_stats, diet, current_meals, :small) do
-    if (current_meals |> length()) >= (diet.no_small_meals - 1) do
+    if (current_meals |> length()) >= (diet.no_small_meals) do
       current_meals
     else
       current_meals = [%{calculated: get_other_small_meal(meal_stats, diet.user_id), desired: meal_stats} | current_meals]
@@ -108,6 +108,7 @@ defmodule Feed.Diets.MealsServingService do
   end
 
   defp calculate_portion(products, meal_stats) do
-    Calculator.calculate_meal(products, meal_stats)
+    # Calculator.calculate_meal(products, meal_stats)
+    Feed.PythonDietService.calculate_meal(products, meal_stats)
   end
 end
