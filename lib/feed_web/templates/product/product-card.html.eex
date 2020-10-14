@@ -1,10 +1,10 @@
 <div class="product-card">
     <img src="<%= @product.photo %>"></img>
     <h2> <%= String.capitalize(@product.name) %> </h2>
-    Calories / 100g: <%= Float.round(@product.calories, 2) %> <br>
-    Fats / 100g: <%= Float.round(@product.fats, 2) %> <br>
-    Carbs / 100g: <%= Float.round(@product.carbs, 2) %> <br>
-    Proteins / 100g: <%= Float.round(@product.proteins, 2) %> <br>
+    <span>Calories / 100g: <%= Float.round(@product.calories, 2) %></span>
+    <span>Fats / 100g: <%= Float.round(@product.fats, 2) %></span>
+    <span>Carbs / 100g: <%= Float.round(@product.carbs, 2) %></span>
+    <span>Proteins / 100g: <%= Float.round(@product.proteins, 2) %></span>
     <%= for meal<-["dinner", "breakfast", "other"] do %>
       <%= form_for @changeset, "", [phx_submit: "add_product"], fn f -> %>
         <%= hidden_input f, :name, value: @product.name %>

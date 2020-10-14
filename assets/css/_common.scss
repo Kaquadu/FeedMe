@@ -1,3 +1,12 @@
 .alert {
   z-index: 5;
 }
+
+
+.submit-button-red {
+  height: 40px;
+  width: 240px;
+  background-color: $grey;
+  border: 1px solid #ffb3ad;
+  border-radius: 20px;
+}

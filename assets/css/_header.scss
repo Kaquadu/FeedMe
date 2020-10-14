@@ -29,6 +29,11 @@
 .header-top {
   background-color: $white;
   padding-top: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-top h1 {
@@ -40,17 +45,9 @@
 }
 
 .header-top img {
+  margin-top: -30px;
+  padding-right: 30px;
   height: 98px;
-}
-
-.heading-right {
-  display: flex;
-  justify-content: flex-start;
-}
-
-.heading-left {
-  display: flex;
-  justify-content: flex-end;
 }
 
 .sticky {
@@ -61,6 +58,13 @@
 
 .sticky + .general-content {
   padding-top: 102px;
+}
+
+.navbar {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 30px;
+  margin-right: 30px;
 }
 
 @media screen and (max-width: 600px) {
@@ -86,15 +90,7 @@
     text-align: left;
   }
 
-  .heading-left {
+  .header-top img {
     display: none;
-  }
-
-  .heading-right {
-    justify-content: center;
-  }
-
-  .header-top {
-    justify-content: center;
   }
 }

@@ -1,106 +1,67 @@
-<div class="container">
-<h1>Products</h1>
+<div class="products">
+<h1>My products list</h1>
 
-<h2>Breakfast</h2>
+<h2>Breakfast products</h2>
 <%= for product<-@products.breakfast do %>
-  <div class="row">
-    <div class="col-md-4">
-      <%= product.name %>
+  <div class="product-item-box">
+    <div class="product-item-box__look">
+      <h3> <%= String.capitalize(product.name) %> </h3>
+      <img src="<%= product.photo_url %>" class="product-item-box__image"></img>
     </div>
-    <div class="col-md-4">
-      <div class="row">
-        <div class="col-md-12">
-          Calories: <%= product.calories %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          Fats: <%= product.fats %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          Carbs: <%= product.carbs %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          Proteins: <%= product.proteins %>
-        </div>
-      </div>
+    <div class="product-item-box__stats">
+      <h4> Product statistics: </h4>
+      <span> Calories: <%= Float.round(product.calories, 2) %> </span>
+      <span> Fats: <%= Float.round(product.fats, 2) %> </span>
+      <span> Carbs: <%= Float.round(product.carbs, 2) %> </span>
+      <span> Proteins: <%= Float.round(product.proteins, 2) %> </span>
     </div>
-    <div class="col-md-4">
-      Options
+    <div class="product-item-box__options">
+      <h4> Options: </h4>
+      <%= button "Delete", to: "#", class: "submit-button-red" %>
     </div>
   </div>
 <% end %>
 
 
-<h2>Dinner</h2>
+<h2>Dinner products</h2>
 <%= for product<-@products.dinner do %>
-  <div class="row">
-    <div class="col-md-4">
-      <%= product.name %>
+  <div class="product-item-box">
+    <div class="product-item-box__look">
+      <h3> <%= String.capitalize(product.name) %> </h3>
+      <img src="<%= product.photo_url %>" class="product-item-box__image"></img>
     </div>
-    <div class="col-md-4">
-      <div class="row">
-        <div class="col-md-12">
-          Calories: <%= product.calories %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          Fats: <%= product.fats %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          Carbs: <%= product.carbs %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          Proteins: <%= product.proteins %>
-        </div>
-      </div>
+    <div class="product-item-box__stats">
+      <h4> Product statistics: </h4>
+      <span> Calories: <%= Float.round(product.calories, 2) %> </span>
+      <span> Fats: <%= Float.round(product.fats, 2) %> </span>
+      <span> Carbs: <%= Float.round(product.carbs, 2) %> </span>
+      <span> Proteins: <%= Float.round(product.proteins, 2) %> </span>
     </div>
-    <div class="col-md-4">
-      Options
+    <div class="product-item-box__options">
+      <h4> Options: </h4>
+      <%= button "Delete", to: "#", class: "submit-button-red" %>
     </div>
   </div>
 <% end %>
 
 
-<h2>Other</h2>
+<h2>Other products</h2>
 <%= for product<-@products.other do %>
-  <div class="row">
-    <div class="col-md-4">
-      <%= product.name %>
+  <div class="product-item-box">
+    <div class="product-item-box__look">
+      <h3> <%= String.capitalize(product.name) %> </h3>
+      <img src="<%= product.photo_url %>" class="product-item-box__image"></img>
     </div>
-    <div class="col-md-4">
-      <div class="row">
-        <div class="col-md-12">
-          Calories: <%= product.calories %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          Fats: <%= product.fats %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          Carbs: <%= product.carbs %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          Proteins: <%= product.proteins %>
-        </div>
-      </div>
+    <div class="product-item-box__stats">
+      <h4> Product statistics: </h4>
+      <span> Calories: <%= Float.round(product.calories, 2) %> </span>
+      <span> Fats: <%= Float.round(product.fats, 2) %> </span>
+      <span> Carbs: <%= Float.round(product.carbs, 2) %> </span>
+      <span> Proteins: <%= Float.round(product.proteins, 2) %> </span>
     </div>
-    <div class="col-md-4">
-      Options
+    <div class="product-item-box__options">
+      <h4> Options: </h4>
+      <%= button "Delete", to: "#", class: "submit-button-red" %>
     </div>
   </div>
 <% end %>

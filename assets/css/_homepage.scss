@@ -13,9 +13,9 @@
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
-  align-content: center;
-  justify-content: flex-end;
-  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   background-color: white;
   clip-path: polygon(
     0 5vw,
