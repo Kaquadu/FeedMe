@@ -1,6 +1,11 @@
 <div class="products">
 <h1>My products list</h1>
 
+<%= form_for @conn, Routes.product_path(@conn, :index), [method: :get], fn f -> %>
+  <%= text_input f, :product, class: "products-search-input" %>
+  <%= submit "Search", class: "products-search-submit" %>
+<% end %>
+
 <h2>Breakfast products</h2>
 <%= for product<-@products.breakfast do %>
   <div class="product-item-box">
@@ -17,7 +22,7 @@
     </div>
     <div class="product-item-box__options">
       <h4> Options: </h4>
-      <%= button "Delete", to: "#", class: "submit-button-red" %>
+      <%= button "Delete", to: Routes.product_path(@conn, :delete, product.id), method: :delete, class: "submit-button-red" %>
     </div>
   </div>
 <% end %>
@@ -39,7 +44,7 @@
     </div>
     <div class="product-item-box__options">
       <h4> Options: </h4>
-      <%= button "Delete", to: "#", class: "submit-button-red" %>
+      <%= button "Delete", to: Routes.product_path(@conn, :delete, product.id), method: :delete, class: "submit-button-red" %>
     </div>
   </div>
 <% end %>
@@ -61,7 +66,7 @@
     </div>
     <div class="product-item-box__options">
       <h4> Options: </h4>
-      <%= button "Delete", to: "#", class: "submit-button-red" %>
+      <%= button "Delete", to: Routes.product_path(@conn, :delete, product.id), method: :delete, class: "submit-button-red" %>
     </div>
   </div>
 <% end %>

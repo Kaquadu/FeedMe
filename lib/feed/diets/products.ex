@@ -50,18 +50,20 @@ defmodule Feed.Products do
     put_in(struct.__meta__.source, table_name)
   end
 
-  def get_user_products(user_id) do
+  def get_user_products(user_id, name \\ "") do
     %{
-      breakfast: get_user_meal_products(user_id, @breakfast_products_table_name),
-      dinner: get_user_meal_products(user_id, @dinner_products_table_name),
-      other: get_user_meal_products(user_id, @other_products_table_name)
+      breakfast: get_user_meal_products(user_id, @breakfast_products_table_name, name),
+      dinner: get_user_meal_products(user_id, @dinner_products_table_name, name),
+      other: get_user_meal_products(user_id, @other_products_table_name, name)
     }
   end
 
-  defp get_user_meal_products(user_id, table_name) do
-    (from p in {table_name, Product})
-    |> where([p], p.user_id == ^user_id)
-    |> @repo.all()
+  defp get_user_meal_products(user_id, table_name, name) do
+    name = String.downcase(name)
+
+    query =  (from p in {table_name, Product}) |> where([p], p.user_id == ^user_id)
+    query = if name != "", do:  where(query, [p], ilike(p.name, ^"%#{name}%")), else: query
+    @repo.all(query)
   end
 
   def get_user_random_products(number, meal_name, user_id) do
@@ -76,4 +78,6 @@ defmodule Feed.Products do
     |> @repo.all()
     |> Enum.take_random(number)
   end
+
+  def delete_product(product), do: @repo.delete(product)
 end

@@ -1,0 +1,53 @@
+.diets {
+  min-height: 70vh;
+  color: $dark-grey;
+  display: flex;
+  flex-direction: column;
+}
+
+.diets-boxes {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.diets-box {
+  padding: 10px;
+  border: 1px $medium-grey solid;
+  border-radius: 20px;
+  margin: 10px;
+  display: flex;
+  display: row;
+  flex-wrap: wrap;
+}
+
+.diets-box__inputs {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.diets-box__options {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.diets-box__button-red {
+  height: 40px;
+  width: 120px;
+  background-color: $grey;
+  border: 1px solid #ffb3ad;
+  border-radius: 20px;
+}
+
+.diets-box__button-grey {
+  margin-top: 10px;
+  height: 40px;
+  width: 120px;
+  background-color: $grey;
+  border: none;
+  border-radius: 20px;
+}

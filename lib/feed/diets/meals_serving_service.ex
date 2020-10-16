@@ -1,9 +1,9 @@
 defmodule Feed.Diets.MealsServingService do
   alias Feed.Products
-  alias Feed.Diets.Calculator
+  # alias Feed.Diets.Calculator
 
-  @big_meal_portions 9
-  @small_meal_portions 5
+  @big_meal_portions 11
+  @small_meal_portions 6
 
   @big_meal_no_products 6
   @small_meal_no_products 4
@@ -78,7 +78,7 @@ defmodule Feed.Diets.MealsServingService do
   end
 
   defp append_meal(meal_stats, diet, current_meals, :big) do
-    if (current_meals |> length()) >= (diet.no_big_meals) do
+    if (current_meals |> length()) >= (diet.no_big_meals - 1) do
       current_meals
     else
       current_meals = [%{calculated: get_other_big_meal(meal_stats, diet.user_id), desired: meal_stats} | current_meals]
@@ -87,11 +87,11 @@ defmodule Feed.Diets.MealsServingService do
   end
 
   defp append_meal(meal_stats, diet, current_meals, :small) do
-    if (current_meals |> length()) >= (diet.no_small_meals) do
+    if (current_meals |> length()) >= (diet.no_small_meals - 1) do
       current_meals
     else
       current_meals = [%{calculated: get_other_small_meal(meal_stats, diet.user_id), desired: meal_stats} | current_meals]
-      append_meal(meal_stats, diet, current_meals, :big)
+      append_meal(meal_stats, diet, current_meals, :small)
     end
   end
 

@@ -1,7 +1,6 @@
 .mealsets {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
   min-height: 70vh;
 }
 
@@ -29,6 +28,14 @@
   color: $dark-grey;
   text-align: center;
   font-size: medium;
+  font-weight: 600;
+}
+
+.mealset-card h4 {
+  margin-top: 10px;
+  color: $dark-grey;
+  text-align: center;
+  font-size: small;
   font-weight: 600;
 }
 

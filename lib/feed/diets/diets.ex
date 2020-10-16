@@ -10,7 +10,9 @@ defmodule Feed.Diets do
   @repo Feed.Repo
 
   defdelegate upsert_product(attrs), to: Feed.Products, as: :upsert_product
-  defdelegate get_user_products(user_id), to: Feed.Products, as: :get_user_products
+  defdelegate get_user_products(user_id, name \\ ""), to: Feed.Products, as: :get_user_products
+  defdelegate get_product_by_id(id), to: Feed.Products, as: :get_product_by_id
+  defdelegate delete_product(product), to: Feed.Products, as: :delete_product
 
   def create_diet(attrs) do
     %Diet{}
@@ -21,7 +23,6 @@ defmodule Feed.Diets do
   def delete_diet(id) do
     Diet
     |> where([d], d.id == ^id)
-    |> preload([:mealsets])
     |> @repo.delete_all()
   end
 
@@ -186,6 +187,8 @@ defmodule Feed.Diets do
   def get_diet_mealsets(diet_id) do
     Mealset
     |> where([m], m.diet_id == ^diet_id)
+    |> order_by([m], [desc: m.inserted_at, asc: m.id])
+    |> limit(30)
     |> preload([:diet, {:meals, [{:breakfast_ingridients, :product}, {:dinner_ingridients, :product}, {:other_ingridients, :product}]}])
     |> @repo.all()
   end

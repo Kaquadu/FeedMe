@@ -16,6 +16,29 @@
   padding: 20px;
 }
 
+.products-search-input {
+  display: inline-block;
+  height: 40px;
+  width: 280px;
+  border-radius: 20px;
+  border: 1px solid $dark-grey;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.products-search-submit {
+  margin-left: 10px;
+  height: 40px;
+  width: 120px;
+  background-color: $grey;
+  border: none;
+  border-radius: 20px;
+}
+
+.products-search-submit:focus {
+  outline: none;
+}
+
 .product-item-box {
   border: 1px solid $dark-grey;
   border-radius: 20px;

@@ -1,4 +1,27 @@
-<table class="table table-responsive-xl table-striped">
+<div class="diets">
+  <h1> My diets </h1>
+  <div class="diets-boxes">
+  <%= for diet<-@diets do %>
+    <div class="diets-box">
+      <div class="diets-box__inputs">
+        <h2> <%= diet.name %> </h2>
+        <span> Calories: <%= diet.calories %> </span>
+        <span> Fats: <%= diet.fats %> </span>
+        <span> Carbs: <%= diet.carbs %> </span>
+        <span> Proteins: <%= diet.proteins %> </span>
+      </div>
+      <div class="diets-box__options">
+        <h2> Options </h2>
+        <%= button "Delete", to: Routes.diet_path(@conn, :delete, diet), method: :delete, class: "diets-box__button-red" %>
+        <%= button "Diet meals", to: Routes.meal_path(@conn, :index, diet.id), method: :get, class: "diets-box__button-grey" %>
+        <%= button "Request meals", to: Routes.diet_path(@conn, :request_daily_diet, diet), method: :get, class: "diets-box__button-grey" %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
+
+<!--<table class="table table-responsive-xl table-striped">
   <thead>
     <tr>
       <th>
@@ -58,4 +81,4 @@
       </tr>
     <% end %>
   </tbody>
-</table>
+</table> -->
