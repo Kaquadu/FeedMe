@@ -1,15 +1,18 @@
 defmodule Feed.Diets.OtherIngridient do
   use Feed.Schema
 
-  alias Feed.Diets.Product
   alias Feed.Diets.Meal
 
-  @required_fields ~w(weight product_id)a
+  @required_fields ~w(weight calories carbs fats proteins name)a
 
   schema "diets_other_ingridients" do
+    field :name, :string, null: false
     field :weight, :float, null: false
+    field :calories, :float, null: false
+    field :carbs, :float, null: false
+    field :fats, :float, null: false
+    field :proteins, :float, null: false
 
-    belongs_to :product, {"other_products", Product}
     belongs_to :meal, Meal
 
     timestamps()

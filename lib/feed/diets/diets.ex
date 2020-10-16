@@ -141,7 +141,9 @@ defmodule Feed.Diets do
 
       {product, _} = List.first(ingridients)
 
-      ingridients = Enum.map(ingridients, fn {product, weight} -> %{product_id: product.id, weight: weight} end)
+      ingridients = Enum.map(ingridients, fn {product, weight} ->
+        %{name: product.name, calories: product.calories, fats: product.fats, carbs: product.carbs, proteins: product.proteins, weight: weight}
+      end)
 
       ingridients_data =
         case product.__meta__.source do

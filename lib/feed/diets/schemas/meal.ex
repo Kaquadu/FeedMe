@@ -8,7 +8,7 @@ defmodule Feed.Diets.Meal do
   alias Feed.Diets.OtherIngridient
   alias Feed.Statistics.MealStatistics
 
-  @required_fields ~w(desired_calories desired_fats desired_carbs desired_proteins mealset_id user_id)a
+  @required_fields ~w(desired_calories desired_fats desired_carbs desired_proteins mealset_id user_id ingridients)a
   @optional_fields ~w(calculated_calories calculated_fats calculated_carbs calculated_proteins)a
 
   schema "diet_meals" do
