@@ -5,10 +5,10 @@ import click
 @click.command()
 @click.argument('products_json', required=1)
 @click.argument('diet_json', required=1)
-@click.option('--lower_boundary', default=0.25, help='your minimum number of desired calories')
-@click.option('--upper_boundary', default=3.5, help='your maximum number of desired calories')
+# @click.option('--lower_boundary', default=0.25, help='your minimum number of desired calories')
+# @click.option('--upper_boundary', default=3.5, help='your maximum number of desired calories')
 @click.option('--enhance', default=5, help="macro elements enhance value")
-def calculate_meal_6(products_json, diet_json, lower_boundary, upper_boundary, enhance):
+def calculate_meal_6(products_json, diet_json, enhance):
   """Calculates meal with given 6 products."""
   products_dictionary = json.loads(products_json)
   diets_dictionary = json.loads(diet_json)
@@ -45,12 +45,12 @@ def calculate_meal_6(products_json, diet_json, lower_boundary, upper_boundary, e
   product_6_carbs = products_dictionary["product6"]["carbs"]
   product_6_fats = products_dictionary["product6"]["fats"]
 
-  x = LpVariable("prod_1_100g", lower_boundary, upper_boundary)
-  y = LpVariable("prod_2_100g", lower_boundary, upper_boundary)
-  z = LpVariable("prod_3_100g", lower_boundary, upper_boundary)
-  w = LpVariable("prod_4_100g", lower_boundary, upper_boundary)
-  s = LpVariable("prod_5_100g", lower_boundary, upper_boundary)
-  r = LpVariable("prod_6_100g", lower_boundary, upper_boundary)
+  x = LpVariable("prod_1_100g", products_dictionary["product1"]["min_weight"], products_dictionary["product1"]["max_weight"])
+  y = LpVariable("prod_2_100g", products_dictionary["product2"]["min_weight"], products_dictionary["product2"]["max_weight"])
+  z = LpVariable("prod_3_100g", products_dictionary["product3"]["min_weight"], products_dictionary["product3"]["max_weight"])
+  w = LpVariable("prod_4_100g", products_dictionary["product4"]["min_weight"], products_dictionary["product4"]["max_weight"])
+  s = LpVariable("prod_5_100g", products_dictionary["product5"]["min_weight"], products_dictionary["product5"]["max_weight"])
+  r = LpVariable("prod_6_100g", products_dictionary["product6"]["min_weight"], products_dictionary["product6"]["max_weight"])
 
   optimization_function = product_1_kcal * x + product_2_kcal * y + product_3_kcal * z + product_4_kcal * w + product_5_kcal * s + product_6_kcal * r - diets_dictionary["kcal"] + \
     enhance * product_1_proteins * x + enhance * product_2_proteins * y + enhance * product_3_proteins * z + enhance * product_4_proteins + enhance * product_5_proteins * s +  enhance * product_6_proteins * r - enhance * diets_dictionary["proteins"] + \

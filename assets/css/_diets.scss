@@ -37,17 +37,31 @@
 
 .diets-box__button-red {
   height: 40px;
-  width: 120px;
   background-color: $grey;
   border: 1px solid #ffb3ad;
   border-radius: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .diets-box__button-grey {
   margin-top: 10px;
   height: 40px;
-  width: 120px;
   background-color: $grey;
   border: none;
   border-radius: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+.create-diet {
+  color: $dark-grey;
+}
+
+.create-diet h1 {
+  text-align: center;
+}
+.create-diet h2 {
+  text-align: center;
 }

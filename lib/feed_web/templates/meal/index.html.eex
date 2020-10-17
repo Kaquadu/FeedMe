@@ -13,7 +13,7 @@
               <h3>Breakfast</h3>
               <h4>Ingridients</h4>
               <%= for ingridient<-meal.breakfast_ingridients do %>
-                <%= String.capitalize(ingridient.product.name) %>: <%= Float.round(ingridient.weight, 2) %> g. <br>
+                <%= String.capitalize(ingridient.name) %>: <%= Float.round(ingridient.weight, 2) %> g. <br>
               <% end %>
               <h4>Statistics</h4>
               Calories: <%= Float.round(meal.calculated_calories, 2) %> <br>
@@ -26,7 +26,7 @@
               <h3>Dinner</h3>
               <h4>Ingridients</h4>
               <%= for ingridient<-meal.dinner_ingridients do %>
-                <%= String.capitalize(ingridient.product.name) %>: <%= Float.round(ingridient.weight, 2) %> g. <br>
+                <%= String.capitalize(ingridient.name) %>: <%= Float.round(ingridient.weight, 2) %> g. <br>
               <% end %>
               <h4>Statistics</h4>
               Calories: <%= Float.round(meal.calculated_calories, 2) %> <br>
@@ -39,7 +39,7 @@
               <h3>Other meal</h3>
               <h4>Ingridients</h4>
               <%= for ingridient<-meal.other_ingridients do %>
-                <%= String.capitalize(ingridient.product.name) %>: <%= Float.round(ingridient.weight, 2) %> g. <br>
+                <%= String.capitalize(ingridient.name) %>: <%= Float.round(ingridient.weight, 2) %> g. <br>
               <% end %>
               <h4>Statistics</h4>
               Calories: <%= Float.round(meal.calculated_calories, 2) %> <br>

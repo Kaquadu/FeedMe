@@ -30,6 +30,18 @@
   outline: none;
 }
 
+.main-form select {
+  height: 40px;
+  border-radius: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  min-width: 280px;
+}
+
+.main-form label {
+  margin-top: 8px;
+}
+
 .form-row {
   padding: 10px;
   display: flex;

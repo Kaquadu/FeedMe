@@ -1,7 +1,7 @@
 defmodule Feed.PythonDietService do
 
-  @min_portion 0.5
-  @max_portion 3.5
+  # @min_portion 0.5
+  # @max_portion 3.5
   @macro_enhancement 20
 
   @empty_meal %{
@@ -25,10 +25,16 @@ defmodule Feed.PythonDietService do
     products_json = prepare_products_json(products)
     meal_statistics_json = prepare_meal_statistics_json(meal_stats)
 
+    # {string_output, 0} = case length(products) do
+    #   4 -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--lower_boundary=#{@min_portion}",  "--upper_boundary=#{@max_portion}", "--enhance=#{@macro_enhancement}"])
+    #   6 -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_6.py", "#{products_json}", "#{meal_statistics_json}", "--lower_boundary=#{@min_portion}",  "--upper_boundary=#{@max_portion}", "--enhance=#{@macro_enhancement}"])
+    #   _ -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--lower_boundary=#{@min_portion}",  "--upper_boundary=#{@max_portion}", "--enhance=#{@macro_enhancement}"])
+    # end
+
     {string_output, 0} = case length(products) do
-      4 -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--lower_boundary=#{@min_portion}",  "--upper_boundary=#{@max_portion}", "--enhance=#{@macro_enhancement}"])
-      6 -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_6.py", "#{products_json}", "#{meal_statistics_json}", "--lower_boundary=#{@min_portion}",  "--upper_boundary=#{@max_portion}", "--enhance=#{@macro_enhancement}"])
-      _ -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--lower_boundary=#{@min_portion}",  "--upper_boundary=#{@max_portion}", "--enhance=#{@macro_enhancement}"])
+      4 -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--enhance=#{@macro_enhancement}"])
+      6 -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_6.py", "#{products_json}", "#{meal_statistics_json}", "--enhance=#{@macro_enhancement}"])
+      _ -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--enhance=#{@macro_enhancement}"])
     end
 
     string_output
@@ -66,7 +72,9 @@ defmodule Feed.PythonDietService do
         "proteins" => Float.round(prod.proteins, 0),
         "carbs" => Float.round(prod.carbs),
         "fats" => Float.round(prod.fats, 0),
-        "id" => prod.id
+        "id" => prod.id,
+        "min_weight" => prod.min_weight,
+        "max_weight" => prod.max_weight
       }
 
       Map.put(acc, "product#{product_index}", product_stats)

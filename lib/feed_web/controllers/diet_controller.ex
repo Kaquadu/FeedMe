@@ -29,6 +29,19 @@ defmodule FeedWeb.DietController do
     end
   end
 
+  def create(conn, %{"generate" => params}) do
+    case Diets.generate_diet(params) do
+      {:ok, _diet} ->
+        conn
+        |> put_flash(:info, "Diet created")
+        |> redirect(to: Routes.page_path(conn, :index))
+      {:error, changeset} ->
+        conn
+        |> put_flash(:error, "Something went wrong")
+        |> render("new.html", changeset: changeset)
+    end
+  end
+
   def delete(conn, %{"id" => diet}) do
     case Diets.delete_diet(diet) do
       {1, nil} ->
@@ -54,6 +67,19 @@ defmodule FeedWeb.DietController do
         conn
         |> put_flash(:info, "Diet added to calculation queue")
         |> redirect(to: Routes.diet_path(conn, :index))
+    end
+  end
+
+  def statistics(conn, %{"id" => diet_id}) do
+    diet_id
+    |> Diets.get_diet_statistics!()
+    |> case do
+      :error ->
+        conn
+        |> put_flash(:info, "Cannot get diets statistics, please contact system administrator.")
+        |> redirect(to: Routes.diet_path(conn, :index))
+      stats ->
+        render(conn, "statistics.html", stats: stats)
     end
   end
 

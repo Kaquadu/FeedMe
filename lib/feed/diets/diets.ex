@@ -9,15 +9,103 @@ defmodule Feed.Diets do
   alias Feed.Workers.DietsWorker
   @repo Feed.Repo
 
+  @proteins_kcal 4
+  @carbs_kcal 4
+  @fats_kcal 9
+
+  @standard_diet %{
+    fats: 0.3,
+    carbs: 0.55,
+    proteins: 0.15
+  }
+
+  @protein_diet %{
+    fats: 0.25,
+    carbs: 0.50,
+    proteins: 0.25
+  }
+
+  @carbs_reduce_diet %{
+    fats: 0.35,
+    carbs: 0.4,
+    proteins: 0.25
+  }
+
   defdelegate upsert_product(attrs), to: Feed.Products, as: :upsert_product
   defdelegate get_user_products(user_id, name \\ ""), to: Feed.Products, as: :get_user_products
   defdelegate get_product_by_id(id), to: Feed.Products, as: :get_product_by_id
   defdelegate delete_product(product), to: Feed.Products, as: :delete_product
+  defdelegate update_product(product, params), to: Feed.Products, as: :update_product
 
   def create_diet(attrs) do
     %Diet{}
     |> Diet.changeset(attrs)
     |> @repo.insert()
+  end
+
+  def generate_diet(%{
+    "name" => name,
+    "age" => age,
+    "gender" => gender,
+    "height" => height,
+    "weight" => weight,
+    "activity" => activity_factor,
+    "mass_type" => mass_type,
+    "diet_type" => diet_type,
+    "user_id" => user_id
+  }) do
+    with  {age, ""} <- Integer.parse(age),
+          {height, ""} <- Integer.parse(height),
+          {weight, ""} <- Integer.parse(weight),
+          {activity_factor, ""} <- Float.parse(activity_factor)
+    do
+      calories = case gender do
+        "female" -> (10 * weight + 6.25 * height - 5 * age - 161) * activity_factor
+        "male" -> (10 * weight + 6.25 * height - 5 * age + 5) * activity_factor
+      end
+
+      calories = case mass_type do
+        "balanced" -> calories
+        "mass_loss" -> calories - 400
+        "mass_gain" -> calories + 400
+      end
+
+      proteins = case diet_type do
+        "balanced" -> calories * @standard_diet.proteins / @proteins_kcal
+        "proteins" -> calories * @protein_diet.proteins / @proteins_kcal
+        "carb_reduction" -> calories * @carbs_reduce_diet.proteins / @proteins_kcal
+      end
+
+      carbs = case diet_type do
+        "balanced" -> calories * @standard_diet.carbs / @carbs_kcal
+        "proteins" -> calories * @protein_diet.carbs / @carbs_kcal
+        "carb_reduction" -> calories * @carbs_reduce_diet.carbs / @carbs_kcal
+      end
+
+      fats = case diet_type do
+        "balanced" -> calories * @standard_diet.fats / @fats_kcal
+        "proteins" -> calories * @protein_diet.fats / @fats_kcal
+        "carb_reduction" -> calories * @carbs_reduce_diet.fats / @fats_kcal
+      end
+
+      no_big_meals = if activity_factor >= 2.0, do: 2, else: 1
+      no_small_meals = if activity_factor >= 2.0, do: 3, else: 4
+
+      diet_params = %{
+        name: name,
+        calories: round(calories),
+        proteins: round(proteins),
+        carbs: round(carbs),
+        fats: round(fats),
+        no_big_meals: no_big_meals,
+        no_small_meals: no_small_meals,
+        user_id: user_id
+      }
+
+      create_diet(diet_params)
+    else
+      _err -> {:error, "Inproper values"}
+    end
   end
 
   def delete_diet(id) do
@@ -191,7 +279,83 @@ defmodule Feed.Diets do
     |> where([m], m.diet_id == ^diet_id)
     |> order_by([m], [desc: m.inserted_at, asc: m.id])
     |> limit(30)
-    |> preload([:diet, {:meals, [{:breakfast_ingridients, :product}, {:dinner_ingridients, :product}, {:other_ingridients, :product}]}])
+    |> preload([:diet, {:meals, [:breakfast_ingridients, :dinner_ingridients, :other_ingridients]}])
     |> @repo.all()
+  end
+
+  def get_diet_statistics!(diet_id) do
+    try do
+      average_statistics = get_average_statistics(diet_id)
+      daily_statistics = get_daily_statistics(diet_id)
+      %{
+        daily: daily_statistics,
+        average: average_statistics
+      }
+    catch
+      _err -> :error
+    end
+  end
+
+  defp get_average_statistics(diet_id) do
+    query = """
+        SELECT AVG(kcalSum), AVG(fatsSum), AVG(carbsSum), AVG(proteinsSum), AVG(desiredKcalSum), AVG(desiredFatsSum), AVG(desiredCarbsSum), AVG(desiredProteinsSum)  FROM
+        (
+          SELECT
+            SUM(diet_meals.calculated_calories) / COUNT(DISTINCT diet_mealsets.id) AS kcalSum,
+            SUM(diet_meals.calculated_fats) / COUNT(DISTINCT diet_mealsets.id) AS fatsSum,
+            SUM(diet_meals.calculated_carbs) / COUNT(DISTINCT diet_mealsets.id) AS carbsSum,
+            SUM(diet_meals.calculated_proteins) / COUNT(DISTINCT diet_mealsets.id) AS proteinsSum,
+            SUM(diet_meals.desired_calories) / COUNT(DISTINCT diet_mealsets.id) AS desiredKcalSum,
+            SUM(diet_meals.desired_fats) / COUNT(DISTINCT diet_mealsets.id) AS desiredFatsSum,
+            SUM(diet_meals.desired_carbs) / COUNT(DISTINCT diet_mealsets.id) AS desiredCarbsSum,
+            SUM(diet_meals.desired_proteins) / COUNT(DISTINCT diet_mealsets.id) AS desiredProteinsSum
+          FROM diet_meals
+          INNER JOIN diet_mealsets ON diet_meals.mealset_id = diet_mealsets.id
+          GROUP BY diet_mealsets.id
+          HAVING diet_mealsets.diet_id = $1
+          ORDER BY diet_mealsets.inserted_at DESC
+        ) AS dietSums LIMIT 30;
+      """
+
+      {:ok, binary_id} = Ecto.UUID.dump(diet_id)
+      {:ok, %{rows: [[kcal, fats, carbs, proteins, desired_kcal, desired_fats, desired_carbs, desired_proteins]]}} = Ecto.Adapters.SQL.query(@repo, query, [binary_id])
+
+      %{
+        served: %{
+          calories: kcal,
+          fats: fats,
+          carbs: carbs,
+          proteins: proteins
+        },
+        desired: %{
+          calories: desired_kcal,
+          fats: desired_fats,
+          carbs: desired_carbs,
+          proteins: desired_proteins
+        }
+      }
+  end
+
+  def get_daily_statistics(diet_id) do
+    (from m in Meal, as: :meal)
+    |> join(:inner, [meal: m], ms in assoc(m, :mealset), as: :mealset)
+    |> where([mealset: ms], ms.diet_id == ^diet_id)
+    |> order_by([mealset: ms], [desc: ms.inserted_at, asc: ms.id])
+    |> group_by([meal: m, mealset: ms], [m.mealset_id, ms.inserted_at, ms.id])
+    |> limit(30)
+    |> select(
+      [meal: m, mealset: ms],
+      %{
+        day: ms.day,
+        calories: sum(m.calculated_calories),
+        fats: sum(m.calculated_fats),
+        carbs: sum(m.calculated_carbs),
+        proteins: sum(m.calculated_carbs)
+      }
+    )
+    |> @repo.all()
+    |> Enum.map(fn data ->
+      Map.put(data, :day, Date.to_iso8601(data.day))
+    end)
   end
 end

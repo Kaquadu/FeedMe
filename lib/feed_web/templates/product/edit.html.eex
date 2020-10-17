@@ -1,0 +1,17 @@
+<%= form_for @changeset, Routes.product_path(@conn, :update, @product.id), [class: "main-form" , method: :patch], fn f -> %>
+
+  <%= label f, :name %>
+  <%= text_input f, :name, disabled: true %>
+  <%= label f, :fats %>
+  <%= number_input f, :fats, disabled: true%>
+  <%= label f, :carbs %>
+  <%= number_input f, :carbs, disabled: true %>
+  <%= label f, :proteins %>
+  <%= number_input f, :proteins, disabled: true %>
+  <%= label f, :min_weight %>
+  <%= number_input f, :min_weight %>
+  <%= label f, :max_weight %>
+  <%= number_input f, :max_weight %>
+
+  <%= submit "Update", class: "submit-button" %>
+<% end %>

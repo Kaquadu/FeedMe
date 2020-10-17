@@ -1,39 +1,79 @@
-<%= form_for @changeset, @action, [multipart: true, class: "main-form"], fn f -> %>
-  <div class="form-row">
-    <%= label f, :name %>
-    <%= text_input f, :name, placeholder: gettext("Name"), required: true %>
-    <%= error_tag f, :name %>
+<div class="create-diet">
+  <h1> Create your own diet or use our custom generator </h1>
+
+  <div class="create-diet__generator">
+    <h2> Diet generator </h2>
+    <%= form_for :generate, @action, [multipart: true, class: "main-form no-height"], fn f -> %>
+      <%= label f, :name, "Diet name" %>
+      <%= text_input f, :name %>
+      <%= label f, :gender, "Biological gender" %>
+      <%= select f, :gender, ["Female": :female, "Male": :male] %>
+      <%= label f, :age %>
+      <%= number_input f, :age, required: true %>
+      <%= label f, :height, "Height in cm" %>
+      <%= number_input f, :height, required: true %>
+      <%= label f, :weight, "Weight in kg" %>
+      <%= number_input f, :weight, required: true %>
+      <%= label f, :mass_type, "You want to:" %>
+      <%= select f, :mass_type, [
+        "Keep your weight": :balanced,
+        "Lose mass": :mass_loss,
+        "Gain mass": :mass_gain
+      ], required: true %>
+      <%= label f, :diet_type %>
+      <%= select f, :diet_type, [
+        "Balanced": :balanced,
+        "Protein boost": :proteins,
+        "Carbs reduction": :carb_reduction
+      ], required: true %>
+      <%= label f, :activity %>
+      <%= select f, :activity, [
+        "Sitting job, no trainings, driven by car": 1.2,
+        "Sitting job, no tranings, some walks": 1.4,
+        "Sitting job, 2-3 trainings per week": 1.55,
+        "Physical job & no trainings or sitting job and 4-5 trainings per week": 1.75,
+        "Physical job & 2-3 trainings per week or sitting job and everyday training": 2.0,
+        "Physical job & everyday training": 2.2
+      ], required: true %>
+      <%= hidden_input f, :user_id, value: @user.id %>
+
+      <%= submit "Generate diet", class: "submit-button" %>
+    <% end %>
   </div>
-  <div class="form-row">
-    <%= label f, :calories %>
-    <%= number_input f, :calories, placeholder: gettext("Calories"), required: true %>
-    <%= error_tag f, :calories %>
+
+  <div class="create-diet__own-diet">
+    <h2> Create your own diet </h2>
+    <%= form_for @changeset, @action, [multipart: true, class: "main-form no-height"], fn f -> %>
+        <%= label f, :name %>
+        <%= text_input f, :name, placeholder: gettext("Name"), required: true %>
+        <%= error_tag f, :name %>
+
+        <%= label f, :calories %>
+        <%= number_input f, :calories, placeholder: gettext("Calories"), required: true %>
+        <%= error_tag f, :calories %>
+
+        <%= label f, :no_big_meals, "Number of big meals" %>
+        <%= number_input f, :no_big_meals, placeholder: gettext("Number of big meals"), required: true, min: 1 %>
+        <%= error_tag f, :no_big_meals %>
+
+        <%= label f, :no_small_meals, "Number of small meals" %>
+        <%= number_input f, :no_small_meals, placeholder: gettext("Number of small meals"), required: true, min: 2 %>
+        <%= error_tag f, :no_small_meals %>
+
+        <%= label f, :fats %>
+        <%= number_input f, :fats, placeholder: gettext("Fats"), required: true %>
+        <%= error_tag f, :fats %>
+
+        <%= label f, :carbs %>
+        <%= number_input f, :carbs, placeholder: gettext("Carbs"), required: true %>
+        <%= error_tag f, :carbs %>
+
+        <%= label f, :proteins %>
+        <%= number_input f, :proteins, placeholder: gettext("Proteins"), required: true %>
+        <%= error_tag f, :proteins %>
+
+        <%= hidden_input f, :user_id, value: @user.id %>
+      <%= submit gettext("Create custom diet"), class: "submit-button" %>
+    <% end %>
   </div>
-  <div class="form-row">
-    <%= label f, :no_big_meals %>
-    <%= number_input f, :no_big_meals, placeholder: gettext("Number of big meals"), required: true, min: 1 %>
-    <%= error_tag f, :no_big_meals %>
-  </div>
-  <div class="form-row">
-    <%= label f, :no_small_meals %>
-    <%= number_input f, :no_small_meals, placeholder: gettext("Number of small meals"), required: true, min: 2 %>
-    <%= error_tag f, :no_small_meals %>
-  </div>
-  <div class="form-row">
-    <%= label f, :fats %>
-    <%= number_input f, :fats, placeholder: gettext("Fats"), required: true %>
-    <%= error_tag f, :fats %>
-  </div>
-  <div class="form-row">
-    <%= label f, :carbs %>
-    <%= number_input f, :carbs, placeholder: gettext("Carbs"), required: true %>
-    <%= error_tag f, :carbs %>
-  </div>
-  <div class="form-row">
-    <%= label f, :proteins %>
-    <%= number_input f, :proteins, placeholder: gettext("Proteins"), required: true %>
-    <%= error_tag f, :proteins %>
-  </div>
-    <%= hidden_input f, :user_id, value: @user.id %>
-  <%= submit gettext("Submit"), class: "submit-button" %>
-<% end %>
+</div>

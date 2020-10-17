@@ -79,5 +79,11 @@ defmodule Feed.Products do
     |> Enum.take_random(number)
   end
 
+  def update_product(product, params) do
+    product
+    |> Product.update_changeset(params)
+    |> @repo.update()
+  end
+
   def delete_product(product), do: @repo.delete(product)
 end

@@ -13,8 +13,9 @@
       <div class="diets-box__options">
         <h2> Options </h2>
         <%= button "Delete", to: Routes.diet_path(@conn, :delete, diet), method: :delete, class: "diets-box__button-red" %>
-        <%= button "Diet meals", to: Routes.meal_path(@conn, :index, diet.id), method: :get, class: "diets-box__button-grey" %>
-        <%= button "Request meals", to: Routes.diet_path(@conn, :request_daily_diet, diet), method: :get, class: "diets-box__button-grey" %>
+        <%= button "Mealsets", to: Routes.meal_path(@conn, :index, diet.id), method: :get, class: "diets-box__button-grey" %>
+        <%= button "Request mealset", to: Routes.diet_path(@conn, :request_daily_diet, diet), method: :get, class: "diets-box__button-grey" %>
+        <%= button "Statistics", to: Routes.diet_path(@conn, :statistics, diet), method: :get, class: "diets-box__button-grey" %>
       </div>
     </div>
   <% end %>
