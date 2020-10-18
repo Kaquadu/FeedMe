@@ -20,15 +20,15 @@ defmodule Feed.Diets do
   }
 
   @protein_diet %{
-    fats: 0.25,
-    carbs: 0.50,
-    proteins: 0.25
+    fats: 0.2,
+    carbs: 0.5,
+    proteins: 0.3
   }
 
   @carbs_reduce_diet %{
     fats: 0.35,
-    carbs: 0.4,
-    proteins: 0.25
+    carbs: 0.45,
+    proteins: 0.2
   }
 
   defdelegate upsert_product(attrs), to: Feed.Products, as: :upsert_product
