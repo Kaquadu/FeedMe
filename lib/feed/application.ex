@@ -15,7 +15,7 @@ defmodule Feed.Application do
       # Starts a worker by calling: Feed.Worker.start_link(arg)
       # {Feed.Worker, arg},
       Feed.Workers.DietsWorker,
-      Feed.EtsService
+      Feed.Workers.MealsetsWorker
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

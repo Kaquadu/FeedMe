@@ -1,0 +1,21 @@
+<div class="statistics">
+  <h1> Last 30 days average statistics </h1>
+  <canvas id="averagesChart" width="400" height="400" style="max-width: 560px;"
+    data-averages="<%= Map.to_list(@stats.average.served) |> Enum.map(fn {_, val} -> "#{val}," end) %>"
+    data-desired="<%= Map.to_list(@stats.average.desired) |> Enum.map(fn {_, val} -> "#{val}," end) %>"
+  ></canvas>
+
+  <h1> Last 30 days daily calories statistics </h1>
+  <canvas id="dailyCaloriesChart" width="400" height="400" style="max-width: 560px;"
+    data-day="<%= @stats.daily |> Enum.map(fn %{day: day} -> "#{day}," end) %>"
+    data-calories="<%= @stats.daily |> Enum.map(fn %{calories: calories} -> "#{calories}," end) %>"
+  ></canvas>
+
+  <h1> Last 30 days daily macroelements statistics </h1>
+  <canvas id="dailyMacroChart" width="400" height="400" style="max-width: 560px;"
+    data-day="<%= @stats.daily |> Enum.map(fn %{day: day} -> "#{day}," end) %>"
+    data-fats="<%= @stats.daily |> Enum.map(fn %{fats: fats} -> "#{fats}," end) %>"
+    data-carbs="<%= @stats.daily |> Enum.map(fn %{carbs: carbs} -> "#{carbs}," end) %>"
+    data-proteins="<%= @stats.daily |> Enum.map(fn %{proteins: proteins} -> "#{proteins}," end) %>"
+  ></canvas>
+</div>

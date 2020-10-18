@@ -123,6 +123,8 @@ defmodule Feed.Diets do
 
   def get_diet(diet_id), do: @repo.get_by(Diet, id: diet_id)
 
+  def get_diets(), do: @repo.all(Diet)
+
   def request_daily_meals(diet_id) do
     diet_id
     |> check_diet_queue()

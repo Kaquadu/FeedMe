@@ -25,12 +25,6 @@ defmodule Feed.PythonDietService do
     products_json = prepare_products_json(products)
     meal_statistics_json = prepare_meal_statistics_json(meal_stats)
 
-    # {string_output, 0} = case length(products) do
-    #   4 -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--lower_boundary=#{@min_portion}",  "--upper_boundary=#{@max_portion}", "--enhance=#{@macro_enhancement}"])
-    #   6 -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_6.py", "#{products_json}", "#{meal_statistics_json}", "--lower_boundary=#{@min_portion}",  "--upper_boundary=#{@max_portion}", "--enhance=#{@macro_enhancement}"])
-    #   _ -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--lower_boundary=#{@min_portion}",  "--upper_boundary=#{@max_portion}", "--enhance=#{@macro_enhancement}"])
-    # end
-
     {string_output, 0} = case length(products) do
       4 -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--enhance=#{@macro_enhancement}"])
       6 -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_6.py", "#{products_json}", "#{meal_statistics_json}", "--enhance=#{@macro_enhancement}"])

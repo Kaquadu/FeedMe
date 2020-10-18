@@ -6,6 +6,7 @@ const Slider = {
   },
 
   initialize(jquery_item) {
+    if (!jquery_item.length) {return;}
     var slides = jquery_item.children('.slide')
     var dots = jquery_item.children('.slider-dots-row').children('.slider-dot')
 

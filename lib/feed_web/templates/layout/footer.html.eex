@@ -3,7 +3,7 @@
     <script src="http://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyD9P3JwgOiGxIez3lICvKQtYZmMJlvdTqg"></script>
     <div class="row">
       <div class="col-md-4">
-        <div id="map" class="google-map"></div>
+        <%# <div id="map" class="google-map"></div> %>
       </div>
       <div class="col-md-2">
         <h1 id="toggle-address-button"> Address +</h1>

@@ -14,72 +14,10 @@
         <h2> Options </h2>
         <%= button "Delete", to: Routes.diet_path(@conn, :delete, diet), method: :delete, class: "diets-box__button-red" %>
         <%= button "Mealsets", to: Routes.meal_path(@conn, :index, diet.id), method: :get, class: "diets-box__button-grey" %>
-        <%= button "Request mealset", to: Routes.diet_path(@conn, :request_daily_diet, diet), method: :get, class: "diets-box__button-grey" %>
+        <%# <%= button "Request mealset", to: Routes.diet_path(@conn, :request_daily_diet, diet), method: :get, class: "diets-box__button-grey" %>
         <%= button "Statistics", to: Routes.diet_path(@conn, :statistics, diet), method: :get, class: "diets-box__button-grey" %>
       </div>
     </div>
   <% end %>
   </div>
 </div>
-
-<!--<table class="table table-responsive-xl table-striped">
-  <thead>
-    <tr>
-      <th>
-        <%= gettext("Diet name") %>
-      </th>
-      <th>
-        <%= gettext("Calories") %>
-      </th>
-      <th>
-        <%= gettext("No. big meals") %>
-      </th>
-      <th>
-        <%= gettext("No. small meals") %>
-      </th>
-      <th>
-        <%= gettext("Fats") %>
-      </th>
-      <th>
-        <%= gettext("Carbs") %>
-      </th>
-      <th>
-        <%= gettext("Proteins") %>
-      </th>
-      <th>
-        <%= gettext("Options") %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= for diet <- @diets do %>
-      <tr>
-        <td>
-          <%= diet.name %>
-        </td>
-        <td>
-          <%= diet.calories %>
-        </td>
-        <td>
-          <%= diet.no_big_meals %>
-        </td>
-        <td>
-          <%= diet.no_small_meals %>
-        </td>
-        <td>
-          <%= diet.fats %>
-        </td>
-        <td>
-          <%= diet.carbs %>
-        </td>
-        <td>
-          <%= diet.proteins %>
-        </td>
-        <td>
-          <%= link "Delete", to: Routes.diet_path(@conn, :delete, diet), method: :delete %>
-          <%= link "Diet meals", to: Routes.meal_path(@conn, :index, diet.id), method: :get %>
-          <%= link "Request meal", to: Routes.diet_path(@conn, :request_daily_diet, diet) %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table> -->

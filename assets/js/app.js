@@ -5,8 +5,9 @@ import 'bootstrap';
 import css from "../css/app.scss";
 import Header from './header';
 import Slider from './slider';
-import GoogleMap from './map';
+// import GoogleMap from './map';
 import Footer from './footer';
+import StatCharts from './stat_charts';
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -36,5 +37,6 @@ liveSocket.connect()
 
 Header.run();
 Slider.run();
-GoogleMap.run();
+// GoogleMap.run();
 Footer.run();
+StatCharts.run();
