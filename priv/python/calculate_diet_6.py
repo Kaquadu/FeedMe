@@ -7,11 +7,13 @@ import click
 @click.argument('diet_json', required=1)
 # @click.option('--lower_boundary', default=0.25, help='your minimum number of desired calories')
 # @click.option('--upper_boundary', default=3.5, help='your maximum number of desired calories')
-@click.option('--enhance', default=5, help="macro elements enhance value")
+@click.option('--enhance', default="5", help="macro elements enhance value")
 def calculate_meal_6(products_json, diet_json, enhance):
   """Calculates meal with given 6 products."""
   products_dictionary = json.loads(products_json)
   diets_dictionary = json.loads(diet_json)
+
+  enhance_int = int(enhance)
 
   model = LpProblem(name="diet-minimization", sense=LpMinimize)
 
@@ -52,15 +54,17 @@ def calculate_meal_6(products_json, diet_json, enhance):
   s = LpVariable("prod_5_100g", products_dictionary["product5"]["min_weight"], products_dictionary["product5"]["max_weight"])
   r = LpVariable("prod_6_100g", products_dictionary["product6"]["min_weight"], products_dictionary["product6"]["max_weight"])
 
-  optimization_function = product_1_kcal * x + product_2_kcal * y + product_3_kcal * z + product_4_kcal * w + product_5_kcal * s + product_6_kcal * r - diets_dictionary["kcal"] + \
-    enhance * product_1_proteins * x + enhance * product_2_proteins * y + enhance * product_3_proteins * z + enhance * product_4_proteins + enhance * product_5_proteins * s +  enhance * product_6_proteins * r - enhance * diets_dictionary["proteins"] + \
-    enhance * product_1_carbs * x + enhance * product_2_carbs * y + enhance * product_3_carbs * z + enhance * product_4_carbs + enhance * product_5_carbs * s +  enhance * product_6_carbs * r - enhance * diets_dictionary["carbs"] + \
-    enhance * product_1_fats * x + enhance * product_2_fats * y + enhance * product_3_fats * z + enhance * product_4_fats * w + enhance * product_5_fats * s +  enhance * product_6_fats * r  - enhance * diets_dictionary["fats"]
+  A = (product_1_kcal + (enhance_int * product_1_proteins) + (enhance_int * product_1_fats) + (enhance_int * product_1_carbs))
+  B = (product_2_kcal + (enhance_int * product_2_proteins) + (enhance_int * product_2_fats) + (enhance_int * product_2_carbs))
+  C = (product_3_kcal + (enhance_int * product_3_proteins) + (enhance_int * product_3_fats) + (enhance_int * product_3_carbs))
+  D = (product_4_kcal + (enhance_int * product_4_proteins) + (enhance_int * product_4_fats) + (enhance_int * product_4_carbs))
+  E = (product_5_kcal + (enhance_int * product_5_proteins) + (enhance_int * product_5_fats) + (enhance_int * product_5_carbs))
+  F = (product_6_kcal + (enhance_int * product_6_proteins) + (enhance_int * product_6_fats) + (enhance_int * product_6_carbs))
+  G = (diets_dictionary["kcal"] + (enhance_int * diets_dictionary["proteins"]) + (enhance_int * diets_dictionary["carbs"]) + (enhance_int * diets_dictionary["fats"]))
 
-  model += (product_1_kcal * x + product_2_kcal * y + product_3_kcal * z + product_4_kcal * w + product_5_kcal * s + product_6_kcal * r - diets_dictionary["kcal"] + \
-    enhance * product_1_proteins * x + enhance * product_2_proteins * y + enhance * product_3_proteins * z + enhance * product_4_proteins + enhance * product_5_proteins * s +  enhance * product_6_proteins * r - enhance * diets_dictionary["proteins"] + \
-    enhance * product_1_carbs * x + enhance * product_2_carbs * y + enhance * product_3_carbs * z + enhance * product_4_carbs + enhance * product_5_carbs * s +  enhance * product_6_carbs * r - enhance * diets_dictionary["carbs"] + \
-    enhance * product_1_fats * x + enhance * product_2_fats * y + enhance * product_3_fats * z + enhance * product_4_fats * w + enhance * product_5_fats * s +  enhance * product_6_fats * r  - enhance * diets_dictionary["fats"] >= 0)
+  optimization_function = A * x + B * y + C * z + D * w + E * s + F * r - G
+
+  model += ( A * x + B * y + C * z + D * w + E * s + F * r - G >= 0 )
 
   model += optimization_function
 
@@ -97,9 +101,9 @@ def calculate_meal_6(products_json, diet_json, enhance):
     "fit_function": {
         "score": value(model.objective),
         "fit_func_calories_coeff": 1,
-        "fit_func_proteins_coeff": enhance,
-        "fit_func_carbs_coeff": enhance,
-        "fit_func_fats_coeff": enhance
+        "fit_func_proteins_coeff": enhance_int,
+        "fit_func_carbs_coeff": enhance_int,
+        "fit_func_fats_coeff": enhance_int
       }
     }
 

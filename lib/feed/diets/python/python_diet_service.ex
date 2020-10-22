@@ -11,8 +11,8 @@ defmodule Feed.PythonDietService do
     carbs: 0
   }
 
-  def calculate_meal(products, meal_stats) do
-    result = call_python_optimization(products, meal_stats)
+  def calculate_meal(products, meal_stats, enhance) do
+    result = call_python_optimization(products, meal_stats, enhance)
 
     ingridients = fetch_ingridients(result)
 
@@ -21,14 +21,14 @@ defmodule Feed.PythonDietService do
     result |> Map.replace!("ingridients", ingridients) |> Map.put("statistics", statistics) |> to_atom_map()
   end
 
-  defp call_python_optimization(products, meal_stats) do
+  defp call_python_optimization(products, meal_stats, enhance) do
     products_json = prepare_products_json(products)
     meal_statistics_json = prepare_meal_statistics_json(meal_stats)
 
     {string_output, 0} = case length(products) do
-      4 -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--enhance=#{@macro_enhancement}"])
-      6 -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_6.py", "#{products_json}", "#{meal_statistics_json}", "--enhance=#{@macro_enhancement}"])
-      _ -> System.cmd("python3", ["/Users/mac/Desktop/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--enhance=#{@macro_enhancement}"])
+      4 -> System.cmd("python3", ["/Users/mac/Desktop/Prywata/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--enhance=#{enhance}"])
+      6 -> System.cmd("python3", ["/Users/mac/Desktop/Prywata/Magisterka/FeedMe/feed/priv/python/calculate_diet_6.py", "#{products_json}", "#{meal_statistics_json}", "--enhance=#{enhance}"])
+      _ -> System.cmd("python3", ["/Users/mac/Desktop/Prywata/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--enhance=#{enhance}"])
     end
 
     string_output

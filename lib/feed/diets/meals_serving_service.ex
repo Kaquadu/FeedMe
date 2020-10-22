@@ -109,6 +109,6 @@ defmodule Feed.Diets.MealsServingService do
 
   defp calculate_portion(products, meal_stats) do
     # Calculator.calculate_meal(products, meal_stats)
-    Feed.PythonDietService.calculate_meal(products, meal_stats)
+    Feed.PythonDietService.calculate_meal(products, meal_stats, 20)
   end
 end

@@ -21,7 +21,6 @@ defmodule FeedWeb.ProductLive do
   end
 
   def handle_event{_other, params, socket} do
-    IO.inspect params
     {:noreply, socket}
   end
 end

@@ -13,7 +13,7 @@ defmodule Feed.Diets.Product do
     field :carbs, :float, null: false
     field :fats, :float, null: false
     field :proteins, :float, null: false
-    field :min_weight, :float, null: false, default: 0.5
+    field :min_weight, :float, null: false, default: 0.25
     field :max_weight, :float, null: false, default: 3.5
     field :photo_url, :string
 

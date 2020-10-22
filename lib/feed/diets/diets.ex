@@ -159,12 +159,11 @@ defmodule Feed.Diets do
     end
   end
 
-  def get_daily_meals(diet_id) do
+  def get_daily_meals(%Diet{} = diet) do
     try do
-      diet = get_diet(diet_id)
       todays_meals = MealsServingService.get_meals_from_diet(diet)
 
-      DietsWorker.complete_diet_request(diet_id)
+      DietsWorker.complete_diet_request(diet.id)
 
       Multi.new()
       |> Multi.run(:create_mealset, create_mealset_step(diet))
@@ -173,9 +172,13 @@ defmodule Feed.Diets do
     rescue
       e ->
         IO.inspect e
-        DietsWorker.complete_diet_request(diet_id)
+        DietsWorker.complete_diet_request(diet.id)
         raise RuntimeError, message: "Something went wrong while calculating the meals"
     end
+  end
+
+  def get_daily_meals(diet_id) do
+    diet_id |> get_diet() |> get_daily_meals()
   end
 
   defp create_mealset_step(diet) do

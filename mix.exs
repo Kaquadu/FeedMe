@@ -48,7 +48,9 @@ defmodule Feed.MixProject do
       {:timex, "~> 3.5"},
       {:phoenix_live_view, "~> 0.13.3"},
       {:floki, ">= 0.0.0", only: :test},
-      {:httpoison, "~> 1.6"}
+      {:httpoison, "~> 1.6"},
+      {:statistics, "~> 0.6.2", override: true},
+      {:expyplot, "~> 1.1.2"}
     ]
   end
 
