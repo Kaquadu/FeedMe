@@ -31,7 +31,11 @@ defmodule Feed.PythonDietService do
       _ -> System.cmd("python3", ["/Users/mac/Desktop/Prywata/Magisterka/FeedMe/feed/priv/python/calculate_diet_4.py", "#{products_json}", "#{meal_statistics_json}", "--enhance=#{enhance}"])
     end
 
-    string_output
+    decode_python_output(string_output)
+  end
+
+  defp decode_python_output(output) do
+    output
     |> String.split("<<<<SPLITTER>>>>")
     |> Enum.reverse()
     |> List.first()

@@ -21,7 +21,7 @@ const StatCharts = {
     var myChart = new Chart(ctx, {
       type: 'bar',
       data: {
-          labels: ['Calories', 'Fats', 'Carbs', 'Proteins'],
+          labels: ['Calories', 'Carbs', 'Fats', 'Proteins'],
           datasets: [
             {
               label: "Calculated",

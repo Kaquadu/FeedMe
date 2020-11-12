@@ -3,7 +3,7 @@ defmodule Feed.Workers.MealsetsWorker do
 
   alias Feed.Diets
 
-  @schedule_time 60 * 60 * 1_000
+  @schedule_time 60 * 1_000
 
   def init(_opts) do
     send(self(), :check_meals)

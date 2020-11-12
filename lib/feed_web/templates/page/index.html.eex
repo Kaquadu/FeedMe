@@ -112,8 +112,8 @@
       <p>Now it is time to choose products. We are using the big database of products, where you will find all the ingridients.</p>
     </div>
     <div class="col-md-6">
-      <h2>4. Request daily meals</h2>
-      <p>After specifying your diet you will obtain an option to request your daily meals. It is as simple as that - just press a single button and let us create the diet for you.</p>
+      <h2>4. Get your daily meals</h2>
+      <p>After specifying your diet and choosing your favourite products our application will do the rest. Your daily mealsets will be available in your diet view at the beggining of every day.</p>
     </div>
     <div class="col-md-6">
       <h2>5. Eat your food :)</h2>

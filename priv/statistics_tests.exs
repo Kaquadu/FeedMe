@@ -17,7 +17,7 @@ defmodule FeedStatistics do
     proteins: 100.0 / 4.0
   }
 
-  @enhance_list [0, 10, 20, 35, 50, 75, 100]
+  @enhance_list [0, 2, 5, 10, 20, 35, 50]
 
   def create_statistics(number) do
     %{
@@ -142,7 +142,7 @@ end
 %{
   small_meals_stats: small_meals_stats,
   big_meals_stats: big_meals_stats
-} = FeedStatistics.create_statistics(30)
+} = FeedStatistics.create_statistics(50)
 
 small_products_calories_means = small_meals_stats |> Enum.map(fn {_enhance, %{calories: %{avg: avg}}} -> avg end)
 small_products_calories_stdevs = small_meals_stats |> Enum.map(fn {_enhance, %{calories: %{stdev: stdev}}} -> stdev end)
@@ -150,12 +150,12 @@ small_products_calories_stdevs = small_meals_stats |> Enum.map(fn {_enhance, %{c
 x_ticks = FeedStatistics.enhance_list()
 
 Expyplot.Plot.figure()
-Expyplot.Plot.bar(x_ticks, small_products_calories_means, [width: 5.0, color: "lightcoral"], yerr: small_products_calories_stdevs, label: "Average calories", ecolor: "black", capsize: 5)
+Expyplot.Plot.bar(x_ticks, small_products_calories_means, [width: 1.0, color: "lightcoral"], yerr: small_products_calories_stdevs, label: "Average calories", ecolor: "black", capsize: 5)
 Expyplot.Plot.xticks([x_ticks, FeedStatistics.enhance_list()])
-Expyplot.Plot.ylabel("Calories")
-Expyplot.Plot.xlabel("Enhance")
+Expyplot.Plot.ylabel("Kalorie")
+Expyplot.Plot.xlabel("Wzmocnienie")
 Expyplot.Plot.axhline([y: FeedStatistics.small_meal_stats().calories])
-Expyplot.Plot.title("Average calories per enhance - small meals")
+Expyplot.Plot.title("Srednia ilosc kalorii dla wzmocnienia - male posilki")
 # Expyplot.Plot.yticks([y_ticks])
 Expyplot.Plot.grid(b: true)
 
@@ -163,12 +163,12 @@ small_products_fats_means = small_meals_stats |> Enum.map(fn {_enhance, %{fats: 
 small_products_fats_stdevs = small_meals_stats |> Enum.map(fn {_enhance, %{fats: %{stdev: stdev}}} -> stdev / 3 end)
 
 Expyplot.Plot.figure()
-Expyplot.Plot.bar(x_ticks, small_products_fats_means, [width: 5.0, color: "lightcoral"], yerr: small_products_fats_stdevs, label: "Average fats", ecolor: "black", capsize: 5)
+Expyplot.Plot.bar(x_ticks, small_products_fats_means, [width: 1.0, color: "lightcoral"], yerr: small_products_fats_stdevs, label: "Average fats", ecolor: "black", capsize: 5)
 Expyplot.Plot.xticks([x_ticks, FeedStatistics.enhance_list()])
-Expyplot.Plot.ylabel("Fats")
-Expyplot.Plot.xlabel("Enhance")
+Expyplot.Plot.ylabel("Tluszcze")
+Expyplot.Plot.xlabel("Wzmocnienie")
 Expyplot.Plot.axhline([y: FeedStatistics.small_meal_stats().fats])
-Expyplot.Plot.title("Average fats per enhance - small meals")
+Expyplot.Plot.title("Srednia ilosc tluszczy dla wzmocnienia - male posilki")
 # Expyplot.Plot.yticks([y_ticks_2])
 Expyplot.Plot.grid(b: true)
 
@@ -176,12 +176,12 @@ small_products_carbs_means = small_meals_stats |> Enum.map(fn {_enhance, %{carbs
 small_products_carbs_stdevs = small_meals_stats |> Enum.map(fn {_enhance, %{carbs: %{stdev: stdev}}} -> stdev / 3 end)
 
 Expyplot.Plot.figure()
-Expyplot.Plot.bar(x_ticks, small_products_carbs_means, [width: 5.0, color: "lightcoral"], yerr: small_products_carbs_stdevs, label: "Average carbs", ecolor: "black", capsize: 5)
+Expyplot.Plot.bar(x_ticks, small_products_carbs_means, [width: 1.0, color: "lightcoral"], yerr: small_products_carbs_stdevs, label: "Average carbs", ecolor: "black", capsize: 5)
 Expyplot.Plot.xticks([x_ticks, FeedStatistics.enhance_list()])
-Expyplot.Plot.ylabel("Carbs")
-Expyplot.Plot.xlabel("Enhance")
+Expyplot.Plot.ylabel("Weglowodany")
+Expyplot.Plot.xlabel("Wzmocnienie")
 Expyplot.Plot.axhline([y: FeedStatistics.small_meal_stats().carbs])
-Expyplot.Plot.title("Average carbs per enhance - small meals")
+Expyplot.Plot.title("Srednia ilosc weglowodanow dla wzmocnienia - male posilki")
 # Expyplot.Plot.yticks([y_ticks_2])
 Expyplot.Plot.grid(b: true)
 
@@ -189,12 +189,12 @@ small_products_proteins_means = small_meals_stats |> Enum.map(fn {_enhance, %{pr
 small_products_proteins_stdevs = small_meals_stats |> Enum.map(fn {_enhance, %{proteins: %{stdev: stdev}}} -> stdev / 3 end)
 
 Expyplot.Plot.figure()
-Expyplot.Plot.bar(x_ticks, small_products_proteins_means, [width: 5.0, color: "lightcoral"], yerr: small_products_proteins_stdevs, label: "Average proteins", ecolor: "black", capsize: 5)
+Expyplot.Plot.bar(x_ticks, small_products_proteins_means, [width: 1.0, color: "lightcoral"], yerr: small_products_proteins_stdevs, label: "Average proteins", ecolor: "black", capsize: 5)
 Expyplot.Plot.xticks([x_ticks, FeedStatistics.enhance_list()])
-Expyplot.Plot.ylabel("Proteins")
-Expyplot.Plot.xlabel("Enhance")
+Expyplot.Plot.ylabel("Bialka")
+Expyplot.Plot.xlabel("Wzmocnienie")
 Expyplot.Plot.axhline([y: FeedStatistics.small_meal_stats().proteins])
-Expyplot.Plot.title("Average proteins per enhance - small meals")
+Expyplot.Plot.title("Srednia ilosc bialek dla wzmocnienia - male posilki")
 # Expyplot.Plot.yticks([y_ticks_2])
 Expyplot.Plot.grid(b: true)
 
@@ -203,12 +203,12 @@ big_products_calories_means = big_meals_stats |> Enum.map(fn {_enhance, %{calori
 big_products_calories_stdevs = big_meals_stats |> Enum.map(fn {_enhance, %{calories: %{stdev: stdev}}} -> stdev end)
 
 Expyplot.Plot.figure()
-Expyplot.Plot.bar(x_ticks, big_products_calories_means, [width: 5.0, color: "lightcoral"], yerr: big_products_calories_stdevs, label: "Average calories", ecolor: "black", capsize: 5)
+Expyplot.Plot.bar(x_ticks, big_products_calories_means, [width: 1.0, color: "lightcoral"], yerr: big_products_calories_stdevs, label: "Average calories", ecolor: "black", capsize: 5)
 Expyplot.Plot.xticks([x_ticks, FeedStatistics.enhance_list()])
-Expyplot.Plot.ylabel("Calories")
-Expyplot.Plot.xlabel("Enhance")
+Expyplot.Plot.ylabel("Kalorie")
+Expyplot.Plot.xlabel("Wzmocnienie")
 Expyplot.Plot.axhline([y: FeedStatistics.big_meal_stats().calories])
-Expyplot.Plot.title("Average calories per enhance - big meals")
+Expyplot.Plot.title("Srednia ilosc kalorii dla wzmocnienia - duze posilki")
 # Expyplot.Plot.yticks([y_ticks])
 Expyplot.Plot.grid(b: true)
 
@@ -216,12 +216,12 @@ big_products_fats_means = big_meals_stats |> Enum.map(fn {_enhance, %{fats: %{av
 big_products_fats_stdevs = big_meals_stats |> Enum.map(fn {_enhance, %{fats: %{stdev: stdev}}} -> stdev / 3 end)
 
 Expyplot.Plot.figure()
-Expyplot.Plot.bar(x_ticks, big_products_fats_means, [width: 5.0, color: "lightcoral"], yerr: big_products_fats_stdevs, label: "Average fats", ecolor: "black", capsize: 5)
+Expyplot.Plot.bar(x_ticks, big_products_fats_means, [width: 1.0, color: "lightcoral"], yerr: big_products_fats_stdevs, label: "Average fats", ecolor: "black", capsize: 5)
 Expyplot.Plot.xticks([x_ticks, FeedStatistics.enhance_list()])
-Expyplot.Plot.ylabel("Fats")
-Expyplot.Plot.xlabel("Enhance")
+Expyplot.Plot.ylabel("Tluszcze")
+Expyplot.Plot.xlabel("Wzmocnienie")
 Expyplot.Plot.axhline([y: FeedStatistics.big_meal_stats().fats])
-Expyplot.Plot.title("Average fats per enhance - big meals")
+Expyplot.Plot.title("Srednia ilosc tluszczy dla wzmocnienia - duze posilki")
 # Expyplot.Plot.yticks([y_ticks_2])
 Expyplot.Plot.grid(b: true)
 
@@ -229,12 +229,12 @@ big_products_carbs_means = big_meals_stats |> Enum.map(fn {_enhance, %{carbs: %{
 big_products_carbs_stdevs = big_meals_stats |> Enum.map(fn {_enhance, %{carbs: %{stdev: stdev}}} -> stdev / 3 end)
 
 Expyplot.Plot.figure()
-Expyplot.Plot.bar(x_ticks, big_products_carbs_means, [width: 5.0, color: "lightcoral"], yerr: big_products_carbs_stdevs, label: "Average carbs", ecolor: "black", capsize: 5)
+Expyplot.Plot.bar(x_ticks, big_products_carbs_means, [width: 1.0, color: "lightcoral"], yerr: big_products_carbs_stdevs, label: "Average carbs", ecolor: "black", capsize: 5)
 Expyplot.Plot.xticks([x_ticks, FeedStatistics.enhance_list()])
-Expyplot.Plot.ylabel("Carbs")
-Expyplot.Plot.xlabel("Enhance")
+Expyplot.Plot.ylabel("Weglowodany")
+Expyplot.Plot.xlabel("Wzmocnienie")
 Expyplot.Plot.axhline([y: FeedStatistics.big_meal_stats().carbs])
-Expyplot.Plot.title("Average carbs per enhance - big meals")
+Expyplot.Plot.title("Srednia ilosc weglowodanow dla wzmocnienia - duze posilki")
 # Expyplot.Plot.yticks([y_ticks_2])
 Expyplot.Plot.grid(b: true)
 
@@ -242,12 +242,12 @@ big_products_proteins_means = big_meals_stats |> Enum.map(fn {_enhance, %{protei
 big_products_proteins_stdevs = big_meals_stats |> Enum.map(fn {_enhance, %{proteins: %{stdev: stdev}}} -> stdev / 3 end)
 
 Expyplot.Plot.figure()
-Expyplot.Plot.bar(x_ticks, big_products_proteins_means, [width: 5.0, color: "lightcoral"], yerr: big_products_proteins_stdevs, label: "Average proteins", ecolor: "black", capsize: 5)
+Expyplot.Plot.bar(x_ticks, big_products_proteins_means, [width: 1.0, color: "lightcoral"], yerr: big_products_proteins_stdevs, label: "Average proteins", ecolor: "black", capsize: 5)
 Expyplot.Plot.xticks([x_ticks, FeedStatistics.enhance_list()])
-Expyplot.Plot.ylabel("Proteins")
-Expyplot.Plot.xlabel("Enhance")
+Expyplot.Plot.ylabel("Bialka")
+Expyplot.Plot.xlabel("Wzmocnienie")
 Expyplot.Plot.axhline([y: FeedStatistics.big_meal_stats().proteins])
-Expyplot.Plot.title("Average proteins per enhance - big meals")
+Expyplot.Plot.title("Srednia ilosc bialek dla wzmocnienia - duze posilki")
 # Expyplot.Plot.yticks([y_ticks_2])
 Expyplot.Plot.grid(b: true)
 
